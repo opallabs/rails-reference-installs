@@ -1,0 +1,717 @@
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/.gitignore rails 5.2/.gitignore
+--- rails 5.1/.gitignore	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/.gitignore	2022-10-13 09:21:48.000000000 -0700
+@@ -17,7 +17,15 @@
+ !/log/.keep
+ !/tmp/.keep
+ 
++# Ignore uploaded files in development
++/storage/*
++!/storage/.keep
++
+ /node_modules
+ /yarn-error.log
+ 
++/public/assets
+ .byebug_history
++
++# Ignore master key for decrypting credentials and more.
++/config/master.key
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/.ruby-version rails 5.2/.ruby-version
+--- rails 5.1/.ruby-version	1969-12-31 16:00:00.000000000 -0800
++++ rails 5.2/.ruby-version	2022-10-13 09:21:48.000000000 -0700
+@@ -0,0 +1 @@
++2.7.6
+\ No newline at end of file
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/Gemfile rails 5.2/Gemfile
+--- rails 5.1/Gemfile	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/Gemfile	2022-10-13 09:21:48.000000000 -0700
+@@ -1,23 +1,20 @@
+ source 'https://rubygems.org'
++git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+ 
+-git_source(:github) do |repo_name|
+-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+-  "https://github.com/#{repo_name}.git"
+-end
+-
++ruby '2.7.6'
+ 
+ # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+-gem 'rails', '~> 5.1.7'
++gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
+ # Use sqlite3 as the database for Active Record
+ gem 'sqlite3'
+ # Use Puma as the app server
+-gem 'puma', '~> 3.7'
++gem 'puma', '~> 3.11'
+ # Use SCSS for stylesheets
+ gem 'sass-rails', '~> 5.0'
+ # Use Uglifier as compressor for JavaScript assets
+ gem 'uglifier', '>= 1.3.0'
+ # See https://github.com/rails/execjs#readme for more supported runtimes
+-# gem 'therubyracer', platforms: :ruby
++# gem 'mini_racer', platforms: :ruby
+ 
+ # Use CoffeeScript for .coffee assets and views
+ gem 'coffee-rails', '~> 4.2'
+@@ -30,19 +27,22 @@
+ # Use ActiveModel has_secure_password
+ # gem 'bcrypt', '~> 3.1.7'
+ 
++# Use ActiveStorage variant
++# gem 'mini_magick', '~> 4.8'
++
+ # Use Capistrano for deployment
+ # gem 'capistrano-rails', group: :development
+ 
++# Reduces boot times through caching; required in config/boot.rb
++gem 'bootsnap', '>= 1.1.0', require: false
++
+ group :development, :test do
+   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+-  # Adds support for Capybara system testing and selenium driver
+-  gem 'capybara', '>= 2.15'
+-  gem 'selenium-webdriver'
+ end
+ 
+ group :development do
+-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
++  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+   gem 'web-console', '>= 3.3.0'
+   gem 'listen', '>= 3.0.5', '< 3.2'
+   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+@@ -50,5 +50,13 @@
+   gem 'spring-watcher-listen', '~> 2.0.0'
+ end
+ 
++group :test do
++  # Adds support for Capybara system testing and selenium driver
++  gem 'capybara', '>= 2.15'
++  gem 'selenium-webdriver'
++  # Easy installation and use of chromedriver to run system tests with Chrome
++  gem 'chromedriver-helper'
++end
++
+ # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/Gemfile.lock rails 5.2/Gemfile.lock
+--- rails 5.1/Gemfile.lock	2022-10-13 09:24:05.000000000 -0700
++++ rails 5.2/Gemfile.lock	2022-10-13 09:22:28.000000000 -0700
+@@ -1,47 +1,55 @@
+ GEM
+   remote: https://rubygems.org/
+   specs:
+-    actioncable (5.1.7)
+-      actionpack (= 5.1.7)
++    actioncable (5.2.8.1)
++      actionpack (= 5.2.8.1)
+       nio4r (~> 2.0)
+-      websocket-driver (~> 0.6.1)
+-    actionmailer (5.1.7)
+-      actionpack (= 5.1.7)
+-      actionview (= 5.1.7)
+-      activejob (= 5.1.7)
++      websocket-driver (>= 0.6.1)
++    actionmailer (5.2.8.1)
++      actionpack (= 5.2.8.1)
++      actionview (= 5.2.8.1)
++      activejob (= 5.2.8.1)
+       mail (~> 2.5, >= 2.5.4)
+       rails-dom-testing (~> 2.0)
+-    actionpack (5.1.7)
+-      actionview (= 5.1.7)
+-      activesupport (= 5.1.7)
+-      rack (~> 2.0)
++    actionpack (5.2.8.1)
++      actionview (= 5.2.8.1)
++      activesupport (= 5.2.8.1)
++      rack (~> 2.0, >= 2.0.8)
+       rack-test (>= 0.6.3)
+       rails-dom-testing (~> 2.0)
+       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+-    actionview (5.1.7)
+-      activesupport (= 5.1.7)
++    actionview (5.2.8.1)
++      activesupport (= 5.2.8.1)
+       builder (~> 3.1)
+       erubi (~> 1.4)
+       rails-dom-testing (~> 2.0)
+       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+-    activejob (5.1.7)
+-      activesupport (= 5.1.7)
++    activejob (5.2.8.1)
++      activesupport (= 5.2.8.1)
+       globalid (>= 0.3.6)
+-    activemodel (5.1.7)
+-      activesupport (= 5.1.7)
+-    activerecord (5.1.7)
+-      activemodel (= 5.1.7)
+-      activesupport (= 5.1.7)
+-      arel (~> 8.0)
+-    activesupport (5.1.7)
++    activemodel (5.2.8.1)
++      activesupport (= 5.2.8.1)
++    activerecord (5.2.8.1)
++      activemodel (= 5.2.8.1)
++      activesupport (= 5.2.8.1)
++      arel (>= 9.0)
++    activestorage (5.2.8.1)
++      actionpack (= 5.2.8.1)
++      activerecord (= 5.2.8.1)
++      marcel (~> 1.0.0)
++    activesupport (5.2.8.1)
+       concurrent-ruby (~> 1.0, >= 1.0.2)
+       i18n (>= 0.7, < 2)
+       minitest (~> 5.1)
+       tzinfo (~> 1.1)
+     addressable (2.8.1)
+       public_suffix (>= 2.0.2, < 6.0)
+-    arel (8.0.0)
++    archive-zip (0.12.0)
++      io-like (~> 0.3.0)
++    arel (9.0.0)
+     bindex (0.8.1)
++    bootsnap (1.13.0)
++      msgpack (~> 1.2)
+     builder (3.2.4)
+     byebug (11.1.3)
+     capybara (3.37.1)
+@@ -54,6 +62,9 @@
+       regexp_parser (>= 1.5, < 3.0)
+       xpath (~> 3.2)
+     childprocess (4.1.0)
++    chromedriver-helper (2.1.1)
++      archive-zip (~> 0.10)
++      nokogiri (~> 1.8)
+     coffee-rails (4.2.2)
+       coffee-script (>= 2.2.0)
+       railties (>= 4.0.0)
+@@ -70,6 +81,7 @@
+       activesupport (>= 5.0)
+     i18n (1.12.0)
+       concurrent-ruby (~> 1.0)
++    io-like (0.3.1)
+     jbuilder (2.11.5)
+       actionview (>= 5.0.0)
+       activesupport (>= 5.0.0)
+@@ -82,11 +94,13 @@
+       nokogiri (>= 1.5.9)
+     mail (2.7.1)
+       mini_mime (>= 0.1.1)
++    marcel (1.0.2)
+     matrix (0.4.2)
+     method_source (1.0.0)
+     mini_mime (1.1.2)
+     mini_portile2 (2.8.0)
+     minitest (5.16.3)
++    msgpack (1.6.0)
+     nio4r (2.5.8)
+     nokogiri (1.13.8)
+       mini_portile2 (~> 2.8.0)
+@@ -97,29 +111,30 @@
+     rack (2.2.4)
+     rack-test (2.0.2)
+       rack (>= 1.3)
+-    rails (5.1.7)
+-      actioncable (= 5.1.7)
+-      actionmailer (= 5.1.7)
+-      actionpack (= 5.1.7)
+-      actionview (= 5.1.7)
+-      activejob (= 5.1.7)
+-      activemodel (= 5.1.7)
+-      activerecord (= 5.1.7)
+-      activesupport (= 5.1.7)
++    rails (5.2.8.1)
++      actioncable (= 5.2.8.1)
++      actionmailer (= 5.2.8.1)
++      actionpack (= 5.2.8.1)
++      actionview (= 5.2.8.1)
++      activejob (= 5.2.8.1)
++      activemodel (= 5.2.8.1)
++      activerecord (= 5.2.8.1)
++      activestorage (= 5.2.8.1)
++      activesupport (= 5.2.8.1)
+       bundler (>= 1.3.0)
+-      railties (= 5.1.7)
++      railties (= 5.2.8.1)
+       sprockets-rails (>= 2.0.0)
+     rails-dom-testing (2.0.3)
+       activesupport (>= 4.2.0)
+       nokogiri (>= 1.6)
+     rails-html-sanitizer (1.4.3)
+       loofah (~> 2.3)
+-    railties (5.1.7)
+-      actionpack (= 5.1.7)
+-      activesupport (= 5.1.7)
++    railties (5.2.8.1)
++      actionpack (= 5.2.8.1)
++      activesupport (= 5.2.8.1)
+       method_source
+       rake (>= 0.8.7)
+-      thor (>= 0.18.1, < 2.0)
++      thor (>= 0.19.0, < 2.0)
+     rake (13.0.6)
+     rb-fsevent (0.11.2)
+     rb-inotify (0.10.1)
+@@ -133,8 +148,8 @@
+     sass-listen (4.0.0)
+       rb-fsevent (~> 0.9, >= 0.9.4)
+       rb-inotify (~> 0.9, >= 0.9.7)
+-    sass-rails (5.0.7)
+-      railties (>= 4.0.0, < 6)
++    sass-rails (5.1.0)
++      railties (>= 5.2.0)
+       sass (~> 3.1)
+       sprockets (>= 2.8, < 4.0)
+       sprockets-rails (>= 2.0, < 4.0)
+@@ -151,9 +166,9 @@
+     sprockets (3.7.2)
+       concurrent-ruby (~> 1.0)
+       rack (> 1, < 3)
+-    sprockets-rails (3.2.2)
+-      actionpack (>= 4.0)
+-      activesupport (>= 4.0)
++    sprockets-rails (3.4.2)
++      actionpack (>= 5.2)
++      activesupport (>= 5.2)
+       sprockets (>= 3.0.0)
+     sqlite3 (1.5.3)
+       mini_portile2 (~> 2.8.0)
+@@ -173,7 +188,7 @@
+       bindex (>= 0.4.0)
+       railties (>= 5.0)
+     websocket (1.2.9)
+-    websocket-driver (0.6.5)
++    websocket-driver (0.7.5)
+       websocket-extensions (>= 0.1.0)
+     websocket-extensions (0.1.5)
+     xpath (3.2.0)
+@@ -183,13 +198,15 @@
+   ruby
+ 
+ DEPENDENCIES
++  bootsnap (>= 1.1.0)
+   byebug
+   capybara (>= 2.15)
++  chromedriver-helper
+   coffee-rails (~> 4.2)
+   jbuilder (~> 2.5)
+   listen (>= 3.0.5, < 3.2)
+-  puma (~> 3.7)
+-  rails (~> 5.1.7)
++  puma (~> 3.11)
++  rails (~> 5.2.8, >= 5.2.8.1)
+   sass-rails (~> 5.0)
+   selenium-webdriver
+   spring
+@@ -200,5 +217,8 @@
+   uglifier (>= 1.3.0)
+   web-console (>= 3.3.0)
+ 
++RUBY VERSION
++   ruby 2.7.6p219
++
+ BUNDLED WITH
+    2.1.4
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/app/assets/javascripts/application.js rails 5.2/app/assets/javascripts/application.js
+--- rails 5.1/app/assets/javascripts/application.js	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/app/assets/javascripts/application.js	2022-10-13 09:21:48.000000000 -0700
+@@ -11,5 +11,6 @@
+ // about supported directives.
+ //
+ //= require rails-ujs
++//= require activestorage
+ //= require turbolinks
+ //= require_tree .
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/app/controllers/application_controller.rb rails 5.2/app/controllers/application_controller.rb
+--- rails 5.1/app/controllers/application_controller.rb	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/app/controllers/application_controller.rb	2022-10-13 09:21:48.000000000 -0700
+@@ -1,3 +1,2 @@
+ class ApplicationController < ActionController::Base
+-  protect_from_forgery with: :exception
+ end
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/app/views/layouts/application.html.erb rails 5.2/app/views/layouts/application.html.erb
+--- rails 5.1/app/views/layouts/application.html.erb	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/app/views/layouts/application.html.erb	2022-10-13 09:21:48.000000000 -0700
+@@ -1,8 +1,9 @@
+ <!DOCTYPE html>
+ <html>
+   <head>
+-    <title>R51</title>
++    <title>R52</title>
+     <%= csrf_meta_tags %>
++    <%= csp_meta_tag %>
+ 
+     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/bin/bundle rails 5.2/bin/bundle
+--- rails 5.1/bin/bundle	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/bin/bundle	2022-10-13 09:21:48.000000000 -0700
+@@ -1,3 +1,3 @@
+ #!/usr/bin/env ruby
+-ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
++ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
+ load Gem.bin_path('bundler', 'bundle')
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/bin/setup rails 5.2/bin/setup
+--- rails 5.1/bin/setup	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/bin/setup	2022-10-13 09:21:48.000000000 -0700
+@@ -1,10 +1,9 @@
+ #!/usr/bin/env ruby
+-require 'pathname'
+ require 'fileutils'
+ include FileUtils
+ 
+ # path to your application root.
+-APP_ROOT = Pathname.new File.expand_path('../../', __FILE__)
++APP_ROOT = File.expand_path('..', __dir__)
+ 
+ def system!(*args)
+   system(*args) || abort("\n== Command #{args} failed ==")
+@@ -21,7 +20,6 @@
+   # Install JavaScript dependencies if using Yarn
+   # system('bin/yarn')
+ 
+-
+   # puts "\n== Copying sample files =="
+   # unless File.exist?('config/database.yml')
+   #   cp 'config/database.yml.sample', 'config/database.yml'
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/bin/update rails 5.2/bin/update
+--- rails 5.1/bin/update	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/bin/update	2022-10-13 09:21:48.000000000 -0700
+@@ -1,10 +1,9 @@
+ #!/usr/bin/env ruby
+-require 'pathname'
+ require 'fileutils'
+ include FileUtils
+ 
+ # path to your application root.
+-APP_ROOT = Pathname.new File.expand_path('../../', __FILE__)
++APP_ROOT = File.expand_path('..', __dir__)
+ 
+ def system!(*args)
+   system(*args) || abort("\n== Command #{args} failed ==")
+@@ -18,6 +17,9 @@
+   system! 'gem install bundler --conservative'
+   system('bundle check') || system!('bundle install')
+ 
++  # Install JavaScript dependencies if using Yarn
++  # system('bin/yarn')
++
+   puts "\n== Updating database =="
+   system! 'bin/rails db:migrate'
+ 
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/bin/yarn rails 5.2/bin/yarn
+--- rails 5.1/bin/yarn	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/bin/yarn	2022-10-13 09:21:48.000000000 -0700
+@@ -1,8 +1,8 @@
+ #!/usr/bin/env ruby
+-VENDOR_PATH = File.expand_path('..', __dir__)
+-Dir.chdir(VENDOR_PATH) do
++APP_ROOT = File.expand_path('..', __dir__)
++Dir.chdir(APP_ROOT) do
+   begin
+-    exec "yarnpkg #{ARGV.join(" ")}"
++    exec "yarnpkg", *ARGV
+   rescue Errno::ENOENT
+     $stderr.puts "Yarn executable was not detected in the system."
+     $stderr.puts "Download Yarn at https://yarnpkg.com/en/docs/install"
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/application.rb rails 5.2/config/application.rb
+--- rails 5.1/config/application.rb	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/config/application.rb	2022-10-13 09:21:48.000000000 -0700
+@@ -6,13 +6,14 @@
+ # you've limited to :test, :development, or :production.
+ Bundler.require(*Rails.groups)
+ 
+-module R51
++module R52
+   class Application < Rails::Application
+     # Initialize configuration defaults for originally generated Rails version.
+-    config.load_defaults 5.1
++    config.load_defaults 5.2
+ 
+     # Settings in config/environments/* take precedence over those specified here.
+-    # Application configuration should go into files in config/initializers
+-    # -- all .rb files in that directory are automatically loaded.
++    # Application configuration can go into files in config/initializers
++    # -- all .rb files in that directory are automatically loaded after loading
++    # the framework and any gems in your application.
+   end
+ end
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/boot.rb rails 5.2/config/boot.rb
+--- rails 5.1/config/boot.rb	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/config/boot.rb	2022-10-13 09:21:49.000000000 -0700
+@@ -1,3 +1,4 @@
+ ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
+ 
+ require 'bundler/setup' # Set up gems listed in the Gemfile.
++require 'bootsnap/setup' # Speed up boot time by caching expensive operations.
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/cable.yml rails 5.2/config/cable.yml
+--- rails 5.1/config/cable.yml	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/config/cable.yml	2022-10-13 09:21:48.000000000 -0700
+@@ -6,5 +6,5 @@
+ 
+ production:
+   adapter: redis
+-  url: redis://localhost:6379/1
+-  channel_prefix: r51_production
++  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
++  channel_prefix: r52_production
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/credentials.yml.enc rails 5.2/config/credentials.yml.enc
+--- rails 5.1/config/credentials.yml.enc	1969-12-31 16:00:00.000000000 -0800
++++ rails 5.2/config/credentials.yml.enc	2022-10-13 09:21:49.000000000 -0700
+@@ -0,0 +1 @@
++uK2HrAiSlfsKwikRUt7MMFRPNypIrro/kcL9fCmuoQQzj3mqY1YJ+zj0zDqlHzVeQ1aGgfFudBlrmXrBgONLWmbuYr+vu5AmmcG19mvGFP9VJyIU36idRTvrn/coy+ZnFAh4FXWS1z1SIezsz2nnots8yzrZOFBN+MOZnH1sLseHEGBRXpHq0HnDLmNSWh9QmZaC/vM6hJmBAuEfrtceXACv20A4RSGfmYyT7tATOWZVBqUKPSMNFNcR8XpnkdAWLEXIrHTPk9Mpfz6vyIpyNl28I4I6HSXo31heecHikAv1YulGRWvAfRog8mvkSnVAwkJcmESN0y2LVrkdvC1VjnnCbFCS4+BmZj7GyoSkXGxMO4S89XdCmi+LuwJleQZVIV83sVW6DxzZLrGUHG/uyr06qwDfeYBCpBDB--Dmn/vEeAdFE9PR75--T0nVT5J4jVKzEbLdNbyyew==
+\ No newline at end of file
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/environments/development.rb rails 5.2/config/environments/development.rb
+--- rails 5.1/config/environments/development.rb	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/config/environments/development.rb	2022-10-13 09:21:48.000000000 -0700
+@@ -13,12 +13,13 @@
+   config.consider_all_requests_local = true
+ 
+   # Enable/disable caching. By default caching is disabled.
+-  if Rails.root.join('tmp/caching-dev.txt').exist?
++  # Run rails dev:cache to toggle caching.
++  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+     config.action_controller.perform_caching = true
+ 
+     config.cache_store = :memory_store
+     config.public_file_server.headers = {
+-      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
++      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+     }
+   else
+     config.action_controller.perform_caching = false
+@@ -26,6 +27,9 @@
+     config.cache_store = :null_store
+   end
+ 
++  # Store uploaded files on the local file system (see config/storage.yml for options)
++  config.active_storage.service = :local
++
+   # Don't care if the mailer can't send.
+   config.action_mailer.raise_delivery_errors = false
+ 
+@@ -37,6 +41,9 @@
+   # Raise an error on page load if there are pending migrations.
+   config.active_record.migration_error = :page_load
+ 
++  # Highlight code that triggered database queries in logs.
++  config.active_record.verbose_query_logs = true
++
+   # Debug mode disables concatenation and preprocessing of assets.
+   # This option may cause significant delays in view rendering with a large
+   # number of complex assets.
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/environments/production.rb rails 5.2/config/environments/production.rb
+--- rails 5.1/config/environments/production.rb	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/config/environments/production.rb	2022-10-13 09:21:48.000000000 -0700
+@@ -14,10 +14,9 @@
+   config.consider_all_requests_local       = false
+   config.action_controller.perform_caching = true
+ 
+-  # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
+-  # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
+-  # `config/secrets.yml.key`.
+-  config.read_encrypted_secrets = true
++  # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
++  # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
++  # config.require_master_key = true
+ 
+   # Disable serving static files from the `/public` folder by default since
+   # Apache or NGINX already handles this.
+@@ -39,6 +38,9 @@
+   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
+   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
+ 
++  # Store uploaded files on the local file system (see config/storage.yml for options)
++  config.active_storage.service = :local
++
+   # Mount Action Cable outside main process or domain
+   # config.action_cable.mount_path = nil
+   # config.action_cable.url = 'wss://example.com/cable'
+@@ -59,7 +61,8 @@
+ 
+   # Use a real queuing backend for Active Job (and separate queues per environment)
+   # config.active_job.queue_adapter     = :resque
+-  # config.active_job.queue_name_prefix = "r51_#{Rails.env}"
++  # config.active_job.queue_name_prefix = "r52_#{Rails.env}"
++
+   config.action_mailer.perform_caching = false
+ 
+   # Ignore bad email addresses and do not raise email delivery errors.
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/environments/test.rb rails 5.2/config/environments/test.rb
+--- rails 5.1/config/environments/test.rb	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/config/environments/test.rb	2022-10-13 09:21:48.000000000 -0700
+@@ -15,7 +15,7 @@
+   # Configure public file server for tests with Cache-Control for performance.
+   config.public_file_server.enabled = true
+   config.public_file_server.headers = {
+-    'Cache-Control' => "public, max-age=#{1.hour.seconds.to_i}"
++    'Cache-Control' => "public, max-age=#{1.hour.to_i}"
+   }
+ 
+   # Show full error reports and disable caching.
+@@ -27,6 +27,10 @@
+ 
+   # Disable request forgery protection in test environment.
+   config.action_controller.allow_forgery_protection = false
++
++  # Store uploaded files on the local file system in a temporary directory
++  config.active_storage.service = :test
++
+   config.action_mailer.perform_caching = false
+ 
+   # Tell Action Mailer not to deliver emails to the real world.
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/initializers/content_security_policy.rb rails 5.2/config/initializers/content_security_policy.rb
+--- rails 5.1/config/initializers/content_security_policy.rb	1969-12-31 16:00:00.000000000 -0800
++++ rails 5.2/config/initializers/content_security_policy.rb	2022-10-13 09:21:48.000000000 -0700
+@@ -0,0 +1,25 @@
++# Be sure to restart your server when you modify this file.
++
++# Define an application-wide content security policy
++# For further information see the following documentation
++# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
++
++# Rails.application.config.content_security_policy do |policy|
++#   policy.default_src :self, :https
++#   policy.font_src    :self, :https, :data
++#   policy.img_src     :self, :https, :data
++#   policy.object_src  :none
++#   policy.script_src  :self, :https
++#   policy.style_src   :self, :https
++
++#   # Specify URI for violation reports
++#   # policy.report_uri "/csp-violation-report-endpoint"
++# end
++
++# If you are using UJS then enable automatic nonce generation
++# Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
++
++# Report CSP violations to a specified URI
++# For further information see the following documentation:
++# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
++# Rails.application.config.content_security_policy_report_only = true
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/master.key rails 5.2/config/master.key
+--- rails 5.1/config/master.key	1969-12-31 16:00:00.000000000 -0800
++++ rails 5.2/config/master.key	2022-10-13 09:21:48.000000000 -0700
+@@ -0,0 +1 @@
++b524030a3a6e5525f687be40f668a303
+\ No newline at end of file
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/puma.rb rails 5.2/config/puma.rb
+--- rails 5.1/config/puma.rb	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/config/puma.rb	2022-10-13 09:21:48.000000000 -0700
+@@ -15,6 +15,9 @@
+ #
+ environment ENV.fetch("RAILS_ENV") { "development" }
+ 
++# Specifies the `pidfile` that Puma will use.
++pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
++
+ # Specifies the number of `workers` to boot in clustered mode.
+ # Workers are forked webserver processes. If using threads and workers together
+ # the concurrency of the application would be max `threads` * `workers`.
+@@ -26,31 +29,9 @@
+ # Use the `preload_app!` method when specifying a `workers` number.
+ # This directive tells Puma to first boot the application and load code
+ # before forking the application. This takes advantage of Copy On Write
+-# process behavior so workers use less memory. If you use this option
+-# you need to make sure to reconnect any threads in the `on_worker_boot`
+-# block.
++# process behavior so workers use less memory.
+ #
+ # preload_app!
+ 
+-# If you are preloading your application and using Active Record, it's
+-# recommended that you close any connections to the database before workers
+-# are forked to prevent connection leakage.
+-#
+-# before_fork do
+-#   ActiveRecord::Base.connection_pool.disconnect! if defined?(ActiveRecord)
+-# end
+-
+-# The code in the `on_worker_boot` will be called if you are using
+-# clustered mode by specifying a number of `workers`. After each worker
+-# process is booted, this block will be run. If you are using the `preload_app!`
+-# option, you will want to use this block to reconnect to any threads
+-# or connections that may have been created at application boot, as Ruby
+-# cannot share connections between processes.
+-#
+-# on_worker_boot do
+-#   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+-# end
+-#
+-
+ # Allow puma to be restarted by `rails restart` command.
+ plugin :tmp_restart
+Only in rails 5.1/config: secrets.yml
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/spring.rb rails 5.2/config/spring.rb
+--- rails 5.1/config/spring.rb	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/config/spring.rb	2022-10-13 09:21:48.000000000 -0700
+@@ -1,6 +1,6 @@
+-%w(
++%w[
+   .ruby-version
+   .rbenv-vars
+   tmp/restart.txt
+   tmp/caching-dev.txt
+-).each { |path| Spring.watch(path) }
++].each { |path| Spring.watch(path) }
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/storage.yml rails 5.2/config/storage.yml
+--- rails 5.1/config/storage.yml	1969-12-31 16:00:00.000000000 -0800
++++ rails 5.2/config/storage.yml	2022-10-13 09:21:48.000000000 -0700
+@@ -0,0 +1,34 @@
++test:
++  service: Disk
++  root: <%= Rails.root.join("tmp/storage") %>
++
++local:
++  service: Disk
++  root: <%= Rails.root.join("storage") %>
++
++# Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
++# amazon:
++#   service: S3
++#   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
++#   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
++#   region: us-east-1
++#   bucket: your_own_bucket
++
++# Remember not to checkin your GCS keyfile to a repository
++# google:
++#   service: GCS
++#   project: your_project
++#   credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
++#   bucket: your_own_bucket
++
++# Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
++# microsoft:
++#   service: AzureStorage
++#   storage_account_name: your_account_name
++#   storage_access_key: <%= Rails.application.credentials.dig(:azure_storage, :storage_access_key) %>
++#   container: your_container_name
++
++# mirror:
++#   service: Mirror
++#   primary: local
++#   mirrors: [ amazon, google, microsoft ]
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/package.json rails 5.2/package.json
+--- rails 5.1/package.json	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/package.json	2022-10-13 09:21:48.000000000 -0700
+@@ -1,5 +1,5 @@
+ {
+-  "name": "r51",
++  "name": "r52",
+   "private": true,
+   "dependencies": {}
+ }
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/test/test_helper.rb rails 5.2/test/test_helper.rb
+--- rails 5.1/test/test_helper.rb	2022-10-13 09:23:59.000000000 -0700
++++ rails 5.2/test/test_helper.rb	2022-10-13 09:21:49.000000000 -0700
+@@ -1,5 +1,5 @@
+ ENV['RAILS_ENV'] ||= 'test'
+-require File.expand_path('../../config/environment', __FILE__)
++require_relative '../config/environment'
+ require 'rails/test_help'
+ 
+ class ActiveSupport::TestCase

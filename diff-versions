@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+prefix="rails "
+readarray -t versions < ./versions
+
+previous_version="${versions[0]}"
+unset versions[0]
+
+for version in "${versions[@]}" ; do
+  diff \
+    --ignore-space-change \
+    --minimal \
+    --recursive \
+    --unidirectional-new-file \
+    --unified \
+    "${prefix}${previous_version}" "${prefix}${version}" \
+    > "${previous_version} to ${version}.diff" \
+    || true
+  previous_version="${version}"
+done
