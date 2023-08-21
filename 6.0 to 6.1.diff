@@ -1,6 +1,7 @@
+Only in rails 6.0: .browserslistrc
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/.gitattributes rails 6.1/.gitattributes
---- rails 6.0/.gitattributes	1969-12-31 16:00:00.000000000 -0800
-+++ rails 6.1/.gitattributes	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/.gitattributes	1969-12-31 16:00:00
++++ rails 6.1/.gitattributes	2023-08-21 12:38:36
 @@ -0,0 +1,10 @@
 +# See https://git-scm.com/docs/gitattributes for more about git attribute files.
 +
@@ -13,8 +14,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# Mark any vendored files as having been vendored.
 +vendor/* linguist-vendored
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/.gitignore rails 6.1/.gitignore
---- rails 6.0/.gitignore	2022-10-13 09:24:35.000000000 -0700
-+++ rails 6.1/.gitignore	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/.gitignore	2023-08-21 12:38:24
++++ rails 6.1/.gitignore	2023-08-21 12:38:36
 @@ -9,7 +9,6 @@
  
  # Ignore the default SQLite database.
@@ -23,15 +24,26 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  /db/*.sqlite3-*
  
  # Ignore all logfiles and tempfiles.
+@@ -32,10 +31,3 @@
+ 
+ # Ignore master key for decrypting credentials and more.
+ /config/master.key
+-
+-/public/packs
+-/public/packs-test
+-/node_modules
+-/yarn-error.log
+-yarn-debug.log*
+-.yarn-integrity
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/Gemfile rails 6.1/Gemfile
---- rails 6.0/Gemfile	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/Gemfile	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/Gemfile	2023-08-21 12:38:20
++++ rails 6.1/Gemfile	2023-08-21 12:38:36
 @@ -4,15 +4,15 @@
- ruby '2.7.6'
+ ruby '2.7.8'
  
  # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
--gem 'rails', '~> 6.0.6'
-+gem 'rails', '~> 6.1.7'
+-gem 'rails', '~> 6.0.6', '>= 6.0.6.1'
++gem 'rails', '~> 6.1.7', '>= 6.1.7.4'
  # Use sqlite3 as the database for Active Record
  gem 'sqlite3', '~> 1.4'
  # Use Puma as the app server
@@ -45,16 +57,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
  gem 'turbolinks', '~> 5'
  # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-@@ -26,7 +26,7 @@
- # gem 'image_processing', '~> 1.2'
- 
- # Reduces boot times through caching; required in config/boot.rb
--gem 'bootsnap', '>= 1.4.2', require: false
-+gem 'bootsnap', '>= 1.4.4', require: false
- 
- group :development, :test do
-   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-@@ -35,17 +35,19 @@
+@@ -32,17 +32,19 @@
  
  group :development do
    # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -80,101 +83,101 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    gem 'webdrivers'
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/Gemfile.lock rails 6.1/Gemfile.lock
---- rails 6.0/Gemfile.lock	2022-10-13 09:26:42.000000000 -0700
-+++ rails 6.1/Gemfile.lock	2022-10-13 09:28:41.000000000 -0700
+--- rails 6.0/Gemfile.lock	2023-08-21 12:38:21
++++ rails 6.1/Gemfile.lock	2023-08-21 12:38:38
 @@ -1,61 +1,65 @@
  GEM
    remote: https://rubygems.org/
    specs:
--    actioncable (6.0.6)
--      actionpack (= 6.0.6)
-+    actioncable (6.1.7)
-+      actionpack (= 6.1.7)
-+      activesupport (= 6.1.7)
+-    actioncable (6.0.6.1)
+-      actionpack (= 6.0.6.1)
++    actioncable (6.1.7.4)
++      actionpack (= 6.1.7.4)
++      activesupport (= 6.1.7.4)
        nio4r (~> 2.0)
        websocket-driver (>= 0.6.1)
--    actionmailbox (6.0.6)
--      actionpack (= 6.0.6)
--      activejob (= 6.0.6)
--      activerecord (= 6.0.6)
--      activestorage (= 6.0.6)
--      activesupport (= 6.0.6)
-+    actionmailbox (6.1.7)
-+      actionpack (= 6.1.7)
-+      activejob (= 6.1.7)
-+      activerecord (= 6.1.7)
-+      activestorage (= 6.1.7)
-+      activesupport (= 6.1.7)
+-    actionmailbox (6.0.6.1)
+-      actionpack (= 6.0.6.1)
+-      activejob (= 6.0.6.1)
+-      activerecord (= 6.0.6.1)
+-      activestorage (= 6.0.6.1)
+-      activesupport (= 6.0.6.1)
++    actionmailbox (6.1.7.4)
++      actionpack (= 6.1.7.4)
++      activejob (= 6.1.7.4)
++      activerecord (= 6.1.7.4)
++      activestorage (= 6.1.7.4)
++      activesupport (= 6.1.7.4)
        mail (>= 2.7.1)
--    actionmailer (6.0.6)
--      actionpack (= 6.0.6)
--      actionview (= 6.0.6)
--      activejob (= 6.0.6)
-+    actionmailer (6.1.7)
-+      actionpack (= 6.1.7)
-+      actionview (= 6.1.7)
-+      activejob (= 6.1.7)
-+      activesupport (= 6.1.7)
+-    actionmailer (6.0.6.1)
+-      actionpack (= 6.0.6.1)
+-      actionview (= 6.0.6.1)
+-      activejob (= 6.0.6.1)
++    actionmailer (6.1.7.4)
++      actionpack (= 6.1.7.4)
++      actionview (= 6.1.7.4)
++      activejob (= 6.1.7.4)
++      activesupport (= 6.1.7.4)
        mail (~> 2.5, >= 2.5.4)
        rails-dom-testing (~> 2.0)
--    actionpack (6.0.6)
--      actionview (= 6.0.6)
--      activesupport (= 6.0.6)
+-    actionpack (6.0.6.1)
+-      actionview (= 6.0.6.1)
+-      activesupport (= 6.0.6.1)
 -      rack (~> 2.0, >= 2.0.8)
-+    actionpack (6.1.7)
-+      actionview (= 6.1.7)
-+      activesupport (= 6.1.7)
++    actionpack (6.1.7.4)
++      actionview (= 6.1.7.4)
++      activesupport (= 6.1.7.4)
 +      rack (~> 2.0, >= 2.0.9)
        rack-test (>= 0.6.3)
        rails-dom-testing (~> 2.0)
        rails-html-sanitizer (~> 1.0, >= 1.2.0)
--    actiontext (6.0.6)
--      actionpack (= 6.0.6)
--      activerecord (= 6.0.6)
--      activestorage (= 6.0.6)
--      activesupport (= 6.0.6)
-+    actiontext (6.1.7)
-+      actionpack (= 6.1.7)
-+      activerecord (= 6.1.7)
-+      activestorage (= 6.1.7)
-+      activesupport (= 6.1.7)
+-    actiontext (6.0.6.1)
+-      actionpack (= 6.0.6.1)
+-      activerecord (= 6.0.6.1)
+-      activestorage (= 6.0.6.1)
+-      activesupport (= 6.0.6.1)
++    actiontext (6.1.7.4)
++      actionpack (= 6.1.7.4)
++      activerecord (= 6.1.7.4)
++      activestorage (= 6.1.7.4)
++      activesupport (= 6.1.7.4)
        nokogiri (>= 1.8.5)
--    actionview (6.0.6)
--      activesupport (= 6.0.6)
-+    actionview (6.1.7)
-+      activesupport (= 6.1.7)
+-    actionview (6.0.6.1)
+-      activesupport (= 6.0.6.1)
++    actionview (6.1.7.4)
++      activesupport (= 6.1.7.4)
        builder (~> 3.1)
        erubi (~> 1.4)
        rails-dom-testing (~> 2.0)
        rails-html-sanitizer (~> 1.1, >= 1.2.0)
--    activejob (6.0.6)
--      activesupport (= 6.0.6)
-+    activejob (6.1.7)
-+      activesupport (= 6.1.7)
+-    activejob (6.0.6.1)
+-      activesupport (= 6.0.6.1)
++    activejob (6.1.7.4)
++      activesupport (= 6.1.7.4)
        globalid (>= 0.3.6)
--    activemodel (6.0.6)
--      activesupport (= 6.0.6)
--    activerecord (6.0.6)
--      activemodel (= 6.0.6)
--      activesupport (= 6.0.6)
--    activestorage (6.0.6)
--      actionpack (= 6.0.6)
--      activejob (= 6.0.6)
--      activerecord (= 6.0.6)
-+    activemodel (6.1.7)
-+      activesupport (= 6.1.7)
-+    activerecord (6.1.7)
-+      activemodel (= 6.1.7)
-+      activesupport (= 6.1.7)
-+    activestorage (6.1.7)
-+      actionpack (= 6.1.7)
-+      activejob (= 6.1.7)
-+      activerecord (= 6.1.7)
-+      activesupport (= 6.1.7)
+-    activemodel (6.0.6.1)
+-      activesupport (= 6.0.6.1)
+-    activerecord (6.0.6.1)
+-      activemodel (= 6.0.6.1)
+-      activesupport (= 6.0.6.1)
+-    activestorage (6.0.6.1)
+-      actionpack (= 6.0.6.1)
+-      activejob (= 6.0.6.1)
+-      activerecord (= 6.0.6.1)
++    activemodel (6.1.7.4)
++      activesupport (= 6.1.7.4)
++    activerecord (6.1.7.4)
++      activemodel (= 6.1.7.4)
++      activesupport (= 6.1.7.4)
++    activestorage (6.1.7.4)
++      actionpack (= 6.1.7.4)
++      activejob (= 6.1.7.4)
++      activerecord (= 6.1.7.4)
++      activesupport (= 6.1.7.4)
        marcel (~> 1.0)
--    activesupport (6.0.6)
+-    activesupport (6.0.6.1)
 +      mini_mime (>= 1.1.0)
-+    activesupport (6.1.7)
++    activesupport (6.1.7.4)
        concurrent-ruby (~> 1.0, >= 1.0.2)
 -      i18n (>= 0.7, < 2)
 -      minitest (~> 5.1)
@@ -184,64 +187,65 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +      minitest (>= 5.1)
 +      tzinfo (~> 2.0)
 +      zeitwerk (~> 2.3)
-     addressable (2.8.1)
+     addressable (2.8.5)
        public_suffix (>= 2.0.2, < 6.0)
      bindex (0.8.1)
-@@ -104,40 +108,42 @@
-       mini_portile2 (~> 2.8.0)
+@@ -111,28 +115,30 @@
+     nokogiri (1.15.4-arm64-darwin)
        racc (~> 1.4)
-     public_suffix (5.0.0)
+     public_suffix (5.0.3)
 -    puma (4.3.12)
-+    puma (5.6.5)
++    puma (5.6.7)
        nio4r (~> 2.0)
-     racc (1.6.0)
-     rack (2.2.4)
+     racc (1.7.1)
+     rack (2.2.8)
 +    rack-mini-profiler (2.3.4)
 +      rack (>= 1.2.0)
-     rack-proxy (0.7.4)
+     rack-proxy (0.7.6)
        rack
-     rack-test (2.0.2)
+     rack-test (2.1.0)
        rack (>= 1.3)
--    rails (6.0.6)
--      actioncable (= 6.0.6)
--      actionmailbox (= 6.0.6)
--      actionmailer (= 6.0.6)
--      actionpack (= 6.0.6)
--      actiontext (= 6.0.6)
--      actionview (= 6.0.6)
--      activejob (= 6.0.6)
--      activemodel (= 6.0.6)
--      activerecord (= 6.0.6)
--      activestorage (= 6.0.6)
--      activesupport (= 6.0.6)
+-    rails (6.0.6.1)
+-      actioncable (= 6.0.6.1)
+-      actionmailbox (= 6.0.6.1)
+-      actionmailer (= 6.0.6.1)
+-      actionpack (= 6.0.6.1)
+-      actiontext (= 6.0.6.1)
+-      actionview (= 6.0.6.1)
+-      activejob (= 6.0.6.1)
+-      activemodel (= 6.0.6.1)
+-      activerecord (= 6.0.6.1)
+-      activestorage (= 6.0.6.1)
+-      activesupport (= 6.0.6.1)
 -      bundler (>= 1.3.0)
--      railties (= 6.0.6)
-+    rails (6.1.7)
-+      actioncable (= 6.1.7)
-+      actionmailbox (= 6.1.7)
-+      actionmailer (= 6.1.7)
-+      actionpack (= 6.1.7)
-+      actiontext (= 6.1.7)
-+      actionview (= 6.1.7)
-+      activejob (= 6.1.7)
-+      activemodel (= 6.1.7)
-+      activerecord (= 6.1.7)
-+      activestorage (= 6.1.7)
-+      activesupport (= 6.1.7)
+-      railties (= 6.0.6.1)
++    rails (6.1.7.4)
++      actioncable (= 6.1.7.4)
++      actionmailbox (= 6.1.7.4)
++      actionmailer (= 6.1.7.4)
++      actionpack (= 6.1.7.4)
++      actiontext (= 6.1.7.4)
++      actionview (= 6.1.7.4)
++      activejob (= 6.1.7.4)
++      activemodel (= 6.1.7.4)
++      activerecord (= 6.1.7.4)
++      activestorage (= 6.1.7.4)
++      activesupport (= 6.1.7.4)
 +      bundler (>= 1.15.0)
-+      railties (= 6.1.7)
++      railties (= 6.1.7.4)
        sprockets-rails (>= 2.0.0)
-     rails-dom-testing (2.0.3)
-       activesupport (>= 4.2.0)
-       nokogiri (>= 1.6)
-     rails-html-sanitizer (1.4.3)
-       loofah (~> 2.3)
--    railties (6.0.6)
--      actionpack (= 6.0.6)
--      activesupport (= 6.0.6)
-+    railties (6.1.7)
-+      actionpack (= 6.1.7)
-+      activesupport (= 6.1.7)
+     rails-dom-testing (2.2.0)
+       activesupport (>= 5.0.0)
+@@ -141,12 +147,12 @@
+     rails-html-sanitizer (1.6.0)
+       loofah (~> 2.21)
+       nokogiri (~> 1.14)
+-    railties (6.0.6.1)
+-      actionpack (= 6.0.6.1)
+-      activesupport (= 6.0.6.1)
++    railties (6.1.7.4)
++      actionpack (= 6.1.7.4)
++      activesupport (= 6.1.7.4)
        method_source
 -      rake (>= 0.8.7)
 -      thor (>= 0.20.3, < 2.0)
@@ -250,7 +254,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
      rake (13.0.6)
      rb-fsevent (0.11.2)
      rb-inotify (0.10.1)
-@@ -160,10 +166,8 @@
+@@ -168,10 +174,8 @@
        rexml (~> 3.2, >= 3.2.5)
        rubyzip (>= 1.2.2, < 3.0)
        websocket (~> 1.0)
@@ -259,58 +263,56 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -      listen (>= 2.7, < 4.0)
 -      spring (>= 1.2, < 3.0)
 +    semantic_range (3.0.0)
-+    spring (4.1.0)
-     sprockets (4.1.1)
++    spring (4.1.1)
+     sprockets (4.2.0)
        concurrent-ruby (~> 1.0)
-       rack (> 1, < 3)
-@@ -174,13 +178,12 @@
-     sqlite3 (1.5.3)
-       mini_portile2 (~> 2.8.0)
-     thor (1.2.1)
+       rack (>= 2.2.4, < 4)
+@@ -181,14 +185,13 @@
+       sprockets (>= 3.0.0)
+     sqlite3 (1.6.3-arm64-darwin)
+     thor (1.2.2)
 -    thread_safe (0.3.6)
-     tilt (2.0.11)
+     tilt (2.2.0)
+     timeout (0.4.0)
      turbolinks (5.2.1)
        turbolinks-source (~> 5.2)
      turbolinks-source (5.2.0)
--    tzinfo (1.2.10)
+-    tzinfo (1.2.11)
 -      thread_safe (~> 0.1)
-+    tzinfo (2.0.5)
++    tzinfo (2.0.6)
 +      concurrent-ruby (~> 1.0)
      web-console (4.2.0)
        actionview (>= 6.0.0)
        activemodel (>= 6.0.0)
-@@ -190,10 +193,11 @@
+@@ -198,10 +201,11 @@
        nokogiri (~> 1.6)
        rubyzip (>= 1.3.0)
-       selenium-webdriver (~> 4.0)
+       selenium-webdriver (~> 4.0, < 4.11)
 -    webpacker (4.3.0)
 -      activesupport (>= 4.2)
-+    webpacker (5.4.3)
++    webpacker (5.4.4)
 +      activesupport (>= 5.2)
        rack-proxy (>= 0.6.1)
 -      railties (>= 4.2)
 +      railties (>= 5.2)
 +      semantic_range (>= 2.3.0)
      websocket (1.2.9)
-     websocket-driver (0.7.5)
+     websocket-driver (0.7.6)
        websocket-extensions (>= 0.1.0)
-@@ -206,23 +210,23 @@
-   ruby
+@@ -215,21 +219,21 @@
  
  DEPENDENCIES
--  bootsnap (>= 1.4.2)
-+  bootsnap (>= 1.4.4)
    byebug
 -  capybara (>= 2.15)
 +  capybara (>= 3.26)
    jbuilder (~> 2.7)
 -  listen (~> 3.2)
 -  puma (~> 4.1)
--  rails (~> 6.0.6)
+-  rails (~> 6.0.6, >= 6.0.6.1)
 +  listen (~> 3.3)
 +  puma (~> 5.0)
 +  rack-mini-profiler (~> 2.0)
-+  rails (~> 6.1.7)
++  rails (~> 6.1.7, >= 6.1.7.4)
    sass-rails (>= 6)
 -  selenium-webdriver
 +  selenium-webdriver (>= 4.0.0.rc1)
@@ -326,10 +328,10 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  webpacker (~> 5.0)
  
  RUBY VERSION
-    ruby 2.7.6p219
+    ruby 2.7.8p225
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/Rakefile rails 6.1/Rakefile
---- rails 6.0/Rakefile	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/Rakefile	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/Rakefile	2023-08-21 12:38:20
++++ rails 6.1/Rakefile	2023-08-21 12:38:36
 @@ -1,6 +1,6 @@
  # Add your own tasks in files placed in lib/tasks ending in .rake,
  # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
@@ -339,8 +341,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
  Rails.application.load_tasks
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/app/javascript/channels/consumer.js rails 6.1/app/javascript/channels/consumer.js
---- rails 6.0/app/javascript/channels/consumer.js	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/app/javascript/channels/consumer.js	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/app/javascript/channels/consumer.js	2023-08-21 12:38:20
++++ rails 6.1/app/javascript/channels/consumer.js	2023-08-21 12:38:36
 @@ -1,5 +1,5 @@
  // Action Cable provides the framework to deal with WebSockets in Rails.
 -// You can generate new channels where WebSocket features live using the `rails generate channel` command.
@@ -349,8 +351,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  import { createConsumer } from "@rails/actioncable"
  
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/app/javascript/packs/application.js rails 6.1/app/javascript/packs/application.js
---- rails 6.0/app/javascript/packs/application.js	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/app/javascript/packs/application.js	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/app/javascript/packs/application.js	2023-08-21 12:38:20
++++ rails 6.1/app/javascript/packs/application.js	2023-08-21 12:38:36
 @@ -3,15 +3,11 @@
  // a relevant structure within app/javascript and only use these pack files to reference
  // that code so it'll be compiled.
@@ -359,12 +361,12 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -require("turbolinks").start()
 -require("@rails/activestorage").start()
 -require("channels")
--
 +import Rails from "@rails/ujs"
 +import Turbolinks from "turbolinks"
 +import * as ActiveStorage from "@rails/activestorage"
 +import "channels"
  
+-
 -// Uncomment to copy all static images under ../images to the output folder and reference
 -// them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 -// or the `imagePath` JavaScript helper below.
@@ -375,21 +377,22 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +Turbolinks.start()
 +ActiveStorage.start()
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/app/views/layouts/application.html.erb rails 6.1/app/views/layouts/application.html.erb
---- rails 6.0/app/views/layouts/application.html.erb	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/app/views/layouts/application.html.erb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/app/views/layouts/application.html.erb	2023-08-21 12:38:20
++++ rails 6.1/app/views/layouts/application.html.erb	2023-08-21 12:38:36
 @@ -1,7 +1,8 @@
  <!DOCTYPE html>
  <html>
    <head>
--    <title>R60</title>
-+    <title>R61</title>
+-    <title>Rails60</title>
++    <title>Rails61</title>
 +    <meta name="viewport" content="width=device-width,initial-scale=1">
      <%= csrf_meta_tags %>
      <%= csp_meta_tag %>
  
+Only in rails 6.0: babel.config.js
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/bin/rails rails 6.1/bin/rails
---- rails 6.0/bin/rails	2022-10-13 09:26:44.000000000 -0700
-+++ rails 6.1/bin/rails	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/bin/rails	2023-08-21 12:38:22
++++ rails 6.1/bin/rails	2023-08-21 12:38:36
 @@ -1,9 +1,5 @@
  #!/usr/bin/env ruby
 -begin
@@ -404,8 +407,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +require_relative "../config/boot"
 +require "rails/commands"
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/bin/rake rails 6.1/bin/rake
---- rails 6.0/bin/rake	2022-10-13 09:26:44.000000000 -0700
-+++ rails 6.1/bin/rake	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/bin/rake	2023-08-21 12:38:22
++++ rails 6.1/bin/rake	2023-08-21 12:38:36
 @@ -1,9 +1,5 @@
  #!/usr/bin/env ruby
 -begin
@@ -420,8 +423,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +require "rake"
  Rake.application.run
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/bin/setup rails 6.1/bin/setup
---- rails 6.0/bin/setup	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/bin/setup	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/bin/setup	2023-08-21 12:38:20
++++ rails 6.1/bin/setup	2023-08-21 12:38:36
 @@ -1,5 +1,5 @@
  #!/usr/bin/env ruby
 -require 'fileutils'
@@ -450,8 +453,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    # puts "\n== Copying sample files =="
    # unless File.exist?('config/database.yml')
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/bin/spring rails 6.1/bin/spring
---- rails 6.0/bin/spring	2022-10-13 09:26:44.000000000 -0700
-+++ rails 6.1/bin/spring	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/bin/spring	2023-08-21 12:38:22
++++ rails 6.1/bin/spring	2023-08-21 12:38:36
 @@ -1,17 +1,14 @@
  #!/usr/bin/env ruby
 +if !defined?(Spring) && [nil, "development", "test"].include?(ENV["RAILS_ENV"])
@@ -479,9 +482,11 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +    # Ignore when Spring is not installed.
    end
  end
+Only in rails 6.0/bin: webpack
+Only in rails 6.0/bin: webpack-dev-server
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/bin/yarn rails 6.1/bin/yarn
---- rails 6.0/bin/yarn	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/bin/yarn	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/bin/yarn	2023-08-21 12:38:20
++++ rails 6.1/bin/yarn	2023-08-21 12:38:36
 @@ -1,9 +1,15 @@
  #!/usr/bin/env ruby
  APP_ROOT = File.expand_path('..', __dir__)
@@ -502,8 +507,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
      $stderr.puts "Download Yarn at https://yarnpkg.com/en/docs/install"
      exit 1
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/application.rb rails 6.1/config/application.rb
---- rails 6.0/config/application.rb	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/config/application.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/application.rb	2023-08-21 12:38:20
++++ rails 6.1/config/application.rb	2023-08-21 12:38:36
 @@ -1,19 +1,22 @@
 -require_relative 'boot'
 +require_relative "boot"
@@ -515,8 +520,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  # you've limited to :test, :development, or :production.
  Bundler.require(*Rails.groups)
  
--module R60
-+module R61
+-module Rails60
++module Rails61
    class Application < Rails::Application
      # Initialize configuration defaults for originally generated Rails version.
 -    config.load_defaults 6.0
@@ -536,35 +541,33 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    end
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/boot.rb rails 6.1/config/boot.rb
---- rails 6.0/config/boot.rb	2022-10-13 09:24:35.000000000 -0700
-+++ rails 6.1/config/boot.rb	2022-10-13 09:28:28.000000000 -0700
-@@ -1,4 +1,4 @@
+--- rails 6.0/config/boot.rb	2023-08-21 12:38:20
++++ rails 6.1/config/boot.rb	2023-08-21 12:38:36
+@@ -1,3 +1,3 @@
  ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
  
 -require 'bundler/setup' # Set up gems listed in the Gemfile.
--require 'bootsnap/setup' # Speed up boot time by caching expensive operations.
 +require "bundler/setup" # Set up gems listed in the Gemfile.
-+require "bootsnap/setup" # Speed up boot time by caching expensive operations.
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/cable.yml rails 6.1/config/cable.yml
---- rails 6.0/config/cable.yml	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/config/cable.yml	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/cable.yml	2023-08-21 12:38:20
++++ rails 6.1/config/cable.yml	2023-08-21 12:38:36
 @@ -7,4 +7,4 @@
  production:
    adapter: redis
    url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
--  channel_prefix: r60_production
-+  channel_prefix: r61_production
+-  channel_prefix: rails_6_0_production
++  channel_prefix: rails_6_1_production
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/credentials.yml.enc rails 6.1/config/credentials.yml.enc
---- rails 6.0/config/credentials.yml.enc	2022-10-13 09:24:35.000000000 -0700
-+++ rails 6.1/config/credentials.yml.enc	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/credentials.yml.enc	2023-08-21 12:38:20
++++ rails 6.1/config/credentials.yml.enc	2023-08-21 12:38:36
 @@ -1 +1 @@
--6soM3MhDGYp1v5BR5eHBvL6mgJcoQeV8DjcYFZOzrn91h+GEJkhZpgUFFygZl/JgQP1DkMTFHqPXrROkTfFef5i6WfOLBSQItdTp++k84akWJzkfg6aXOavf5pTl/TkdYot5zveXZiwqZwltVmP4vLbU3njWAOZ6bknA6L/rKAK6tFGB78bSjF5zpOG12JLBLng2Q76RgPR/HXVLnb/u1tmkoYF+4UAnTZwemp6FPfKod45CmbYg7tpYQ8JCo7ZvmgdXfxbp1pXcKrP971wQGIv/ugv495RsswMPYfHQONuuCfyXBICTkBT0a6rf0SVkvFazHe7fa8Jg4+6h99VsXmogEhDRC9ahhFD8komLYR6eoYr/52wml+cACQujK7tP9MxjfiCVu6Ey9jZlNC/cU7t/ZqcalJCdqY/B--hSxosyyoAwYZdnN7--1GIGqxuBRUnpFhD8I0E3Kg==
+-Jsr7SVAijiw9U5fJ1aKzguFEsiNw6r4RfCzLomT1n9dpXAROMMGKc74Wxevv4L0FcK8+iwrv2bdQOa70X94tmvGhrsd+aVyY/W+e/4Rr/4lZMdC+uzOLRzoDJ/BtZQtRAABBZqUgRhWT2E9ocjSZl80XwVDFwI4aJY6GkHQoK7HBxdAwAf0Y5qKs2iDZAI7L9zEnq6SBsVAJAkUORvO2raM0bDPmrpMBvGCfCMsw/eTyzsQNLtHFSzm+9USBZGm87UiwpyB+wLJm7Ym+uyJpN6ClyHjNdjFPIih0hYviu8OOBFPP2BjKS25zsUAgf64xz/RmXgW4PpN75iPRyAoEuNUJnhfwBg0J/aJzTaRfIuZ4cXJaoKeKGIBv1YusOHQ3b7AtHAn0c1l/qzukgBzggdpTTRhHYruX4y3g--tIP+RQyfn3CoOZUx--koS7jgq5x6kI/OrpxIE/kQ==
 \ No newline at end of file
-+okrHRnb4d7HaliAZnFyr3AdG4j4ZUfLQF+Cjw7kRer/zs/rU8tvFVmtjDnY4EotG43sqhUmRra4Lrl6oFzpgwyGSpciy8rUIHImI6e99CO4pDRgUHvH/740O+vcibiylo7ByPPuDQFuZodWhdI8dUrShBgqL+Ubri1Zqmhx1JKYXhFmMy1DozXXaIhIwFwLCD6lPP7wH3jNKzOVLiGFqueVBYRGmQJZej7gj8jgMVNnEhU3eDS/zBvw3jRoIxHJwrQNKMdKG7571/FRCq6yjTxxA9nPsWemo5GVipn1hgJRU/CTOwIjNz8TYUzbD0cRXGaUwAamXVlun8J6R/lTs1HDs1/6i/6oOgCF98zvocUVLPhjziWReTsn3wTrINklDpKXZZL1VgNxHkjh9oizMmgG6Y2Fjkp0j55yN--AjxsTZg0EUZO2OPi--8vkeZKp1N0sjH7mNlxsDDg==
++g7R0YWdoU8uYa3i1vsoDZMAOz22Y/Ex8C77tMon6gVKpnuuT6xmi+HmyjJ6rwI6PXuYFug0rjVXaCcJ8hEuQm+k63MX36Jyr43MUsZZQb3WBjktfqV9Q0FGKa9yJx0SiTeLNdJPFb63j0Pcr6x9Ohi4TSNxYNNL84l7yGrtlNxRBaWQnYQ0jr9/1um2ioDtqUu9fL3UOKSxKFLY1yPWyalAkvVN8dpT+dGo6Lkj71wx0KSI5oEe6td6XKO0VHzz+Z5eyyv58UgsOLpxoKyCOS37MwKSy8FQmWkFEL2ot+jUDJANZWYXWHbD8AmH0mu4BsaqvAxwdMKuRcBsoGAzX2l891J+ukV6kJDbaFUXWA6VhkJcwCAvj808igp0L5MDSGVJZYUfWFdRhdr2lGeszbUvL+SM0aWySeqR3--2ahPV5kxznUStbSC--vSB1qige3wfIjpdYaXt/SA==
 \ No newline at end of file
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/environment.rb rails 6.1/config/environment.rb
---- rails 6.0/config/environment.rb	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/config/environment.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/environment.rb	2023-08-21 12:38:20
++++ rails 6.1/config/environment.rb	2023-08-21 12:38:36
 @@ -1,5 +1,5 @@
  # Load the Rails application.
 -require_relative 'application'
@@ -573,8 +576,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  # Initialize the Rails application.
  Rails.application.initialize!
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/environments/development.rb rails 6.1/config/environments/development.rb
---- rails 6.0/config/environments/development.rb	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/config/environments/development.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/environments/development.rb	2023-08-21 12:38:20
++++ rails 6.1/config/environments/development.rb	2023-08-21 12:38:36
 @@ -1,8 +1,10 @@
 +require "active_support/core_ext/integer/time"
 +
@@ -607,10 +610,10 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    # Raises error for missing translations.
 -  # config.action_view.raise_on_missing_translations = true
 +  # config.i18n.raise_on_missing_translations = true
-+
+ 
 +  # Annotate rendered view with file names.
 +  # config.action_view.annotate_rendered_view_with_filenames = true
- 
++
    # Use an evented file watcher to asynchronously detect changes in source code,
    # routes, locales, etc. This feature depends on the listen gem.
    config.file_watcher = ActiveSupport::EventedFileUpdateChecker
@@ -619,8 +622,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  # config.action_cable.disable_request_forgery_protection = true
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/environments/production.rb rails 6.1/config/environments/production.rb
---- rails 6.0/config/environments/production.rb	2022-10-13 09:24:35.000000000 -0700
-+++ rails 6.1/config/environments/production.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/environments/production.rb	2023-08-21 12:38:20
++++ rails 6.1/config/environments/production.rb	2023-08-21 12:38:36
 @@ -1,3 +1,5 @@
 +require "active_support/core_ext/integer/time"
 +
@@ -653,8 +656,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
    # Use a real queuing backend for Active Job (and separate queues per environment).
    # config.active_job.queue_adapter     = :resque
--  # config.active_job.queue_name_prefix = "r60_production"
-+  # config.active_job.queue_name_prefix = "r61_production"
+-  # config.active_job.queue_name_prefix = "rails_6_0_production"
++  # config.active_job.queue_name_prefix = "rails_6_1_production"
  
    config.action_mailer.perform_caching = false
  
@@ -678,8 +681,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
    if ENV["RAILS_LOG_TO_STDOUT"].present?
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/environments/test.rb rails 6.1/config/environments/test.rb
---- rails 6.0/config/environments/test.rb	2022-10-13 09:24:35.000000000 -0700
-+++ rails 6.1/config/environments/test.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/environments/test.rb	2023-08-21 12:38:20
++++ rails 6.1/config/environments/test.rb	2023-08-21 12:38:36
 @@ -1,3 +1,5 @@
 +require "active_support/core_ext/integer/time"
 +
@@ -704,8 +707,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  # config.action_view.annotate_rendered_view_with_filenames = true
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/initializers/backtrace_silencers.rb rails 6.1/config/initializers/backtrace_silencers.rb
---- rails 6.0/config/initializers/backtrace_silencers.rb	2022-10-13 09:24:35.000000000 -0700
-+++ rails 6.1/config/initializers/backtrace_silencers.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/initializers/backtrace_silencers.rb	2023-08-21 12:38:20
++++ rails 6.1/config/initializers/backtrace_silencers.rb	2023-08-21 12:38:36
 @@ -1,7 +1,8 @@
  # Be sure to restart your server when you modify this file.
  
@@ -719,8 +722,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# by setting BACKTRACE=1 before calling your invocation, like "BACKTRACE=1 ./bin/rails runner 'MyClass.perform'".
 +Rails.backtrace_cleaner.remove_silencers! if ENV["BACKTRACE"]
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/initializers/filter_parameter_logging.rb rails 6.1/config/initializers/filter_parameter_logging.rb
---- rails 6.0/config/initializers/filter_parameter_logging.rb	2022-10-13 09:24:35.000000000 -0700
-+++ rails 6.1/config/initializers/filter_parameter_logging.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/initializers/filter_parameter_logging.rb	2023-08-21 12:38:20
++++ rails 6.1/config/initializers/filter_parameter_logging.rb	2023-08-21 12:38:36
 @@ -1,4 +1,6 @@
  # Be sure to restart your server when you modify this file.
  
@@ -730,8 +733,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn
 +]
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/initializers/permissions_policy.rb rails 6.1/config/initializers/permissions_policy.rb
---- rails 6.0/config/initializers/permissions_policy.rb	1969-12-31 16:00:00.000000000 -0800
-+++ rails 6.1/config/initializers/permissions_policy.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/initializers/permissions_policy.rb	1969-12-31 16:00:00
++++ rails 6.1/config/initializers/permissions_policy.rb	2023-08-21 12:38:36
 @@ -0,0 +1,11 @@
 +# Define an application-wide HTTP permissions policy. For further
 +# information see https://developers.google.com/web/updates/2018/06/feature-policy
@@ -745,16 +748,16 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +#   f.payment     :self, "https://secure.example.com"
 +# end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/master.key rails 6.1/config/master.key
---- rails 6.0/config/master.key	2022-10-13 09:24:35.000000000 -0700
-+++ rails 6.1/config/master.key	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/master.key	2023-08-21 12:38:20
++++ rails 6.1/config/master.key	2023-08-21 12:38:36
 @@ -1 +1 @@
--b36d83a08261e5e8c8eae70e60209369
+-b8864b09afdd4c3eb20ee1dabc0d5f78
 \ No newline at end of file
-+6147156d1a7b558523c3098cd977d9c5
++be12abcc8a703abe4d08dcbd10e341a0
 \ No newline at end of file
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config/puma.rb rails 6.1/config/puma.rb
---- rails 6.0/config/puma.rb	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/config/puma.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config/puma.rb	2023-08-21 12:38:20
++++ rails 6.1/config/puma.rb	2023-08-21 12:38:36
 @@ -8,6 +8,11 @@
  min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
  threads min_threads_count, max_threads_count
@@ -766,10 +769,12 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +
  # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
  #
- port        ENV.fetch("PORT") { 3000 }
+ port ENV.fetch("PORT") { 3000 }
+Only in rails 6.0/config: webpack
+Only in rails 6.0/config: webpacker.yml
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/config.ru rails 6.1/config.ru
---- rails 6.0/config.ru	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/config.ru	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/config.ru	2023-08-21 12:38:20
++++ rails 6.1/config.ru	2023-08-21 12:38:36
 @@ -1,5 +1,6 @@
  # This file is used by Rack-based servers to start the application.
  
@@ -779,8 +784,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  run Rails.application
 +Rails.application.load_server
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/db/seeds.rb rails 6.1/db/seeds.rb
---- rails 6.0/db/seeds.rb	2022-10-13 09:24:35.000000000 -0700
-+++ rails 6.1/db/seeds.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/db/seeds.rb	2023-08-21 12:38:20
++++ rails 6.1/db/seeds.rb	2023-08-21 12:38:36
 @@ -1,5 +1,5 @@
  # This file should contain all the record creation needed to seed the database with its default values.
 -# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
@@ -788,20 +793,36 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  #
  # Examples:
  #
+Only in rails 6.0/log: development.log
+Only in rails 6.0: node_modules
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/package.json rails 6.1/package.json
---- rails 6.0/package.json	2022-10-13 09:24:34.000000000 -0700
-+++ rails 6.1/package.json	2022-10-13 09:28:28.000000000 -0700
-@@ -1,5 +1,5 @@
+--- rails 6.0/package.json	2023-08-21 12:38:36
++++ rails 6.1/package.json	2023-08-21 12:38:36
+@@ -1,14 +1,11 @@
  {
--  "name": "r60",
-+  "name": "r61",
+-  "name": "rails_6_0",
++  "name": "rails-6-1",
    "private": true,
    "dependencies": {
+-    "@rails/actioncable": "^6.0.0",
+-    "@rails/activestorage": "^6.0.0",
      "@rails/ujs": "^6.0.0",
+-    "turbolinks": "^5.2.0"
++    "turbolinks": "^5.2.0",
++    "@rails/activestorage": "^6.0.0",
++    "@rails/actioncable": "^6.0.0"
+   },
+-  "version": "0.1.0",
+-  "devDependencies": {
+-    "webpack-dev-server": "^4.15.1"
+-  }
++  "version": "0.1.0"
+ }
+Only in rails 6.0: postcss.config.js
 Only in rails 6.0/test/fixtures: .keep
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 6.0/test/test_helper.rb rails 6.1/test/test_helper.rb
---- rails 6.0/test/test_helper.rb	2022-10-13 09:24:35.000000000 -0700
-+++ rails 6.1/test/test_helper.rb	2022-10-13 09:28:28.000000000 -0700
+--- rails 6.0/test/test_helper.rb	2023-08-21 12:38:20
++++ rails 6.1/test/test_helper.rb	2023-08-21 12:38:36
 @@ -1,6 +1,6 @@
  ENV['RAILS_ENV'] ||= 'test'
 -require_relative '../config/environment'
@@ -811,3 +832,5 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
  class ActiveSupport::TestCase
    # Run tests in parallel with specified workers
+Only in rails 6.0/tmp: development_secret.txt
+Only in rails 6.0: yarn.lock

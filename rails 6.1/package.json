@@ -1,5 +1,5 @@
 {
-  "name": "r61",
+  "name": "rails-6-1",
   "private": true,
   "dependencies": {
     "@rails/ujs": "^6.0.0",
