@@ -2,13 +2,19 @@
 
 set -euo pipefail
 
-prefix="rails "
-readarray -t versions < ./versions
+versions=()
+while IFS='' read -r version ; do
+  versions+=("${version}")
+done < ./versions
 
 previous_version="${versions[0]}"
-unset versions[0]
 
+prefix="rails "
 for version in "${versions[@]}" ; do
+  if [[ "${version}" = "${previous_version}" ]] ; then
+    continue
+  fi
+
   diff \
     --ignore-space-change \
     --minimal \
