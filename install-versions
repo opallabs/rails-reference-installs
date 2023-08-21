@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+versions=()
+while IFS='' read -r version ; do
+  versions+=("${version}")
+done < ./versions
+
+bundle update \
+  --bundler
+
+bundler_major_version="$(
+  bundler \
+    --version \
+  | grep \
+    --extended-regexp \
+    --only-matching \
+    '[[:digit:]]' \
+  | head \
+    -1
+)"
+
+prefix="rails "
+for version in "${versions[@]}" ; do
+  if [[ "${version}" = "4"* ]] && [[ "${bundler_major_version}" = "2" ]] ; then
+    echo "INFO: Skipping Rails ${version} because it doesn't work with Bundler v2" >&2
+    continue
+  fi
+
+  echo "INFO: Installing Rails ${version}..." >&2
+
+  rm \
+    -rf \
+    -- "./${prefix}${version}"
+
+  cat \
+    -- Gemfile.template \
+  | sed "s/RAILS_VERSION/${version}/" \
+    > Gemfile
+
+  bundle check \
+  || bundle install \
+    --path vendor/bundle
+
+  flags=
+  # Work around bootsnap issue with Rails 6.0, 6.1, 7.0: `rails new`
+  # post-install fails with `cannot load such file -- bootsnap/setup`.
+  if (( $(echo "${version} >= 6.0" | bc -l) )) ; then
+    flags="--skip-bootsnap"
+  fi
+
+  # Work around dependency issues with Rails 6.0.
+  if [[ "${version}" = "6.0" ]] ; then
+    # @see https://stackoverflow.com/q/47605810
+    bundle add \
+      webpacker \
+      --version="~> 4.0"
+
+    # @see https://stackoverflow.com/q/38663706
+    bundle add \
+      listen \
+      --version="~> 3.2"
+  fi
+
+  # Work around dependency issues with Rails 7.0.
+  if [[ "${version}" = "7.0" ]] ; then
+    flags="--skip-javascript"
+  fi
+
+  bundle exec \
+    rails new \
+      "${prefix}${version}" "${flags}"
+done
