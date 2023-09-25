@@ -71,4 +71,8 @@ for version in "${versions[@]}" ; do
   bundle exec \
     rails new \
       "${prefix}${version}" "${flags}"
+
+  # Remove auto-initialized git repository.
+  rm -rf \
+    -- "${prefix}${version}"/.git
 done
