@@ -82,4 +82,7 @@ for version in "${versions[@]}" ; do
   # Remove auto-initialized git repository.
   rm -rf \
     -- "${prefix}${version}"/.git
+
+  echo "INFO: Installed Rails ${version}" >&2
+  echo
 done
