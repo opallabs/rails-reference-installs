@@ -68,6 +68,13 @@ for version in "${versions[@]}" ; do
     flags="--skip-javascript"
   fi
 
+  # Work around dependency issues with Rails 7.1.
+  if [[ "${version}" = "7.1" ]] ; then
+    bundle add \
+      stringio \
+      --version="~> 3.0"
+  fi
+
   bundle exec \
     rails new \
       "${prefix}${version}" "${flags}"
