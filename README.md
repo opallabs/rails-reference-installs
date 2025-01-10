@@ -7,14 +7,20 @@ version.
 
 Like Rails itself, this code is [provided under the MIT license](./LICENSE).
 
-  [rails]: https://rubyonrails.org/
-  [rails new]: https://guides.rubyonrails.org/getting_started.html#creating-the-blog-application "Rails Guide: ‘Creating the blog application’"
+[rails]: https://rubyonrails.org/
+[rails new]: https://guides.rubyonrails.org/getting_started.html#creating-the-blog-application "Rails Guide: ‘Creating the blog application’"
 
 ## How to use
 
 1. Make sure the [`versions`](./versions) file has all the Rails versions
-  you're interested in (currently 4.2 through 7.0).
+   you're interested in (currently 4.2 through 8.0).
 2. Run `./install-versions`, which runs [the `rails new` command][rails new]
-  for each version.
+   for each version.
 3. Run `./diff-versions`, which iterates through each version, summarizing the
-  from the previous version.
+   from the previous version.
+
+## Notes
+
+- `.ruby-version` should be kept up-to-date with the [supported versions of Ruby][ruby supported versions] (note that `./install-versions` modifies the file because some older versions of Rails require older versions of Ruby)
+
+[ruby supported versions]: https://www.ruby-lang.org/en/downloads/branches/
