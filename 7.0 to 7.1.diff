@@ -1,0 +1,1052 @@
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/.dockerignore rails 7.1/.dockerignore
+--- rails 7.0/.dockerignore	1969-12-31 16:00:00
++++ rails 7.1/.dockerignore	2025-01-10 11:17:49
+@@ -0,0 +1,37 @@
++# See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files.
++
++# Ignore git directory.
++/.git/
++
++# Ignore bundler config.
++/.bundle
++
++# Ignore all environment files (except templates).
++/.env*
++!/.env*.erb
++
++# Ignore all default key files.
++/config/master.key
++/config/credentials/*.key
++
++# Ignore all logfiles and tempfiles.
++/log/*
++/tmp/*
++!/log/.keep
++!/tmp/.keep
++
++# Ignore pidfiles, but keep the directory.
++/tmp/pids/*
++!/tmp/pids/.keep
++
++# Ignore storage (uploaded files in development and any SQLite databases).
++/storage/*
++!/storage/.keep
++/tmp/storage/*
++!/tmp/storage/.keep
++
++# Ignore assets.
++/node_modules/
++/app/assets/builds/*
++!/app/assets/builds/.keep
++/public/assets
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/.gitattributes rails 7.1/.gitattributes
+--- rails 7.0/.gitattributes	2025-01-10 11:17:35
++++ rails 7.1/.gitattributes	2025-01-10 11:17:49
+@@ -5,3 +5,5 @@
+ 
+ # Mark any vendored files as having been vendored.
+ vendor/* linguist-vendored
++config/credentials/*.yml.enc diff=rails_credentials
++config/credentials.yml.enc diff=rails_credentials
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/.gitignore rails 7.1/.gitignore
+--- rails 7.0/.gitignore	2025-01-10 11:17:35
++++ rails 7.1/.gitignore	2025-01-10 11:17:49
+@@ -7,9 +7,9 @@
+ # Ignore bundler config.
+ /.bundle
+ 
+-# Ignore the default SQLite database.
+-/db/*.sqlite3
+-/db/*.sqlite3-*
++# Ignore all environment files (except templates).
++/.env*
++!/.env*.erb
+ 
+ # Ignore all logfiles and tempfiles.
+ /log/*
+@@ -22,7 +22,7 @@
+ !/tmp/pids/
+ !/tmp/pids/.keep
+ 
+-# Ignore uploaded files in development.
++# Ignore storage (uploaded files in development and any SQLite databases).
+ /storage/*
+ !/storage/.keep
+ /tmp/storage/*
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/Dockerfile rails 7.1/Dockerfile
+--- rails 7.0/Dockerfile	1969-12-31 16:00:00
++++ rails 7.1/Dockerfile	2025-01-10 11:17:49
+@@ -0,0 +1,58 @@
++# syntax = docker/dockerfile:1
++
++# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
++ARG RUBY_VERSION=3.2.6
++FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
++
++# Rails app lives here
++WORKDIR /rails
++
++# Set production environment
++ENV RAILS_ENV="production" \
++    BUNDLE_DEPLOYMENT="1" \
++    BUNDLE_PATH="/usr/local/bundle" \
++    BUNDLE_WITHOUT="development"
++
++
++# Throw-away build stage to reduce size of final image
++FROM base as build
++
++# Install packages needed to build gems
++RUN apt-get update -qq && \
++    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
++
++# Install application gems
++COPY Gemfile Gemfile.lock ./
++RUN bundle install && \
++    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
++
++# Copy application code
++COPY . .
++
++# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
++RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
++
++
++# Final stage for app image
++FROM base
++
++# Install packages needed for deployment
++RUN apt-get update -qq && \
++    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
++    rm -rf /var/lib/apt/lists /var/cache/apt/archives
++
++# Copy built artifacts: gems, application
++COPY --from=build /usr/local/bundle /usr/local/bundle
++COPY --from=build /rails /rails
++
++# Run and own only the runtime files as a non-root user for security
++RUN useradd rails --create-home --shell /bin/bash && \
++    chown -R rails:rails db log storage tmp
++USER rails:rails
++
++# Entrypoint prepares the database.
++ENTRYPOINT ["/rails/bin/docker-entrypoint"]
++
++# Start the server by default, this can be overwritten at runtime
++EXPOSE 3000
++CMD ["./bin/rails", "server"]
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/Gemfile rails 7.1/Gemfile
+--- rails 7.0/Gemfile	2025-01-10 11:17:35
++++ rails 7.1/Gemfile	2025-01-10 11:17:49
+@@ -1,25 +1,33 @@
+ source "https://rubygems.org"
+-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+ 
+ ruby "3.2.6"
+ 
+ # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+-gem "rails", "~> 7.0.8", ">= 7.0.8.7"
++gem "rails", "~> 7.1.5", ">= 7.1.5.1"
+ 
+ # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+ gem "sprockets-rails"
+ 
+ # Use sqlite3 as the database for Active Record
+-gem "sqlite3", "~> 1.4"
++gem "sqlite3", ">= 1.4"
+ 
+ # Use the Puma web server [https://github.com/puma/puma]
+-gem "puma", "~> 5.0"
++gem "puma", ">= 5.0"
+ 
++# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
++gem "importmap-rails"
++
++# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
++gem "turbo-rails"
++
++# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
++gem "stimulus-rails"
++
+ # Build JSON APIs with ease [https://github.com/rails/jbuilder]
+ gem "jbuilder"
+ 
+ # Use Redis adapter to run Action Cable in production
+-# gem "redis", "~> 4.0"
++# gem "redis", ">= 4.0.1"
+ 
+ # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
+ # gem "kredis"
+@@ -28,20 +36,14 @@
+ # gem "bcrypt", "~> 3.1.7"
+ 
+ # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
++gem "tzinfo-data", platforms: %i[ windows jruby ]
+ 
+-# Reduces boot times through caching; required in config/boot.rb
+-gem "bootsnap", require: false
+-
+-# Use Sass to process CSS
+-# gem "sassc-rails"
+-
+ # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+ # gem "image_processing", "~> 1.2"
+ 
+ group :development, :test do
+   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
++  gem "debug", platforms: %i[ mri windows ]
+ end
+ 
+ group :development do
+@@ -59,5 +61,4 @@
+   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+   gem "capybara"
+   gem "selenium-webdriver"
+-
+ end
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/Gemfile.lock rails 7.1/Gemfile.lock
+--- rails 7.0/Gemfile.lock	2025-01-10 11:17:41
++++ rails 7.1/Gemfile.lock	2025-01-10 11:17:56
+@@ -1,77 +1,89 @@
+ GEM
+   remote: https://rubygems.org/
+   specs:
+-    actioncable (7.0.8.7)
+-      actionpack (= 7.0.8.7)
+-      activesupport (= 7.0.8.7)
++    actioncable (7.1.5.1)
++      actionpack (= 7.1.5.1)
++      activesupport (= 7.1.5.1)
+       nio4r (~> 2.0)
+       websocket-driver (>= 0.6.1)
+-    actionmailbox (7.0.8.7)
+-      actionpack (= 7.0.8.7)
+-      activejob (= 7.0.8.7)
+-      activerecord (= 7.0.8.7)
+-      activestorage (= 7.0.8.7)
+-      activesupport (= 7.0.8.7)
++      zeitwerk (~> 2.6)
++    actionmailbox (7.1.5.1)
++      actionpack (= 7.1.5.1)
++      activejob (= 7.1.5.1)
++      activerecord (= 7.1.5.1)
++      activestorage (= 7.1.5.1)
++      activesupport (= 7.1.5.1)
+       mail (>= 2.7.1)
+       net-imap
+       net-pop
+       net-smtp
+-    actionmailer (7.0.8.7)
+-      actionpack (= 7.0.8.7)
+-      actionview (= 7.0.8.7)
+-      activejob (= 7.0.8.7)
+-      activesupport (= 7.0.8.7)
++    actionmailer (7.1.5.1)
++      actionpack (= 7.1.5.1)
++      actionview (= 7.1.5.1)
++      activejob (= 7.1.5.1)
++      activesupport (= 7.1.5.1)
+       mail (~> 2.5, >= 2.5.4)
+       net-imap
+       net-pop
+       net-smtp
+-      rails-dom-testing (~> 2.0)
+-    actionpack (7.0.8.7)
+-      actionview (= 7.0.8.7)
+-      activesupport (= 7.0.8.7)
+-      rack (~> 2.0, >= 2.2.4)
++      rails-dom-testing (~> 2.2)
++    actionpack (7.1.5.1)
++      actionview (= 7.1.5.1)
++      activesupport (= 7.1.5.1)
++      nokogiri (>= 1.8.5)
++      racc
++      rack (>= 2.2.4)
++      rack-session (>= 1.0.1)
+       rack-test (>= 0.6.3)
+-      rails-dom-testing (~> 2.0)
+-      rails-html-sanitizer (~> 1.0, >= 1.2.0)
+-    actiontext (7.0.8.7)
+-      actionpack (= 7.0.8.7)
+-      activerecord (= 7.0.8.7)
+-      activestorage (= 7.0.8.7)
+-      activesupport (= 7.0.8.7)
++      rails-dom-testing (~> 2.2)
++      rails-html-sanitizer (~> 1.6)
++    actiontext (7.1.5.1)
++      actionpack (= 7.1.5.1)
++      activerecord (= 7.1.5.1)
++      activestorage (= 7.1.5.1)
++      activesupport (= 7.1.5.1)
+       globalid (>= 0.6.0)
+       nokogiri (>= 1.8.5)
+-    actionview (7.0.8.7)
+-      activesupport (= 7.0.8.7)
++    actionview (7.1.5.1)
++      activesupport (= 7.1.5.1)
+       builder (~> 3.1)
+-      erubi (~> 1.4)
+-      rails-dom-testing (~> 2.0)
+-      rails-html-sanitizer (~> 1.1, >= 1.2.0)
+-    activejob (7.0.8.7)
+-      activesupport (= 7.0.8.7)
++      erubi (~> 1.11)
++      rails-dom-testing (~> 2.2)
++      rails-html-sanitizer (~> 1.6)
++    activejob (7.1.5.1)
++      activesupport (= 7.1.5.1)
+       globalid (>= 0.3.6)
+-    activemodel (7.0.8.7)
+-      activesupport (= 7.0.8.7)
+-    activerecord (7.0.8.7)
+-      activemodel (= 7.0.8.7)
+-      activesupport (= 7.0.8.7)
+-    activestorage (7.0.8.7)
+-      actionpack (= 7.0.8.7)
+-      activejob (= 7.0.8.7)
+-      activerecord (= 7.0.8.7)
+-      activesupport (= 7.0.8.7)
++    activemodel (7.1.5.1)
++      activesupport (= 7.1.5.1)
++    activerecord (7.1.5.1)
++      activemodel (= 7.1.5.1)
++      activesupport (= 7.1.5.1)
++      timeout (>= 0.4.0)
++    activestorage (7.1.5.1)
++      actionpack (= 7.1.5.1)
++      activejob (= 7.1.5.1)
++      activerecord (= 7.1.5.1)
++      activesupport (= 7.1.5.1)
+       marcel (~> 1.0)
+-      mini_mime (>= 1.1.0)
+-    activesupport (7.0.8.7)
++    activesupport (7.1.5.1)
++      base64
++      benchmark (>= 0.3)
++      bigdecimal
+       concurrent-ruby (~> 1.0, >= 1.0.2)
++      connection_pool (>= 2.2.5)
++      drb
+       i18n (>= 1.6, < 2)
++      logger (>= 1.4.2)
+       minitest (>= 5.1)
++      mutex_m
++      securerandom (>= 0.3)
+       tzinfo (~> 2.0)
+     addressable (2.8.7)
+       public_suffix (>= 2.0.2, < 7.0)
+     base64 (0.2.0)
++    benchmark (0.4.0)
++    bigdecimal (3.1.9)
+     bindex (0.8.1)
+-    bootsnap (1.18.4)
+-      msgpack (~> 1.2)
+     builder (3.3.0)
+     capybara (3.40.0)
+       addressable
+@@ -83,16 +95,22 @@
+       regexp_parser (>= 1.5, < 3.0)
+       xpath (~> 3.2)
+     concurrent-ruby (1.3.4)
++    connection_pool (2.5.0)
+     crass (1.0.6)
+     date (3.4.1)
+     debug (1.10.0)
+       irb (~> 1.10)
+       reline (>= 0.3.8)
++    drb (2.2.1)
+     erubi (1.13.1)
+     globalid (1.2.1)
+       activesupport (>= 6.1)
+     i18n (1.14.6)
+       concurrent-ruby (~> 1.0)
++    importmap-rails (2.1.0)
++      actionpack (>= 6.0.0)
++      activesupport (>= 6.0.0)
++      railties (>= 6.0.0)
+     io-console (0.8.0)
+     irb (1.14.3)
+       rdoc (>= 4.0.0)
+@@ -111,10 +129,9 @@
+       net-smtp
+     marcel (1.0.4)
+     matrix (0.4.2)
+-    method_source (1.1.0)
+     mini_mime (1.1.5)
+     minitest (5.25.4)
+-    msgpack (1.7.5)
++    mutex_m (0.3.0)
+     net-imap (0.5.5)
+       date
+       net-protocol
+@@ -145,26 +162,31 @@
+       date
+       stringio
+     public_suffix (6.0.1)
+-    puma (5.6.9)
++    puma (6.5.0)
+       nio4r (~> 2.0)
+     racc (1.8.1)
+-    rack (2.2.10)
++    rack (3.1.8)
++    rack-session (2.1.0)
++      base64 (>= 0.1.0)
++      rack (>= 3.0.0)
+     rack-test (2.2.0)
+       rack (>= 1.3)
+-    rails (7.0.8.7)
+-      actioncable (= 7.0.8.7)
+-      actionmailbox (= 7.0.8.7)
+-      actionmailer (= 7.0.8.7)
+-      actionpack (= 7.0.8.7)
+-      actiontext (= 7.0.8.7)
+-      actionview (= 7.0.8.7)
+-      activejob (= 7.0.8.7)
+-      activemodel (= 7.0.8.7)
+-      activerecord (= 7.0.8.7)
+-      activestorage (= 7.0.8.7)
+-      activesupport (= 7.0.8.7)
++    rackup (2.2.1)
++      rack (>= 3)
++    rails (7.1.5.1)
++      actioncable (= 7.1.5.1)
++      actionmailbox (= 7.1.5.1)
++      actionmailer (= 7.1.5.1)
++      actionpack (= 7.1.5.1)
++      actiontext (= 7.1.5.1)
++      actionview (= 7.1.5.1)
++      activejob (= 7.1.5.1)
++      activemodel (= 7.1.5.1)
++      activerecord (= 7.1.5.1)
++      activestorage (= 7.1.5.1)
++      activesupport (= 7.1.5.1)
+       bundler (>= 1.15.0)
+-      railties (= 7.0.8.7)
++      railties (= 7.1.5.1)
+     rails-dom-testing (2.2.0)
+       activesupport (>= 5.0.0)
+       minitest
+@@ -172,13 +194,14 @@
+     rails-html-sanitizer (1.6.2)
+       loofah (~> 2.21)
+       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
+-    railties (7.0.8.7)
+-      actionpack (= 7.0.8.7)
+-      activesupport (= 7.0.8.7)
+-      method_source
++    railties (7.1.5.1)
++      actionpack (= 7.1.5.1)
++      activesupport (= 7.1.5.1)
++      irb
++      rackup (>= 1.0.0)
+       rake (>= 12.2)
+-      thor (~> 1.0)
+-      zeitwerk (~> 2.5)
++      thor (~> 1.0, >= 1.2.2)
++      zeitwerk (~> 2.6)
+     rake (13.2.1)
+     rdoc (6.10.0)
+       psych (>= 4.0.0)
+@@ -187,6 +210,7 @@
+       io-console (~> 0.5)
+     rexml (3.4.0)
+     rubyzip (2.4.1)
++    securerandom (0.4.1)
+     selenium-webdriver (4.27.0)
+       base64 (~> 0.2)
+       logger (~> 1.4)
+@@ -200,14 +224,22 @@
+       actionpack (>= 6.1)
+       activesupport (>= 6.1)
+       sprockets (>= 3.0.0)
+-    sqlite3 (1.7.3-aarch64-linux)
+-    sqlite3 (1.7.3-arm-linux)
+-    sqlite3 (1.7.3-arm64-darwin)
+-    sqlite3 (1.7.3-x86_64-darwin)
+-    sqlite3 (1.7.3-x86_64-linux)
++    sqlite3 (2.5.0-aarch64-linux-gnu)
++    sqlite3 (2.5.0-aarch64-linux-musl)
++    sqlite3 (2.5.0-arm-linux-gnu)
++    sqlite3 (2.5.0-arm-linux-musl)
++    sqlite3 (2.5.0-arm64-darwin)
++    sqlite3 (2.5.0-x86_64-darwin)
++    sqlite3 (2.5.0-x86_64-linux-gnu)
++    sqlite3 (2.5.0-x86_64-linux-musl)
++    stimulus-rails (1.3.4)
++      railties (>= 6.0.0)
+     stringio (3.1.2)
+     thor (1.3.2)
+     timeout (0.4.3)
++    turbo-rails (2.0.11)
++      actionpack (>= 6.0.0)
++      railties (>= 6.0.0)
+     tzinfo (2.0.6)
+       concurrent-ruby (~> 1.0)
+     web-console (4.2.1)
+@@ -228,7 +260,6 @@
+   aarch64-linux
+   aarch64-linux-gnu
+   aarch64-linux-musl
+-  arm-linux
+   arm-linux-gnu
+   arm-linux-musl
+   arm64-darwin
+@@ -238,15 +269,17 @@
+   x86_64-linux-musl
+ 
+ DEPENDENCIES
+-  bootsnap
+   capybara
+   debug
++  importmap-rails
+   jbuilder
+-  puma (~> 5.0)
+-  rails (~> 7.0.8, >= 7.0.8.7)
++  puma (>= 5.0)
++  rails (~> 7.1.5, >= 7.1.5.1)
+   selenium-webdriver
+   sprockets-rails
+-  sqlite3 (~> 1.4)
++  sqlite3 (>= 1.4)
++  stimulus-rails
++  turbo-rails
+   tzinfo-data
+   web-console
+ 
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/app/views/layouts/application.html.erb rails 7.1/app/views/layouts/application.html.erb
+--- rails 7.0/app/views/layouts/application.html.erb	2025-01-10 11:17:35
++++ rails 7.1/app/views/layouts/application.html.erb	2025-01-10 11:17:49
+@@ -1,12 +1,12 @@
+ <!DOCTYPE html>
+ <html>
+   <head>
+-    <title>Rails70</title>
++    <title>Rails71</title>
+     <meta name="viewport" content="width=device-width,initial-scale=1">
+     <%= csrf_meta_tags %>
+     <%= csp_meta_tag %>
+ 
+-    <%= stylesheet_link_tag "application" %>
++    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+   </head>
+ 
+   <body>
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/app/views/layouts/mailer.html.erb rails 7.1/app/views/layouts/mailer.html.erb
+--- rails 7.0/app/views/layouts/mailer.html.erb	2025-01-10 11:17:35
++++ rails 7.1/app/views/layouts/mailer.html.erb	2025-01-10 11:17:49
+@@ -1,7 +1,7 @@
+ <!DOCTYPE html>
+ <html>
+   <head>
+-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
++    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+     <style>
+       /* Email styles need to be inline */
+     </style>
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/bin/docker-entrypoint rails 7.1/bin/docker-entrypoint
+--- rails 7.0/bin/docker-entrypoint	1969-12-31 16:00:00
++++ rails 7.1/bin/docker-entrypoint	2025-01-10 11:17:49
+@@ -0,0 +1,8 @@
++#!/bin/bash -e
++
++# If running the rails server then create or migrate existing database
++if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
++  ./bin/rails db:prepare
++fi
++
++exec "${@}"
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/bin/setup rails 7.1/bin/setup
+--- rails 7.0/bin/setup	2025-01-10 11:17:35
++++ rails 7.1/bin/setup	2025-01-10 11:17:49
+@@ -5,7 +5,7 @@
+ APP_ROOT = File.expand_path("..", __dir__)
+ 
+ def system!(*args)
+-  system(*args) || abort("\n== Command #{args} failed ==")
++  system(*args, exception: true)
+ end
+ 
+ FileUtils.chdir APP_ROOT do
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/application.rb rails 7.1/config/application.rb
+--- rails 7.0/config/application.rb	2025-01-10 11:17:35
++++ rails 7.1/config/application.rb	2025-01-10 11:17:49
+@@ -6,10 +6,15 @@
+ # you've limited to :test, :development, or :production.
+ Bundler.require(*Rails.groups)
+ 
+-module Rails70
++module Rails71
+   class Application < Rails::Application
+     # Initialize configuration defaults for originally generated Rails version.
+-    config.load_defaults 7.0
++    config.load_defaults 7.1
++
++    # Please, add to the `ignore` list any other `lib` subdirectories that do
++    # not contain `.rb` files, or that should not be reloaded or eager loaded.
++    # Common ones are `templates`, `generators`, or `middleware`, for example.
++    config.autoload_lib(ignore: %w(assets tasks))
+ 
+     # Configuration for the application, engines, and railties goes here.
+     #
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/boot.rb rails 7.1/config/boot.rb
+--- rails 7.0/config/boot.rb	2025-01-10 11:17:35
++++ rails 7.1/config/boot.rb	2025-01-10 11:17:49
+@@ -1,4 +1,3 @@
+ ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
+ 
+ require "bundler/setup" # Set up gems listed in the Gemfile.
+-require "bootsnap/setup" # Speed up boot time by caching expensive operations.
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/cable.yml rails 7.1/config/cable.yml
+--- rails 7.0/config/cable.yml	2025-01-10 11:17:35
++++ rails 7.1/config/cable.yml	2025-01-10 11:17:49
+@@ -7,4 +7,4 @@
+ production:
+   adapter: redis
+   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+-  channel_prefix: rails_7_0_production
++  channel_prefix: rails_7_1_production
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/credentials.yml.enc rails 7.1/config/credentials.yml.enc
+--- rails 7.0/config/credentials.yml.enc	2025-01-10 11:17:35
++++ rails 7.1/config/credentials.yml.enc	2025-01-10 11:17:49
+@@ -1 +1 @@
+-a6J57rx98LQotIs9YfD0cODEZTAkqKn4APM70SfzoRZakhxvcuYQaEuqp09PlkkMyVQRkT5XiWnw19xHZe6Kh/1DlK0ufFvkF0UIKXA8ZsKr+5ZKwu2IEnICytYJF/7rkY4NweT1e+ejTc5YSi8BIEpTPqzT0hSV/Jaj0l8I2v9yJGShua+aF10CDV0ze3jiwOBMHj3bWWE4DI9stfU9r/YjqrNi7JQ1ZXIQxNPBaWMkxXHuOo5fmf/o+G79tdAB9vk+WZATFzSzm0qh3TGCmO1CRGWSq5Drc1IMPM30LsV9USIaqyHIQSoZY5OZNYjBytKSfj6WMu/NM82meSoSc0k1rXjdy0Bg1C07KS5JlEKhwHvkYPGXLyUaCL7plmU/WtiZpQoiUxQMeNeJ4EGJV70ZBzCwH3FMiZv8--Pj95wMQcxbBbNGoq--/LMbzwooEF0pR2yusDcqWQ==
+\ No newline at end of file
++juqr6ubzqW1240dC4w9nDLc3cT0XYk7BriHb6wX/x+BXnpzFdozWtl9zlZQwq+8ZMgJJTJKlKCIB3tVsefuR3S2cTq2Sxk34Frw9+cPyuwdXIFaBRZLRxvxAxOH9MViEUxJI4WG/LTDqb0A2C1xXwuu0LM4cu+e2ZfkkcumksxoJ6yO9rfo+BaU3FR4xedbX7T6pp80KMMc++s2JVPzllwvPo5HZ8bRlmGQL2/BymHIZ69kdylPurDq9O+7iXDxGhcLb8+CXQrSZP6BIwSnoerwjU+WH1+38HPG5aXbA59klUJ7hgeWwyN3p2bldsxEISH+ePp3ocWoJMWKskAioxn0IeoV3Iw3rCdZAdTKBywln2kFTk3m5pKBZc5fWvIjdTauKltnHqdDcyUiQGd3sXMgvzLDo--iGsPzJqcyXHUrJny--gvnK5SUOPHdKtrFRN9OQ4g==
+\ No newline at end of file
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/database.yml rails 7.1/config/database.yml
+--- rails 7.0/config/database.yml	2025-01-10 11:17:35
++++ rails 7.1/config/database.yml	2025-01-10 11:17:49
+@@ -11,15 +11,15 @@
+ 
+ development:
+   <<: *default
+-  database: db/development.sqlite3
++  database: storage/development.sqlite3
+ 
+ # Warning: The database defined as "test" will be erased and
+ # re-generated from your development database when you run "rake".
+ # Do not set this db to the same as development or production.
+ test:
+   <<: *default
+-  database: db/test.sqlite3
++  database: storage/test.sqlite3
+ 
+ production:
+   <<: *default
+-  database: db/production.sqlite3
++  database: storage/production.sqlite3
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/environments/development.rb rails 7.1/config/environments/development.rb
+--- rails 7.0/config/environments/development.rb	2025-01-10 11:17:35
++++ rails 7.1/config/environments/development.rb	2025-01-10 11:17:49
+@@ -6,7 +6,7 @@
+   # In the development environment your application's code is reloaded any time
+   # it changes. This slows down response time but is perfect for development
+   # since you don't have to restart the web server when you make code changes.
+-  config.cache_classes = false
++  config.enable_reloading = true
+ 
+   # Do not eager load code on boot.
+   config.eager_load = false
+@@ -56,6 +56,9 @@
+   # Highlight code that triggered database queries in logs.
+   config.active_record.verbose_query_logs = true
+ 
++  # Highlight code that enqueued background job in logs.
++  config.active_job.verbose_enqueue_logs = true
++
+   # Suppress logger output for asset requests.
+   config.assets.quiet = true
+ 
+@@ -67,4 +70,7 @@
+ 
+   # Uncomment if you wish to allow Action Cable access from any origin.
+   # config.action_cable.disable_request_forgery_protection = true
++
++  # Raise error when a before_action's only/except options reference missing actions
++  config.action_controller.raise_on_missing_callback_actions = true
+ end
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/environments/production.rb rails 7.1/config/environments/production.rb
+--- rails 7.0/config/environments/production.rb	2025-01-10 11:17:35
++++ rails 7.1/config/environments/production.rb	2025-01-10 11:17:49
+@@ -4,7 +4,7 @@
+   # Settings specified here will take precedence over those in config/application.rb.
+ 
+   # Code is not reloaded between requests.
+-  config.cache_classes = true
++  config.enable_reloading = false
+ 
+   # Eager load code on boot. This eager loads most of Rails and
+   # your application in memory, allowing both threaded web servers
+@@ -16,18 +16,17 @@
+   config.consider_all_requests_local       = false
+   config.action_controller.perform_caching = true
+ 
+-  # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
+-  # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
++  # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
++  # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
+   # config.require_master_key = true
+ 
+-  # Disable serving static files from the `/public` folder by default since
+-  # Apache or NGINX already handles this.
+-  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
++  # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
++  # config.public_file_server.enabled = false
+ 
+   # Compress CSS using a preprocessor.
+   # config.assets.css_compressor = :sass
+ 
+-  # Do not fallback to assets pipeline if a precompiled asset is missed.
++  # Do not fall back to assets pipeline if a precompiled asset is missed.
+   config.assets.compile = false
+ 
+   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+@@ -45,22 +44,32 @@
+   # config.action_cable.url = "wss://example.com/cable"
+   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
+ 
++  # Assume all access to the app is happening through a SSL-terminating reverse proxy.
++  # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
++  # config.assume_ssl = true
++
+   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+-  # config.force_ssl = true
++  config.force_ssl = true
+ 
+-  # Include generic and useful information about system operation, but avoid logging too much
+-  # information to avoid inadvertent exposure of personally identifiable information (PII).
+-  config.log_level = :info
++  # Log to STDOUT by default
++  config.logger = ActiveSupport::Logger.new(STDOUT)
++    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
++    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+ 
+   # Prepend all log lines with the following tags.
+   config.log_tags = [ :request_id ]
+ 
++  # "info" includes generic and useful information about system operation, but avoids logging too much
++  # information to avoid inadvertent exposure of personally identifiable information (PII). If you
++  # want to log everything, set the level to "debug".
++  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
++
+   # Use a different cache store in production.
+   # config.cache_store = :mem_cache_store
+ 
+   # Use a real queuing backend for Active Job (and separate queues per environment).
+   # config.active_job.queue_adapter     = :resque
+-  # config.active_job.queue_name_prefix = "rails_7_0_production"
++  # config.active_job.queue_name_prefix = "rails_7_1_production"
+ 
+   config.action_mailer.perform_caching = false
+ 
+@@ -75,19 +84,14 @@
+   # Don't log any deprecations.
+   config.active_support.report_deprecations = false
+ 
+-  # Use default logging formatter so that PID and timestamp are not suppressed.
+-  config.log_formatter = ::Logger::Formatter.new
+-
+-  # Use a different logger for distributed setups.
+-  # require "syslog/logger"
+-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
+-
+-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+-    logger           = ActiveSupport::Logger.new(STDOUT)
+-    logger.formatter = config.log_formatter
+-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+-  end
+-
+   # Do not dump schema after migrations.
+   config.active_record.dump_schema_after_migration = false
++
++  # Enable DNS rebinding protection and other `Host` header attacks.
++  # config.hosts = [
++  #   "example.com",     # Allow requests from example.com
++  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
++  # ]
++  # Skip DNS rebinding protection for the default health check endpoint.
++  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+ end
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/environments/test.rb rails 7.1/config/environments/test.rb
+--- rails 7.0/config/environments/test.rb	2025-01-10 11:17:35
++++ rails 7.1/config/environments/test.rb	2025-01-10 11:17:49
+@@ -8,12 +8,13 @@
+ Rails.application.configure do
+   # Settings specified here will take precedence over those in config/application.rb.
+ 
+-  # Turn false under Spring and add config.action_view.cache_template_loading = true.
+-  config.cache_classes = true
++  # While tests run files are not watched, reloading is not necessary.
++  config.enable_reloading = false
+ 
+-  # Eager loading loads your whole application. When running a single test locally,
+-  # this probably isn't necessary. It's a good idea to do in a continuous integration
+-  # system, or in some way before deploying your code.
++  # Eager loading loads your entire application. When running a single test locally,
++  # this is usually not necessary, and can slow down your test suite. However, it's
++  # recommended that you enable it in continuous integration systems to ensure eager
++  # loading is working properly before deploying your code.
+   config.eager_load = ENV["CI"].present?
+ 
+   # Configure public file server for tests with Cache-Control for performance.
+@@ -27,8 +28,8 @@
+   config.action_controller.perform_caching = false
+   config.cache_store = :null_store
+ 
+-  # Raise exceptions instead of rendering exception templates.
+-  config.action_dispatch.show_exceptions = false
++  # Render exception templates for rescuable exceptions and raise for other exceptions.
++  config.action_dispatch.show_exceptions = :rescuable
+ 
+   # Disable request forgery protection in test environment.
+   config.action_controller.allow_forgery_protection = false
+@@ -57,4 +58,7 @@
+ 
+   # Annotate rendered view with file names.
+   # config.action_view.annotate_rendered_view_with_filenames = true
++
++  # Raise error when a before_action's only/except options reference missing actions
++  config.action_controller.raise_on_missing_callback_actions = true
+ end
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/initializers/content_security_policy.rb rails 7.1/config/initializers/content_security_policy.rb
+--- rails 7.0/config/initializers/content_security_policy.rb	2025-01-10 11:17:35
++++ rails 7.1/config/initializers/content_security_policy.rb	2025-01-10 11:17:49
+@@ -16,9 +16,9 @@
+ #     # policy.report_uri "/csp-violation-report-endpoint"
+ #   end
+ #
+-#   # Generate session nonces for permitted importmap and inline scripts
++#   # Generate session nonces for permitted importmap, inline scripts, and inline styles.
+ #   config.content_security_policy_nonce_generator = ->(request) { request.session.id.to_s }
+-#   config.content_security_policy_nonce_directives = %w(script-src)
++#   config.content_security_policy_nonce_directives = %w(script-src style-src)
+ #
+ #   # Report violations without enforcing the policy.
+ #   # config.content_security_policy_report_only = true
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/initializers/filter_parameter_logging.rb rails 7.1/config/initializers/filter_parameter_logging.rb
+--- rails 7.0/config/initializers/filter_parameter_logging.rb	2025-01-10 11:17:35
++++ rails 7.1/config/initializers/filter_parameter_logging.rb	2025-01-10 11:17:49
+@@ -1,8 +1,8 @@
+ # Be sure to restart your server when you modify this file.
+ 
+-# Configure parameters to be filtered from the log file. Use this to limit dissemination of
+-# sensitive information. See the ActiveSupport::ParameterFilter documentation for supported
+-# notations and behaviors.
++# Configure parameters to be partially matched (e.g. passw matches password) and filtered from the log file.
++# Use this to limit dissemination of sensitive information.
++# See the ActiveSupport::ParameterFilter documentation for supported notations and behaviors.
+ Rails.application.config.filter_parameters += [
+   :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn
+ ]
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/initializers/permissions_policy.rb rails 7.1/config/initializers/permissions_policy.rb
+--- rails 7.0/config/initializers/permissions_policy.rb	2025-01-10 11:17:35
++++ rails 7.1/config/initializers/permissions_policy.rb	2025-01-10 11:17:49
+@@ -1,11 +1,13 @@
++# Be sure to restart your server when you modify this file.
++
+ # Define an application-wide HTTP permissions policy. For further
+-# information see https://developers.google.com/web/updates/2018/06/feature-policy
+-#
+-# Rails.application.config.permissions_policy do |f|
+-#   f.camera      :none
+-#   f.gyroscope   :none
+-#   f.microphone  :none
+-#   f.usb         :none
+-#   f.fullscreen  :self
+-#   f.payment     :self, "https://secure.example.com"
++# information see: https://developers.google.com/web/updates/2018/06/feature-policy
++
++# Rails.application.config.permissions_policy do |policy|
++#   policy.camera      :none
++#   policy.gyroscope   :none
++#   policy.microphone  :none
++#   policy.usb         :none
++#   policy.fullscreen  :self
++#   policy.payment     :self, "https://secure.example.com"
+ # end
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/locales/en.yml rails 7.1/config/locales/en.yml
+--- rails 7.0/config/locales/en.yml	2025-01-10 11:17:35
++++ rails 7.1/config/locales/en.yml	2025-01-10 11:17:49
+@@ -1,6 +1,6 @@
+-# Files in the config/locales directory are used for internationalization
+-# and are automatically loaded by Rails. If you want to use locales other
+-# than English, add the necessary files in this directory.
++# Files in the config/locales directory are used for internationalization and
++# are automatically loaded by Rails. If you want to use locales other than
++# English, add the necessary files in this directory.
+ #
+ # To use the locales, use `I18n.t`:
+ #
+@@ -16,18 +16,16 @@
+ #
+ # This would use the information in config/locales/es.yml.
+ #
+-# The following keys must be escaped otherwise they will not be retrieved by
+-# the default I18n backend:
++# To learn more about the API, please read the Rails Internationalization guide
++# at https://guides.rubyonrails.org/i18n.html.
+ #
+-# true, false, on, off, yes, no
++# Be aware that YAML interprets the following case-insensitive strings as
++# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
++# must be quoted to be interpreted as strings. For example:
+ #
+-# Instead, surround them with single quotes.
+-#
+ # en:
+-#   "true": "foo"
+-#
+-# To learn more, please read the Rails Internationalization guide
+-# available at https://guides.rubyonrails.org/i18n.html.
++#       "yes": yup
++#       enabled: "ON"
+ 
+ en:
+   hello: "Hello world"
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/master.key rails 7.1/config/master.key
+--- rails 7.0/config/master.key	2025-01-10 11:17:35
++++ rails 7.1/config/master.key	2025-01-10 11:17:49
+@@ -1 +1 @@
+-98af99ab76c6fe3b2b7052e1a06db73b
+\ No newline at end of file
++9b4ac97c1a1ff1ea5d9b4f66b6ef375e
+\ No newline at end of file
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/puma.rb rails 7.1/config/puma.rb
+--- rails 7.0/config/puma.rb	2025-01-10 11:17:35
++++ rails 7.1/config/puma.rb	2025-01-10 11:17:49
+@@ -1,43 +1,44 @@
++# This configuration file will be evaluated by Puma. The top-level methods that
++# are invoked here are part of Puma's configuration DSL. For more information
++# about methods provided by the DSL, see https://puma.io/puma/Puma/DSL.html.
++
+ # Puma can serve each request in a thread from an internal thread pool.
+ # The `threads` method setting takes two numbers: a minimum and maximum.
+ # Any libraries that use thread pools should be configured to match
+ # the maximum value specified for Puma. Default is set to 5 threads for minimum
+ # and maximum; this matches the default thread size of Active Record.
+-#
+ max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+ min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
+ threads min_threads_count, max_threads_count
+ 
++rails_env = ENV.fetch("RAILS_ENV") { "development" }
++
++if rails_env == "production"
++  # If you are running more than 1 thread per process, the workers count
++  # should be equal to the number of processors (CPU cores) in production.
++  #
++  # It defaults to 1 because it's impossible to reliably detect how many
++  # CPU cores are available. Make sure to set the `WEB_CONCURRENCY` environment
++  # variable to match the number of processors.
++  worker_count = Integer(ENV.fetch("WEB_CONCURRENCY") { 1 })
++  if worker_count > 1
++    workers worker_count
++  else
++    preload_app!
++  end
++end
+ # Specifies the `worker_timeout` threshold that Puma will use to wait before
+ # terminating a worker in development environments.
+-#
+ worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
+ 
+ # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+-#
+ port ENV.fetch("PORT") { 3000 }
+ 
+ # Specifies the `environment` that Puma will run in.
+-#
+-environment ENV.fetch("RAILS_ENV") { "development" }
++environment rails_env
+ 
+ # Specifies the `pidfile` that Puma will use.
+ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
+-
+-# Specifies the number of `workers` to boot in clustered mode.
+-# Workers are forked web server processes. If using threads and workers together
+-# the concurrency of the application would be max `threads` * `workers`.
+-# Workers do not work on JRuby or Windows (both of which do not support
+-# processes).
+-#
+-# workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+-
+-# Use the `preload_app!` method when specifying a `workers` number.
+-# This directive tells Puma to first boot the application and load code
+-# before forking the application. This takes advantage of Copy On Write
+-# process behavior so workers use less memory.
+-#
+-# preload_app!
+ 
+ # Allow puma to be restarted by `bin/rails restart` command.
+ plugin :tmp_restart
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/routes.rb rails 7.1/config/routes.rb
+--- rails 7.0/config/routes.rb	2025-01-10 11:17:35
++++ rails 7.1/config/routes.rb	2025-01-10 11:17:49
+@@ -1,6 +1,10 @@
+ Rails.application.routes.draw do
+   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+ 
++  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
++  # Can be used by load balancers and uptime monitors to verify that the app is live.
++  get "up" => "rails/health#show", as: :rails_health_check
++
+   # Defines the root path route ("/")
+-  # root "articles#index"
++  # root "posts#index"
+ end
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/db/seeds.rb rails 7.1/db/seeds.rb
+--- rails 7.0/db/seeds.rb	2025-01-10 11:17:35
++++ rails 7.1/db/seeds.rb	2025-01-10 11:17:49
+@@ -1,7 +1,9 @@
+-# This file should contain all the record creation needed to seed the database with its default values.
++# This file should ensure the existence of records required to run the application in every environment (production,
++# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
+ # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+ #
+-# Examples:
++# Example:
+ #
+-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+-#   Character.create(name: "Luke", movie: movies.first)
++#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
++#     MovieGenre.find_or_create_by!(name: genre_name)
++#   end
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/test/channels/application_cable/connection_test.rb rails 7.1/test/channels/application_cable/connection_test.rb
+--- rails 7.0/test/channels/application_cable/connection_test.rb	2025-01-10 11:17:35
++++ rails 7.1/test/channels/application_cable/connection_test.rb	2025-01-10 11:17:49
+@@ -1,6 +1,7 @@
+ require "test_helper"
+ 
+-class ApplicationCable::ConnectionTest < ActionCable::Connection::TestCase
++module ApplicationCable
++  class ConnectionTest < ActionCable::Connection::TestCase
+     # test "connects with cookies" do
+     #   cookies.signed[:user_id] = 42
+     #
+@@ -8,4 +9,5 @@
+     #
+     #   assert_equal connection.user_id, "42"
+     # end
++  end
+ end
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/test/test_helper.rb rails 7.1/test/test_helper.rb
+--- rails 7.0/test/test_helper.rb	2025-01-10 11:17:35
++++ rails 7.1/test/test_helper.rb	2025-01-10 11:17:49
+@@ -2,7 +2,8 @@
+ require_relative "../config/environment"
+ require "rails/test_help"
+ 
+-class ActiveSupport::TestCase
++module ActiveSupport
++  class TestCase
+     # Run tests in parallel with specified workers
+     parallelize(workers: :number_of_processors)
+ 
+@@ -10,4 +11,5 @@
+     fixtures :all
+ 
+     # Add more helper methods to be used by all tests here...
++  end
+ end

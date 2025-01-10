@@ -1,6 +1,6 @@
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/.gitignore rails 5.0/.gitignore
 --- rails 4.2/.gitignore	2023-08-21 10:48:04
-+++ rails 5.0/.gitignore	2023-08-21 12:38:11
++++ rails 5.0/.gitignore	2025-01-10 11:16:48
 @@ -13,5 +13,9 @@
  
  # Ignore all logfiles and tempfiles.
@@ -14,7 +14,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +.byebug_history
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/Gemfile rails 5.0/Gemfile
 --- rails 4.2/Gemfile	2023-08-21 10:48:04
-+++ rails 5.0/Gemfile	2023-08-21 12:38:11
++++ rails 5.0/Gemfile	2025-01-10 11:16:48
 @@ -1,47 +1,53 @@
  source 'https://rubygems.org'
  
@@ -86,8 +86,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/Gemfile.lock rails 5.0/Gemfile.lock
 --- rails 4.2/Gemfile.lock	2023-08-21 10:48:04
-+++ rails 5.0/Gemfile.lock	2023-08-21 12:38:13
-@@ -1,113 +1,131 @@
++++ rails 5.0/Gemfile.lock	2025-01-10 11:16:50
+@@ -1,113 +1,133 @@
  GEM
    remote: https://rubygems.org/
    specs:
@@ -158,9 +158,11 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -    arel (6.0.4)
 -    binding_of_caller (1.0.0)
 -      debug_inspector (>= 0.0.1)
+-    builder (3.2.4)
 +    arel (7.1.4)
++    base64 (0.2.0)
 +    bindex (0.8.1)
-     builder (3.2.4)
++    builder (3.3.0)
      byebug (11.1.3)
 -    coffee-rails (4.1.1)
 +    coffee-rails (4.2.2)
@@ -172,24 +174,26 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
        execjs
      coffee-script-source (1.12.2)
 -    concurrent-ruby (1.1.10)
-+    concurrent-ruby (1.2.2)
++    concurrent-ruby (1.3.4)
      crass (1.0.6)
 -    debug_inspector (1.1.0)
-+    date (3.3.3)
++    date (3.4.1)
      erubis (2.7.0)
-     execjs (2.8.1)
-     ffi (1.15.5)
+-    execjs (2.8.1)
+-    ffi (1.15.5)
 -    globalid (0.4.2)
 -      activesupport (>= 4.2.0)
 -    i18n (0.9.5)
++    execjs (2.10.0)
++    ffi (1.17.1-arm64-darwin)
 +    globalid (1.1.0)
 +      activesupport (>= 5.0)
-+    i18n (1.14.1)
++    i18n (1.14.6)
        concurrent-ruby (~> 1.0)
 -    jbuilder (2.9.1)
 -      activesupport (>= 4.2.0)
 -    jquery-rails (4.5.0)
-+    jbuilder (2.11.5)
++    jbuilder (2.13.0)
 +      actionview (>= 5.0.0)
 +      activesupport (>= 5.0.0)
 +    jquery-rails (4.6.0)
@@ -201,7 +205,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +    listen (3.0.8)
 +      rb-fsevent (~> 0.9, >= 0.9.4)
 +      rb-inotify (~> 0.9, >= 0.9.7)
-+    loofah (2.21.3)
++    loofah (2.24.0)
        crass (~> 1.0.2)
 -      nokogiri (>= 1.5.9)
 -    mail (2.7.1)
@@ -216,26 +220,27 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +      net-imap
 +      net-pop
 +      net-smtp
-+    method_source (1.0.0)
++    method_source (1.1.0)
 +    mini_mime (1.1.5)
-+    minitest (5.19.0)
-+    net-imap (0.3.7)
++    mini_portile2 (2.8.8)
++    minitest (5.25.4)
++    net-imap (0.4.18)
 +      date
 +      net-protocol
 +    net-pop (0.1.2)
 +      net-protocol
-+    net-protocol (0.2.1)
++    net-protocol (0.2.2)
 +      timeout
-+    net-smtp (0.3.3)
++    net-smtp (0.5.0)
 +      net-protocol
-+    nio4r (2.5.9)
-+    nokogiri (1.15.4-arm64-darwin)
++    nio4r (2.7.4)
++    nokogiri (1.15.7-arm64-darwin)
        racc (~> 1.4)
 -    racc (1.6.0)
 -    rack (1.6.13)
 +    puma (3.12.6)
-+    racc (1.7.1)
-+    rack (2.2.8)
++    racc (1.8.1)
++    rack (2.2.10)
      rack-test (0.6.3)
        rack (>= 1.0)
 -    rails (4.2.11.3)
@@ -276,24 +281,26 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +      activesupport (>= 5.0.0)
 +      minitest
 +      nokogiri (>= 1.6)
-+    rails-html-sanitizer (1.6.0)
++    rails-html-sanitizer (1.6.2)
 +      loofah (~> 2.21)
-+      nokogiri (~> 1.14)
++      nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
 +    railties (5.0.7.2)
 +      actionpack (= 5.0.7.2)
 +      activesupport (= 5.0.7.2)
 +      method_source
        rake (>= 0.8.7)
        thor (>= 0.18.1, < 2.0)
-     rake (13.0.6)
+-    rake (13.0.6)
++    rake (13.2.1)
      rb-fsevent (0.11.2)
-     rb-inotify (0.10.1)
+-    rb-inotify (0.10.1)
++    rb-inotify (0.11.1)
        ffi (~> 1.0)
 -    rdoc (4.3.0)
      sass (3.7.4)
        sass-listen (~> 4.0.0)
      sass-listen (4.0.0)
-@@ -119,10 +137,10 @@
+@@ -119,51 +139,59 @@
        sprockets (>= 2.8, < 4.0)
        sprockets-rails (>= 2.0, < 4.0)
        tilt (>= 1.1, < 3)
@@ -301,33 +308,36 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -      json (~> 1.7, >= 1.7.7)
 -      rdoc (~> 4.0)
 -    spring (3.1.1)
+-    sprockets (3.7.2)
 +    spring (2.1.1)
 +    spring-watcher-listen (2.0.1)
 +      listen (>= 2.7, < 4.0)
 +      spring (>= 1.2, < 3.0)
-     sprockets (3.7.2)
++    sprockets (3.7.5)
++      base64
        concurrent-ruby (~> 1.0)
        rack (> 1, < 3)
-@@ -130,40 +148,46 @@
+     sprockets-rails (3.2.2)
        actionpack (>= 4.0)
        activesupport (>= 4.0)
        sprockets (>= 3.0.0)
 -    sqlite3 (1.5.3)
--      mini_portile2 (~> 2.8.0)
++    sqlite3 (1.7.3)
+       mini_portile2 (~> 2.8.0)
 -    thor (1.2.1)
-+    sqlite3 (1.6.3-arm64-darwin)
-+    thor (1.2.2)
++    thor (1.3.2)
      thread_safe (0.3.6)
 -    tilt (2.0.11)
-+    tilt (2.2.0)
-+    timeout (0.4.0)
++    tilt (2.5.0)
++    timeout (0.4.3)
      turbolinks (5.2.1)
        turbolinks-source (~> 5.2)
      turbolinks-source (5.2.0)
 -    tzinfo (1.2.10)
 +    tzinfo (1.2.11)
        thread_safe (~> 0.1)
-     uglifier (4.2.0)
+-    uglifier (4.2.0)
++    uglifier (4.2.1)
        execjs (>= 0.3.0, < 3)
 -    web-console (2.3.0)
 -      activemodel (>= 4.0)
@@ -375,7 +385,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +   2.4.12
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/README.md rails 5.0/README.md
 --- rails 4.2/README.md	1969-12-31 16:00:00
-+++ rails 5.0/README.md	2023-08-21 12:38:11
++++ rails 5.0/README.md	2025-01-10 11:16:48
 @@ -0,0 +1,24 @@
 +# README
 +
@@ -404,7 +414,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 Only in rails 4.2: README.rdoc
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/Rakefile rails 5.0/Rakefile
 --- rails 4.2/Rakefile	2023-08-21 10:48:04
-+++ rails 5.0/Rakefile	2023-08-21 12:38:11
++++ rails 5.0/Rakefile	2025-01-10 11:16:48
 @@ -1,6 +1,6 @@
  # Add your own tasks in files placed in lib/tasks ending in .rake,
  # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
@@ -415,14 +425,14 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  Rails.application.load_tasks
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/assets/config/manifest.js rails 5.0/app/assets/config/manifest.js
 --- rails 4.2/app/assets/config/manifest.js	1969-12-31 16:00:00
-+++ rails 5.0/app/assets/config/manifest.js	2023-08-21 12:38:11
++++ rails 5.0/app/assets/config/manifest.js	2025-01-10 11:16:48
 @@ -0,0 +1,3 @@
 +//= link_tree ../images
 +//= link_directory ../javascripts .js
 +//= link_directory ../stylesheets .css
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/assets/javascripts/application.js rails 5.0/app/assets/javascripts/application.js
 --- rails 4.2/app/assets/javascripts/application.js	2023-08-21 10:48:04
-+++ rails 5.0/app/assets/javascripts/application.js	2023-08-21 12:38:11
++++ rails 5.0/app/assets/javascripts/application.js	2025-01-10 11:16:48
 @@ -5,7 +5,7 @@
  // or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
  //
@@ -434,7 +444,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  // about supported directives.
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/assets/javascripts/cable.js rails 5.0/app/assets/javascripts/cable.js
 --- rails 4.2/app/assets/javascripts/cable.js	1969-12-31 16:00:00
-+++ rails 5.0/app/assets/javascripts/cable.js	2023-08-21 12:38:11
++++ rails 5.0/app/assets/javascripts/cable.js	2025-01-10 11:16:48
 @@ -0,0 +1,13 @@
 +// Action Cable provides the framework to deal with WebSockets in Rails.
 +// You can generate new channels where WebSocket features live using the rails generate channel command.
@@ -451,7 +461,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +}).call(this);
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/assets/stylesheets/application.css rails 5.0/app/assets/stylesheets/application.css
 --- rails 4.2/app/assets/stylesheets/application.css	2023-08-21 10:48:04
-+++ rails 5.0/app/assets/stylesheets/application.css	2023-08-21 12:38:11
++++ rails 5.0/app/assets/stylesheets/application.css	2025-01-10 11:16:48
 @@ -6,9 +6,9 @@
   * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
   *
@@ -467,7 +477,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
   *= require_self
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/channels/application_cable/channel.rb rails 5.0/app/channels/application_cable/channel.rb
 --- rails 4.2/app/channels/application_cable/channel.rb	1969-12-31 16:00:00
-+++ rails 5.0/app/channels/application_cable/channel.rb	2023-08-21 12:38:11
++++ rails 5.0/app/channels/application_cable/channel.rb	2025-01-10 11:16:48
 @@ -0,0 +1,4 @@
 +module ApplicationCable
 +  class Channel < ActionCable::Channel::Base
@@ -475,7 +485,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/channels/application_cable/connection.rb rails 5.0/app/channels/application_cable/connection.rb
 --- rails 4.2/app/channels/application_cable/connection.rb	1969-12-31 16:00:00
-+++ rails 5.0/app/channels/application_cable/connection.rb	2023-08-21 12:38:11
++++ rails 5.0/app/channels/application_cable/connection.rb	2025-01-10 11:16:48
 @@ -0,0 +1,4 @@
 +module ApplicationCable
 +  class Connection < ActionCable::Connection::Base
@@ -483,7 +493,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/controllers/application_controller.rb rails 5.0/app/controllers/application_controller.rb
 --- rails 4.2/app/controllers/application_controller.rb	2023-08-21 10:48:04
-+++ rails 5.0/app/controllers/application_controller.rb	2023-08-21 12:38:11
++++ rails 5.0/app/controllers/application_controller.rb	2025-01-10 11:16:48
 @@ -1,5 +1,3 @@
  class ApplicationController < ActionController::Base
 -  # Prevent CSRF attacks by raising an exception.
@@ -492,14 +502,14 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/jobs/application_job.rb rails 5.0/app/jobs/application_job.rb
 --- rails 4.2/app/jobs/application_job.rb	1969-12-31 16:00:00
-+++ rails 5.0/app/jobs/application_job.rb	2023-08-21 12:38:11
++++ rails 5.0/app/jobs/application_job.rb	2025-01-10 11:16:48
 @@ -0,0 +1,2 @@
 +class ApplicationJob < ActiveJob::Base
 +end
 Only in rails 4.2/app/mailers: .keep
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/mailers/application_mailer.rb rails 5.0/app/mailers/application_mailer.rb
 --- rails 4.2/app/mailers/application_mailer.rb	1969-12-31 16:00:00
-+++ rails 5.0/app/mailers/application_mailer.rb	2023-08-21 12:38:11
++++ rails 5.0/app/mailers/application_mailer.rb	2025-01-10 11:16:48
 @@ -0,0 +1,4 @@
 +class ApplicationMailer < ActionMailer::Base
 +  default from: 'from@example.com'
@@ -508,14 +518,14 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 Only in rails 4.2/app/models: .keep
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/models/application_record.rb rails 5.0/app/models/application_record.rb
 --- rails 4.2/app/models/application_record.rb	1969-12-31 16:00:00
-+++ rails 5.0/app/models/application_record.rb	2023-08-21 12:38:11
++++ rails 5.0/app/models/application_record.rb	2025-01-10 11:16:48
 @@ -0,0 +1,3 @@
 +class ApplicationRecord < ActiveRecord::Base
 +  self.abstract_class = true
 +end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/views/layouts/application.html.erb rails 5.0/app/views/layouts/application.html.erb
 --- rails 4.2/app/views/layouts/application.html.erb	2023-08-21 10:48:04
-+++ rails 5.0/app/views/layouts/application.html.erb	2023-08-21 12:38:11
++++ rails 5.0/app/views/layouts/application.html.erb	2025-01-10 11:16:48
 @@ -1,14 +1,14 @@
  <!DOCTYPE html>
  <html>
@@ -542,7 +552,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  </html>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/views/layouts/mailer.html.erb rails 5.0/app/views/layouts/mailer.html.erb
 --- rails 4.2/app/views/layouts/mailer.html.erb	1969-12-31 16:00:00
-+++ rails 5.0/app/views/layouts/mailer.html.erb	2023-08-21 12:38:11
++++ rails 5.0/app/views/layouts/mailer.html.erb	2025-01-10 11:16:48
 @@ -0,0 +1,13 @@
 +<!DOCTYPE html>
 +<html>
@@ -559,12 +569,12 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +</html>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/app/views/layouts/mailer.text.erb rails 5.0/app/views/layouts/mailer.text.erb
 --- rails 4.2/app/views/layouts/mailer.text.erb	1969-12-31 16:00:00
-+++ rails 5.0/app/views/layouts/mailer.text.erb	2023-08-21 12:38:11
++++ rails 5.0/app/views/layouts/mailer.text.erb	2025-01-10 11:16:48
 @@ -0,0 +1 @@
 +<%= yield %>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/bin/rails rails 5.0/bin/rails
 --- rails 4.2/bin/rails	2023-08-21 10:48:04
-+++ rails 5.0/bin/rails	2023-08-21 12:38:13
++++ rails 5.0/bin/rails	2025-01-10 11:16:50
 @@ -4,6 +4,6 @@
  rescue LoadError => e
    raise unless e.message.include?('spring')
@@ -575,7 +585,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  require 'rails/commands'
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/bin/setup rails 5.0/bin/setup
 --- rails 4.2/bin/setup	2023-08-21 10:48:04
-+++ rails 5.0/bin/setup	2023-08-21 12:38:11
++++ rails 5.0/bin/setup	2025-01-10 11:16:48
 @@ -1,29 +1,34 @@
  #!/usr/bin/env ruby
  require 'pathname'
@@ -624,7 +634,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/bin/update rails 5.0/bin/update
 --- rails 4.2/bin/update	1969-12-31 16:00:00
-+++ rails 5.0/bin/update	2023-08-21 12:38:11
++++ rails 5.0/bin/update	2025-01-10 11:16:48
 @@ -0,0 +1,29 @@
 +#!/usr/bin/env ruby
 +require 'pathname'
@@ -657,7 +667,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/application.rb rails 5.0/config/application.rb
 --- rails 4.2/config/application.rb	2023-08-21 10:48:04
-+++ rails 5.0/config/application.rb	2023-08-21 12:38:11
++++ rails 5.0/config/application.rb	2025-01-10 11:16:48
 @@ -1,4 +1,4 @@
 -require File.expand_path('../boot', __FILE__)
 +require_relative 'boot'
@@ -689,7 +699,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/boot.rb rails 5.0/config/boot.rb
 --- rails 4.2/config/boot.rb	2023-08-21 10:48:04
-+++ rails 5.0/config/boot.rb	2023-08-21 12:38:11
++++ rails 5.0/config/boot.rb	2025-01-10 11:16:48
 @@ -1,3 +1,3 @@
 -ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 +ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
@@ -697,7 +707,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  require 'bundler/setup' # Set up gems listed in the Gemfile.
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/cable.yml rails 5.0/config/cable.yml
 --- rails 4.2/config/cable.yml	1969-12-31 16:00:00
-+++ rails 5.0/config/cable.yml	2023-08-21 12:38:11
++++ rails 5.0/config/cable.yml	2025-01-10 11:16:48
 @@ -0,0 +1,9 @@
 +development:
 +  adapter: async
@@ -710,7 +720,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  url: redis://localhost:6379/1
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/environment.rb rails 5.0/config/environment.rb
 --- rails 4.2/config/environment.rb	2023-08-21 10:48:04
-+++ rails 5.0/config/environment.rb	2023-08-21 12:38:11
++++ rails 5.0/config/environment.rb	2025-01-10 11:16:48
 @@ -1,5 +1,5 @@
  # Load the Rails application.
 -require File.expand_path('../application', __FILE__)
@@ -720,7 +730,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  Rails.application.initialize!
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/environments/development.rb rails 5.0/config/environments/development.rb
 --- rails 4.2/config/environments/development.rb	2023-08-21 10:48:04
-+++ rails 5.0/config/environments/development.rb	2023-08-21 12:38:11
++++ rails 5.0/config/environments/development.rb	2025-01-10 11:16:48
 @@ -9,13 +9,28 @@
    # Do not eager load code on boot.
    config.eager_load = false
@@ -775,7 +785,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/environments/production.rb rails 5.0/config/environments/production.rb
 --- rails 4.2/config/environments/production.rb	2023-08-21 10:48:04
-+++ rails 5.0/config/environments/production.rb	2023-08-21 12:38:11
++++ rails 5.0/config/environments/production.rb	2025-01-10 11:16:48
 @@ -14,15 +14,9 @@
    config.consider_all_requests_local       = false
    config.action_controller.perform_caching = true
@@ -859,7 +869,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    config.active_record.dump_schema_after_migration = false
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/environments/test.rb rails 5.0/config/environments/test.rb
 --- rails 4.2/config/environments/test.rb	2023-08-21 10:48:04
-+++ rails 5.0/config/environments/test.rb	2023-08-21 12:38:11
++++ rails 5.0/config/environments/test.rb	2025-01-10 11:16:48
 @@ -12,9 +12,11 @@
    # preloads Rails for running tests, you may have to set it to true.
    config.eager_load = false
@@ -893,7 +903,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    config.active_support.deprecation = :stderr
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/initializers/application_controller_renderer.rb rails 5.0/config/initializers/application_controller_renderer.rb
 --- rails 4.2/config/initializers/application_controller_renderer.rb	1969-12-31 16:00:00
-+++ rails 5.0/config/initializers/application_controller_renderer.rb	2023-08-21 12:38:11
++++ rails 5.0/config/initializers/application_controller_renderer.rb	2025-01-10 11:16:48
 @@ -0,0 +1,8 @@
 +# Be sure to restart your server when you modify this file.
 +
@@ -905,7 +915,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/initializers/cookies_serializer.rb rails 5.0/config/initializers/cookies_serializer.rb
 --- rails 4.2/config/initializers/cookies_serializer.rb	2023-08-21 10:48:04
-+++ rails 5.0/config/initializers/cookies_serializer.rb	2023-08-21 12:38:11
++++ rails 5.0/config/initializers/cookies_serializer.rb	2025-01-10 11:16:48
 @@ -1,3 +1,5 @@
  # Be sure to restart your server when you modify this file.
  
@@ -914,7 +924,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  Rails.application.config.action_dispatch.cookies_serializer = :json
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/initializers/new_framework_defaults.rb rails 5.0/config/initializers/new_framework_defaults.rb
 --- rails 4.2/config/initializers/new_framework_defaults.rb	1969-12-31 16:00:00
-+++ rails 5.0/config/initializers/new_framework_defaults.rb	2023-08-21 12:38:11
++++ rails 5.0/config/initializers/new_framework_defaults.rb	2025-01-10 11:16:48
 @@ -0,0 +1,26 @@
 +# Be sure to restart your server when you modify this file.
 +#
@@ -944,7 +954,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +Rails.application.config.ssl_options = { hsts: { subdomains: true } }
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/initializers/session_store.rb rails 5.0/config/initializers/session_store.rb
 --- rails 4.2/config/initializers/session_store.rb	2023-08-21 10:48:04
-+++ rails 5.0/config/initializers/session_store.rb	2023-08-21 12:38:11
++++ rails 5.0/config/initializers/session_store.rb	2025-01-10 11:16:48
 @@ -1,3 +1,3 @@
  # Be sure to restart your server when you modify this file.
  
@@ -953,7 +963,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 Only in rails 4.2/config/initializers: to_time_preserves_timezone.rb
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/initializers/wrap_parameters.rb rails 5.0/config/initializers/wrap_parameters.rb
 --- rails 4.2/config/initializers/wrap_parameters.rb	2023-08-21 10:48:04
-+++ rails 5.0/config/initializers/wrap_parameters.rb	2023-08-21 12:38:11
++++ rails 5.0/config/initializers/wrap_parameters.rb	2025-01-10 11:16:48
 @@ -5,7 +5,7 @@
  
  # Enable parameter wrapping for JSON. You can disable this by setting :format to an empty array.
@@ -965,7 +975,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  # To enable root element in JSON for ActiveRecord objects.
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/puma.rb rails 5.0/config/puma.rb
 --- rails 4.2/config/puma.rb	1969-12-31 16:00:00
-+++ rails 5.0/config/puma.rb	2023-08-21 12:38:11
++++ rails 5.0/config/puma.rb	2025-01-10 11:16:48
 @@ -0,0 +1,47 @@
 +# Puma can serve each request in a thread from an internal thread pool.
 +# The `threads` method setting takes two numbers a minimum and maximum.
@@ -1016,7 +1026,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +plugin :tmp_restart
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/routes.rb rails 5.0/config/routes.rb
 --- rails 4.2/config/routes.rb	2023-08-21 10:48:04
-+++ rails 5.0/config/routes.rb	2023-08-21 12:38:11
++++ rails 5.0/config/routes.rb	2025-01-10 11:16:48
 @@ -1,56 +1,3 @@
  Rails.application.routes.draw do
 -  # The priority is based upon order of creation: first created -> highest priority.
@@ -1077,7 +1087,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/secrets.yml rails 5.0/config/secrets.yml
 --- rails 4.2/config/secrets.yml	2023-08-21 10:48:04
-+++ rails 5.0/config/secrets.yml	2023-08-21 12:38:11
++++ rails 5.0/config/secrets.yml	2025-01-10 11:16:48
 @@ -5,16 +5,16 @@
  
  # Make sure the secret is at least 30 characters and all random,
@@ -1090,17 +1100,17 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
  development:
 -  secret_key_base: 10593f4fa2f3f8b30037b201cfb1cf9a5f1365e0d43a7d4e33945c0a2fbdbb7871a44c851aec45bd1c9c3e3144f16401fbc40f32289d627c4963498d3f82b147
-+  secret_key_base: 2128b54ccd068870c2f2c14e97b1ce4ca82d46c91548a51c1726d892b21cef5de839250afe88c18d093145b54276f5ca7dd6a25099674b136e1eb22776725809
++  secret_key_base: e6a7a4605c7c59c67896fc80f2c4d0fbff8cd574f1fadce5cdc68f45d48e3449474d6ab5a226134b23a8c0030e44cfae455af1058c2fc60686ab7977032605ee
  
  test:
 -  secret_key_base: 364bb3705f8b6b72a09626305ce2b1557d8b9c135e7feefeb99dc3b419d72fefac94a34acafeb944c7ae5941005b2598fab2b137a2b02e4670f878a30d661f11
-+  secret_key_base: 90339be7d910d79af97fe377bfe5aba64aa2bd58819c4f2a6519ed5325de73d7fc4589270641eea5a4770d4e66e938ff435caa89aab795e97aebc04d1001c143
++  secret_key_base: 05da054823427d33620f4987de8c34cd6cb2080ca216d6beea162b3dd3411c679057ea2867ab9fa1145e07830f9241bdc6e243031073545a575497788d0d71c7
  
  # Do not keep production secrets in the repository,
  # instead read values from the environment.
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config/spring.rb rails 5.0/config/spring.rb
 --- rails 4.2/config/spring.rb	1969-12-31 16:00:00
-+++ rails 5.0/config/spring.rb	2023-08-21 12:38:11
++++ rails 5.0/config/spring.rb	2025-01-10 11:16:48
 @@ -0,0 +1,6 @@
 +%w(
 +  .ruby-version
@@ -1110,7 +1120,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +).each { |path| Spring.watch(path) }
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/config.ru rails 5.0/config.ru
 --- rails 4.2/config.ru	2023-08-21 10:48:04
-+++ rails 5.0/config.ru	2023-08-21 12:38:11
++++ rails 5.0/config.ru	2025-01-10 11:16:48
 @@ -1,4 +1,5 @@
  # This file is used by Rack-based servers to start the application.
  
@@ -1120,7 +1130,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  run Rails.application
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/db/seeds.rb rails 5.0/db/seeds.rb
 --- rails 4.2/db/seeds.rb	2023-08-21 10:48:04
-+++ rails 5.0/db/seeds.rb	2023-08-21 12:38:11
++++ rails 5.0/db/seeds.rb	2025-01-10 11:16:48
 @@ -1,7 +1,7 @@
  # This file should contain all the record creation needed to seed the database with its default values.
 -# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
@@ -1134,7 +1144,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +#   Character.create(name: 'Luke', movie: movies.first)
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/public/404.html rails 5.0/public/404.html
 --- rails 4.2/public/404.html	2023-08-21 10:48:04
-+++ rails 5.0/public/404.html	2023-08-21 12:38:11
++++ rails 5.0/public/404.html	2025-01-10 11:16:48
 @@ -4,7 +4,7 @@
    <title>The page you were looking for doesn't exist (404)</title>
    <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -1187,7 +1197,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
      <div>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/public/422.html rails 5.0/public/422.html
 --- rails 4.2/public/422.html	2023-08-21 10:48:04
-+++ rails 5.0/public/422.html	2023-08-21 12:38:11
++++ rails 5.0/public/422.html	2025-01-10 11:16:48
 @@ -4,7 +4,7 @@
    <title>The change you wanted was rejected (422)</title>
    <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -1240,7 +1250,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
      <div>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 4.2/public/500.html rails 5.0/public/500.html
 --- rails 4.2/public/500.html	2023-08-21 10:48:04
-+++ rails 5.0/public/500.html	2023-08-21 12:38:11
++++ rails 5.0/public/500.html	2025-01-10 11:16:48
 @@ -4,7 +4,7 @@
    <title>We're sorry, but something went wrong (500)</title>
    <meta name="viewport" content="width=device-width,initial-scale=1">
