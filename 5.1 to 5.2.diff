@@ -1,6 +1,6 @@
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/.gitignore rails 5.2/.gitignore
---- rails 5.1/.gitignore	2025-01-10 11:16:51
-+++ rails 5.2/.gitignore	2025-01-10 11:16:54
+--- rails 5.1/.gitignore	2025-12-01 11:48:48
++++ rails 5.2/.gitignore	2025-12-01 11:48:55
 @@ -17,7 +17,15 @@
  !/log/.keep
  !/tmp/.keep
@@ -19,13 +19,13 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +/config/master.key
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/.ruby-version rails 5.2/.ruby-version
 --- rails 5.1/.ruby-version	1969-12-31 16:00:00
-+++ rails 5.2/.ruby-version	2025-01-10 11:16:54
++++ rails 5.2/.ruby-version	2025-12-01 11:48:55
 @@ -0,0 +1 @@
 +2.7.8
 \ No newline at end of file
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/Gemfile rails 5.2/Gemfile
---- rails 5.1/Gemfile	2025-01-10 11:16:51
-+++ rails 5.2/Gemfile	2025-01-10 11:16:54
+--- rails 5.1/Gemfile	2025-12-01 11:48:48
++++ rails 5.2/Gemfile	2025-12-01 11:48:55
 @@ -1,23 +1,20 @@
  source 'https://rubygems.org'
 +git_source(:github) { |repo| "https://github.com/#{repo}.git" }
@@ -96,8 +96,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
  # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/Gemfile.lock rails 5.2/Gemfile.lock
---- rails 5.1/Gemfile.lock	2025-01-10 11:16:53
-+++ rails 5.2/Gemfile.lock	2025-01-10 11:16:56
+--- rails 5.1/Gemfile.lock	2025-12-01 11:48:50
++++ rails 5.2/Gemfile.lock	2025-12-01 11:48:57
 @@ -1,48 +1,56 @@
  GEM
    remote: https://rubygems.org/
@@ -165,15 +165,15 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
        i18n (>= 0.7, < 2)
        minitest (~> 5.1)
        tzinfo (~> 1.1)
-     addressable (2.8.7)
-       public_suffix (>= 2.0.2, < 7.0)
+     addressable (2.8.8)
+       public_suffix (>= 2.0.2, < 8.0)
 -    arel (8.0.0)
-+    archive-zip (0.12.0)
-+      io-like (~> 0.3.0)
++    archive-zip (0.13.1)
++      io-like (~> 0.4.0)
 +    arel (9.0.0)
-     base64 (0.2.0)
+     base64 (0.3.0)
      bindex (0.8.1)
-+    bootsnap (1.18.4)
++    bootsnap (1.19.0)
 +      msgpack (~> 1.2)
      builder (3.3.0)
      byebug (11.1.3)
@@ -190,28 +190,28 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
        railties (>= 4.0.0)
 @@ -71,6 +82,7 @@
        activesupport (>= 5.0)
-     i18n (1.14.6)
+     i18n (1.14.7)
        concurrent-ruby (~> 1.0)
-+    io-like (0.3.1)
++    io-like (0.4.0)
      jbuilder (2.13.0)
        actionview (>= 5.0.0)
        activesupport (>= 5.0.0)
-@@ -86,11 +98,13 @@
+@@ -88,11 +100,13 @@
        net-imap
        net-pop
        net-smtp
 +    marcel (1.0.4)
-     matrix (0.4.2)
+     matrix (0.4.3)
      method_source (1.1.0)
      mini_mime (1.1.5)
-     mini_portile2 (2.8.8)
-     minitest (5.25.4)
-+    msgpack (1.7.5)
-     net-imap (0.4.18)
+     mini_portile2 (2.8.9)
+     minitest (5.26.1)
++    msgpack (1.8.0)
+     net-imap (0.4.22)
        date
        net-protocol
-@@ -109,17 +123,18 @@
-     rack (2.2.10)
+@@ -111,17 +125,18 @@
+     rack (2.2.21)
      rack-test (2.2.0)
        rack (>= 1.3)
 -    rails (5.1.7)
@@ -237,9 +237,9 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -      railties (= 5.1.7)
 +      railties (= 5.2.8.1)
        sprockets-rails (>= 2.0.0)
-     rails-dom-testing (2.2.0)
+     rails-dom-testing (2.3.0)
        activesupport (>= 5.0.0)
-@@ -128,12 +143,12 @@
+@@ -130,12 +145,12 @@
      rails-html-sanitizer (1.6.2)
        loofah (~> 2.21)
        nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
@@ -253,10 +253,10 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
        rake (>= 0.8.7)
 -      thor (>= 0.18.1, < 2.0)
 +      thor (>= 0.19.0, < 2.0)
-     rake (13.2.1)
+     rake (13.3.1)
      rb-fsevent (0.11.2)
      rb-inotify (0.11.1)
-@@ -147,8 +162,8 @@
+@@ -149,8 +164,8 @@
      sass-listen (4.0.0)
        rb-fsevent (~> 0.9, >= 0.9.4)
        rb-inotify (~> 0.9, >= 0.9.7)
@@ -267,7 +267,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
        sass (~> 3.1)
        sprockets (>= 2.8, < 4.0)
        sprockets-rails (>= 2.0, < 4.0)
-@@ -165,9 +180,9 @@
+@@ -167,9 +182,9 @@
        base64
        concurrent-ruby (~> 1.0)
        rack (> 1, < 3)
@@ -280,17 +280,17 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
        sprockets (>= 3.0.0)
      sqlite3 (1.7.3)
        mini_portile2 (~> 2.8.0)
-@@ -188,7 +203,8 @@
+@@ -190,7 +205,8 @@
        bindex (>= 0.4.0)
        railties (>= 5.0)
      websocket (1.2.11)
 -    websocket-driver (0.6.5)
-+    websocket-driver (0.7.7)
++    websocket-driver (0.8.0)
 +      base64
        websocket-extensions (>= 0.1.0)
      websocket-extensions (0.1.5)
      xpath (3.2.0)
-@@ -198,13 +214,15 @@
+@@ -200,13 +216,15 @@
    arm64-darwin-22
  
  DEPENDENCIES
@@ -308,7 +308,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    sass-rails (~> 5.0)
    selenium-webdriver
    spring
-@@ -214,6 +232,9 @@
+@@ -216,6 +234,9 @@
    tzinfo-data
    uglifier (>= 1.3.0)
    web-console (>= 3.3.0)
@@ -317,10 +317,10 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +   ruby 2.7.8p225
  
  BUNDLED WITH
-    2.4.12
+    2.4.22
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/app/assets/javascripts/application.js rails 5.2/app/assets/javascripts/application.js
---- rails 5.1/app/assets/javascripts/application.js	2025-01-10 11:16:51
-+++ rails 5.2/app/assets/javascripts/application.js	2025-01-10 11:16:54
+--- rails 5.1/app/assets/javascripts/application.js	2025-12-01 11:48:48
++++ rails 5.2/app/assets/javascripts/application.js	2025-12-01 11:48:55
 @@ -11,5 +11,6 @@
  // about supported directives.
  //
@@ -329,15 +329,15 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  //= require turbolinks
  //= require_tree .
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/app/controllers/application_controller.rb rails 5.2/app/controllers/application_controller.rb
---- rails 5.1/app/controllers/application_controller.rb	2025-01-10 11:16:51
-+++ rails 5.2/app/controllers/application_controller.rb	2025-01-10 11:16:54
+--- rails 5.1/app/controllers/application_controller.rb	2025-12-01 11:48:48
++++ rails 5.2/app/controllers/application_controller.rb	2025-12-01 11:48:55
 @@ -1,3 +1,2 @@
  class ApplicationController < ActionController::Base
 -  protect_from_forgery with: :exception
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/app/views/layouts/application.html.erb rails 5.2/app/views/layouts/application.html.erb
---- rails 5.1/app/views/layouts/application.html.erb	2025-01-10 11:16:51
-+++ rails 5.2/app/views/layouts/application.html.erb	2025-01-10 11:16:54
+--- rails 5.1/app/views/layouts/application.html.erb	2025-12-01 11:48:48
++++ rails 5.2/app/views/layouts/application.html.erb	2025-12-01 11:48:55
 @@ -1,8 +1,9 @@
  <!DOCTYPE html>
  <html>
@@ -350,16 +350,16 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/bin/bundle rails 5.2/bin/bundle
---- rails 5.1/bin/bundle	2025-01-10 11:16:51
-+++ rails 5.2/bin/bundle	2025-01-10 11:16:54
+--- rails 5.1/bin/bundle	2025-12-01 11:48:48
++++ rails 5.2/bin/bundle	2025-12-01 11:48:55
 @@ -1,3 +1,3 @@
  #!/usr/bin/env ruby
 -ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 +ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
  load Gem.bin_path('bundler', 'bundle')
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/bin/setup rails 5.2/bin/setup
---- rails 5.1/bin/setup	2025-01-10 11:16:51
-+++ rails 5.2/bin/setup	2025-01-10 11:16:54
+--- rails 5.1/bin/setup	2025-12-01 11:48:48
++++ rails 5.2/bin/setup	2025-12-01 11:48:55
 @@ -1,10 +1,9 @@
  #!/usr/bin/env ruby
 -require 'pathname'
@@ -381,8 +381,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    # puts "\n== Copying sample files =="
    # unless File.exist?('config/database.yml')
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/bin/update rails 5.2/bin/update
---- rails 5.1/bin/update	2025-01-10 11:16:51
-+++ rails 5.2/bin/update	2025-01-10 11:16:54
+--- rails 5.1/bin/update	2025-12-01 11:48:48
++++ rails 5.2/bin/update	2025-12-01 11:48:55
 @@ -1,10 +1,9 @@
  #!/usr/bin/env ruby
 -require 'pathname'
@@ -406,8 +406,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    puts "\n== Updating database =="
    system! 'bin/rails db:migrate'
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/bin/yarn rails 5.2/bin/yarn
---- rails 5.1/bin/yarn	2025-01-10 11:16:51
-+++ rails 5.2/bin/yarn	2025-01-10 11:16:54
+--- rails 5.1/bin/yarn	2025-12-01 11:48:48
++++ rails 5.2/bin/yarn	2025-12-01 11:48:55
 @@ -1,8 +1,8 @@
  #!/usr/bin/env ruby
 -VENDOR_PATH = File.expand_path('..', __dir__)
@@ -421,8 +421,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
      $stderr.puts "Yarn executable was not detected in the system."
      $stderr.puts "Download Yarn at https://yarnpkg.com/en/docs/install"
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/application.rb rails 5.2/config/application.rb
---- rails 5.1/config/application.rb	2025-01-10 11:16:51
-+++ rails 5.2/config/application.rb	2025-01-10 11:16:54
+--- rails 5.1/config/application.rb	2025-12-01 11:48:48
++++ rails 5.2/config/application.rb	2025-12-01 11:48:55
 @@ -6,13 +6,14 @@
  # you've limited to :test, :development, or :production.
  Bundler.require(*Rails.groups)
@@ -443,16 +443,16 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    end
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/boot.rb rails 5.2/config/boot.rb
---- rails 5.1/config/boot.rb	2025-01-10 11:16:51
-+++ rails 5.2/config/boot.rb	2025-01-10 11:16:54
+--- rails 5.1/config/boot.rb	2025-12-01 11:48:48
++++ rails 5.2/config/boot.rb	2025-12-01 11:48:55
 @@ -1,3 +1,4 @@
  ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
  
  require 'bundler/setup' # Set up gems listed in the Gemfile.
 +require 'bootsnap/setup' # Speed up boot time by caching expensive operations.
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/cable.yml rails 5.2/config/cable.yml
---- rails 5.1/config/cable.yml	2025-01-10 11:16:51
-+++ rails 5.2/config/cable.yml	2025-01-10 11:16:54
+--- rails 5.1/config/cable.yml	2025-12-01 11:48:48
++++ rails 5.2/config/cable.yml	2025-12-01 11:48:55
 @@ -6,5 +6,5 @@
  
  production:
@@ -463,13 +463,13 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  channel_prefix: rails_5_2_production
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/credentials.yml.enc rails 5.2/config/credentials.yml.enc
 --- rails 5.1/config/credentials.yml.enc	1969-12-31 16:00:00
-+++ rails 5.2/config/credentials.yml.enc	2025-01-10 11:16:54
++++ rails 5.2/config/credentials.yml.enc	2025-12-01 11:48:55
 @@ -0,0 +1 @@
-+P3ug7j0jZ4NqC+KSJ3sm+aGbdtV9WIBt5Z34LMMB5MZXNpDkalO+q+SVYEQRr5zlOdP5x6zWFx2SIxP9IGBJJoprjBouXvddo1Ottet6DW6RHQiOorrNK/7XLDkcOCqqxKInv3bGYVaZ5aaKOsJlzwNOmkVJ5pqSj95CCkw1qt91L8CuaYF6Z9p6aPe44HNChhof89bvj0t25SI7DniWUu8+Sq1Tl4ZHGQLlDHsfGy+lQN+Xymv/gpsvvFJhd6QZDavGeT8zDMAtzw6L/y4JmW7YPCyyWz5JnQYrnMNtwRKJEEMbcoBg7gWw9s0vNOt9Zsmnx0moV8Vs+0FH9bUILrV77uQXfvRrVZYAp8IKkylJGUpb8rOvUvop55JEtfi4eFWBKFybLLaf3yFjRlqKVkZBv4VmDK7okN1D--T+4LiVG98qX5/vdv--o6I354RKrAA7cZfr1dMqSQ==
++1+vKYZZR2UxtTX7gTrpm3OUSvQHny8cshT0jA2FPFwqZQj2iE5OzQR/2U/sgK7eHpCUTuyrfALBvl9Ua0JrCpsdzvtjfrGMQdufJh+FdYZwbhXMKU3Qyqndix4peX2OaUymJy0tZvNS1OpzvTL/QFShuHjsY4YPLY/wuLffRudcP6eAZ1embPRmrVzvwYstr0toLJdPjSGfIrzCBsd9nyNkjGyAzqwp7+Yh9h/n+3GFdLyOpYLxjkby7xX/rtECY52lGpfwQQeHkaxqeHub01CN/dzF1eun4nt7hqhpJ3Q4ieoDy1KX9yruVzovqmARzcV702/HQoGvVbyaI5LL8mlhveCLQcQIQcMdNmzUP3xfggNL8hEoYpsh/CW6oxBiW2bFRHtkJT7wibNbVnzIj8QsZkz0/D29uPI1F--IHlJoGzBXMJR3KTP--+TKS844nVUqRt9qMNUk9YQ==
 \ No newline at end of file
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/environments/development.rb rails 5.2/config/environments/development.rb
---- rails 5.1/config/environments/development.rb	2025-01-10 11:16:51
-+++ rails 5.2/config/environments/development.rb	2025-01-10 11:16:54
+--- rails 5.1/config/environments/development.rb	2025-12-01 11:48:48
++++ rails 5.2/config/environments/development.rb	2025-12-01 11:48:55
 @@ -13,12 +13,13 @@
    config.consider_all_requests_local = true
  
@@ -507,8 +507,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    # Debug mode disables concatenation and preprocessing of assets.
    # This option may cause significant delays in view rendering with a large
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/environments/production.rb rails 5.2/config/environments/production.rb
---- rails 5.1/config/environments/production.rb	2025-01-10 11:16:51
-+++ rails 5.2/config/environments/production.rb	2025-01-10 11:16:54
+--- rails 5.1/config/environments/production.rb	2025-12-01 11:48:48
++++ rails 5.2/config/environments/production.rb	2025-12-01 11:48:55
 @@ -14,10 +14,9 @@
    config.consider_all_requests_local       = false
    config.action_controller.perform_caching = true
@@ -544,8 +544,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
    # Ignore bad email addresses and do not raise email delivery errors.
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/environments/test.rb rails 5.2/config/environments/test.rb
---- rails 5.1/config/environments/test.rb	2025-01-10 11:16:51
-+++ rails 5.2/config/environments/test.rb	2025-01-10 11:16:54
+--- rails 5.1/config/environments/test.rb	2025-12-01 11:48:48
++++ rails 5.2/config/environments/test.rb	2025-12-01 11:48:55
 @@ -15,7 +15,7 @@
    # Configure public file server for tests with Cache-Control for performance.
    config.public_file_server.enabled = true
@@ -568,7 +568,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    # Tell Action Mailer not to deliver emails to the real world.
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/initializers/content_security_policy.rb rails 5.2/config/initializers/content_security_policy.rb
 --- rails 5.1/config/initializers/content_security_policy.rb	1969-12-31 16:00:00
-+++ rails 5.2/config/initializers/content_security_policy.rb	2025-01-10 11:16:54
++++ rails 5.2/config/initializers/content_security_policy.rb	2025-12-01 11:48:55
 @@ -0,0 +1,25 @@
 +# Be sure to restart your server when you modify this file.
 +
@@ -597,13 +597,13 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# Rails.application.config.content_security_policy_report_only = true
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/master.key rails 5.2/config/master.key
 --- rails 5.1/config/master.key	1969-12-31 16:00:00
-+++ rails 5.2/config/master.key	2025-01-10 11:16:54
++++ rails 5.2/config/master.key	2025-12-01 11:48:55
 @@ -0,0 +1 @@
-+b8254d6f08ece0a7879f00da7a34bf59
++1015ac05c087a035c80faa8b154a8ca4
 \ No newline at end of file
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/puma.rb rails 5.2/config/puma.rb
---- rails 5.1/config/puma.rb	2025-01-10 11:16:51
-+++ rails 5.2/config/puma.rb	2025-01-10 11:16:54
+--- rails 5.1/config/puma.rb	2025-12-01 11:48:48
++++ rails 5.2/config/puma.rb	2025-12-01 11:48:55
 @@ -15,6 +15,9 @@
  #
  environment ENV.fetch("RAILS_ENV") { "development" }
@@ -649,8 +649,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  plugin :tmp_restart
 Only in rails 5.1/config: secrets.yml
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/spring.rb rails 5.2/config/spring.rb
---- rails 5.1/config/spring.rb	2025-01-10 11:16:51
-+++ rails 5.2/config/spring.rb	2025-01-10 11:16:54
+--- rails 5.1/config/spring.rb	2025-12-01 11:48:48
++++ rails 5.2/config/spring.rb	2025-12-01 11:48:55
 @@ -1,6 +1,6 @@
 -%w(
 +%w[
@@ -662,7 +662,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +].each { |path| Spring.watch(path) }
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/config/storage.yml rails 5.2/config/storage.yml
 --- rails 5.1/config/storage.yml	1969-12-31 16:00:00
-+++ rails 5.2/config/storage.yml	2025-01-10 11:16:54
++++ rails 5.2/config/storage.yml	2025-12-01 11:48:55
 @@ -0,0 +1,34 @@
 +test:
 +  service: Disk
@@ -699,8 +699,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +#   primary: local
 +#   mirrors: [ amazon, google, microsoft ]
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/package.json rails 5.2/package.json
---- rails 5.1/package.json	2025-01-10 11:16:51
-+++ rails 5.2/package.json	2025-01-10 11:16:54
+--- rails 5.1/package.json	2025-12-01 11:48:48
++++ rails 5.2/package.json	2025-12-01 11:48:55
 @@ -1,5 +1,5 @@
  {
 -  "name": "rails_5_1",
@@ -709,8 +709,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    "dependencies": {}
  }
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 5.1/test/test_helper.rb rails 5.2/test/test_helper.rb
---- rails 5.1/test/test_helper.rb	2025-01-10 11:16:51
-+++ rails 5.2/test/test_helper.rb	2025-01-10 11:16:54
+--- rails 5.1/test/test_helper.rb	2025-12-01 11:48:48
++++ rails 5.2/test/test_helper.rb	2025-12-01 11:48:55
 @@ -1,5 +1,5 @@
  ENV['RAILS_ENV'] ||= 'test'
 -require File.expand_path('../../config/environment', __FILE__)

@@ -1,6 +1,6 @@
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.dockerignore rails 8.0/.dockerignore
---- rails 7.1/.dockerignore	2025-01-10 11:17:49
-+++ rails 8.0/.dockerignore	2025-01-10 11:18:03
+--- rails 7.1/.dockerignore	2025-12-01 11:49:52
++++ rails 8.0/.dockerignore	2025-12-01 11:50:02
 @@ -2,13 +2,13 @@
  
  # Ignore git directory.
@@ -37,7 +37,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +/Dockerfile*
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.github/dependabot.yml rails 8.0/.github/dependabot.yml
 --- rails 7.1/.github/dependabot.yml	1969-12-31 16:00:00
-+++ rails 8.0/.github/dependabot.yml	2025-01-10 11:18:03
++++ rails 8.0/.github/dependabot.yml	2025-12-01 11:50:02
 @@ -0,0 +1,12 @@
 +version: 2
 +updates:
@@ -53,7 +53,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  open-pull-requests-limit: 10
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.github/workflows/ci.yml rails 8.0/.github/workflows/ci.yml
 --- rails 7.1/.github/workflows/ci.yml	1969-12-31 16:00:00
-+++ rails 8.0/.github/workflows/ci.yml	2025-01-10 11:18:03
++++ rails 8.0/.github/workflows/ci.yml	2025-12-01 11:50:02
 @@ -0,0 +1,90 @@
 +name: CI
 +
@@ -121,7 +121,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +    #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
 +    steps:
 +      - name: Install packages
-+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git pkg-config google-chrome-stable
++        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config google-chrome-stable
 +
 +      - name: Checkout code
 +        uses: actions/checkout@v4
@@ -146,8 +146,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +          path: ${{ github.workspace }}/tmp/screenshots
 +          if-no-files-found: ignore
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.gitignore rails 8.0/.gitignore
---- rails 7.1/.gitignore	2025-01-10 11:17:49
-+++ rails 8.0/.gitignore	2025-01-10 11:18:03
+--- rails 7.1/.gitignore	2025-12-01 11:49:52
++++ rails 8.0/.gitignore	2025-12-01 11:50:02
 @@ -1,15 +1,14 @@
  # See https://help.github.com/articles/ignoring-files for more about ignoring files.
  #
@@ -170,14 +170,21 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  /log/*
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.kamal/hooks/docker-setup.sample rails 8.0/.kamal/hooks/docker-setup.sample
 --- rails 7.1/.kamal/hooks/docker-setup.sample	1969-12-31 16:00:00
-+++ rails 8.0/.kamal/hooks/docker-setup.sample	2025-01-10 11:18:08
++++ rails 8.0/.kamal/hooks/docker-setup.sample	2025-12-01 11:47:36
 @@ -0,0 +1,3 @@
 +#!/bin/sh
 +
 +echo "Docker set up on $KAMAL_HOSTS..."
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.kamal/hooks/post-app-boot.sample rails 8.0/.kamal/hooks/post-app-boot.sample
+--- rails 7.1/.kamal/hooks/post-app-boot.sample	1969-12-31 16:00:00
++++ rails 8.0/.kamal/hooks/post-app-boot.sample	2025-12-01 11:47:36
+@@ -0,0 +1,3 @@
++#!/bin/sh
++
++echo "Booted app version $KAMAL_VERSION on $KAMAL_HOSTS..."
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.kamal/hooks/post-deploy.sample rails 8.0/.kamal/hooks/post-deploy.sample
 --- rails 7.1/.kamal/hooks/post-deploy.sample	1969-12-31 16:00:00
-+++ rails 8.0/.kamal/hooks/post-deploy.sample	2025-01-10 11:18:08
++++ rails 8.0/.kamal/hooks/post-deploy.sample	2025-12-01 11:47:36
 @@ -0,0 +1,14 @@
 +#!/bin/sh
 +
@@ -188,21 +195,28 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# KAMAL_PERFORMER
 +# KAMAL_VERSION
 +# KAMAL_HOSTS
-+# KAMAL_ROLE (if set)
++# KAMAL_ROLES (if set)
 +# KAMAL_DESTINATION (if set)
 +# KAMAL_RUNTIME
 +
 +echo "$KAMAL_PERFORMER deployed $KAMAL_VERSION to $KAMAL_DESTINATION in $KAMAL_RUNTIME seconds"
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.kamal/hooks/post-proxy-reboot.sample rails 8.0/.kamal/hooks/post-proxy-reboot.sample
 --- rails 7.1/.kamal/hooks/post-proxy-reboot.sample	1969-12-31 16:00:00
-+++ rails 8.0/.kamal/hooks/post-proxy-reboot.sample	2025-01-10 11:18:08
++++ rails 8.0/.kamal/hooks/post-proxy-reboot.sample	2025-12-01 11:47:36
 @@ -0,0 +1,3 @@
 +#!/bin/sh
 +
 +echo "Rebooted kamal-proxy on $KAMAL_HOSTS"
+diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.kamal/hooks/pre-app-boot.sample rails 8.0/.kamal/hooks/pre-app-boot.sample
+--- rails 7.1/.kamal/hooks/pre-app-boot.sample	1969-12-31 16:00:00
++++ rails 8.0/.kamal/hooks/pre-app-boot.sample	2025-12-01 11:47:36
+@@ -0,0 +1,3 @@
++#!/bin/sh
++
++echo "Booting app version $KAMAL_VERSION on $KAMAL_HOSTS..."
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.kamal/hooks/pre-build.sample rails 8.0/.kamal/hooks/pre-build.sample
 --- rails 7.1/.kamal/hooks/pre-build.sample	1969-12-31 16:00:00
-+++ rails 8.0/.kamal/hooks/pre-build.sample	2025-01-10 11:18:08
++++ rails 8.0/.kamal/hooks/pre-build.sample	2025-12-01 11:47:36
 @@ -0,0 +1,51 @@
 +#!/bin/sh
 +
@@ -219,7 +233,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# KAMAL_PERFORMER
 +# KAMAL_VERSION
 +# KAMAL_HOSTS
-+# KAMAL_ROLE (if set)
++# KAMAL_ROLES (if set)
 +# KAMAL_DESTINATION (if set)
 +
 +if [ -n "$(git status --porcelain)" ]; then
@@ -257,7 +271,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +exit 0
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.kamal/hooks/pre-connect.sample rails 8.0/.kamal/hooks/pre-connect.sample
 --- rails 7.1/.kamal/hooks/pre-connect.sample	1969-12-31 16:00:00
-+++ rails 8.0/.kamal/hooks/pre-connect.sample	2025-01-10 11:18:08
++++ rails 8.0/.kamal/hooks/pre-connect.sample	2025-12-01 11:47:36
 @@ -0,0 +1,47 @@
 +#!/usr/bin/env ruby
 +
@@ -270,7 +284,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# KAMAL_PERFORMER
 +# KAMAL_VERSION
 +# KAMAL_HOSTS
-+# KAMAL_ROLE (if set)
++# KAMAL_ROLES (if set)
 +# KAMAL_DESTINATION (if set)
 +# KAMAL_RUNTIME
 +
@@ -308,8 +322,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +puts "Prewarmed %d DNS lookups in %.2f sec: %d retries, %d failures" % [ hosts.size, elapsed, retries, nopes ]
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.kamal/hooks/pre-deploy.sample rails 8.0/.kamal/hooks/pre-deploy.sample
 --- rails 7.1/.kamal/hooks/pre-deploy.sample	1969-12-31 16:00:00
-+++ rails 8.0/.kamal/hooks/pre-deploy.sample	2025-01-10 11:18:08
-@@ -0,0 +1,109 @@
++++ rails 8.0/.kamal/hooks/pre-deploy.sample	2025-12-01 11:47:36
+@@ -0,0 +1,122 @@
 +#!/usr/bin/env ruby
 +
 +# A sample pre-deploy hook
@@ -325,7 +339,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# KAMAL_HOSTS
 +# KAMAL_COMMAND
 +# KAMAL_SUBCOMMAND
-+# KAMAL_ROLE (if set)
++# KAMAL_ROLES (if set)
 +# KAMAL_DESTINATION (if set)
 +
 +# Only check the build status for production deployments
@@ -355,7 +369,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  attr_reader :remote_url, :git_sha, :github_client, :combined_status
 +
 +  def initialize
-+    @remote_url = `git config --get remote.origin.url`.strip.delete_prefix("https://github.com/")
++    @remote_url = github_repo_from_remote_url
 +    @git_sha = `git rev-parse HEAD`.strip
 +    @github_client = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
 +    refresh!
@@ -389,16 +403,29 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +      "Build not started..."
 +    end
 +  end
++
++  private
++    def github_repo_from_remote_url
++      url = `git config --get remote.origin.url`.strip.delete_suffix(".git")
++      if url.start_with?("https://github.com/")
++        url.delete_prefix("https://github.com/")
++      elsif url.start_with?("git@github.com:")
++        url.delete_prefix("git@github.com:")
++      else
++        url
++      end
++    end
 +end
 +
 +
 +$stdout.sync = true
 +
-+puts "Checking build status..."
-+attempts = 0
-+checks = GithubStatusChecks.new
-+
 +begin
++  puts "Checking build status..."
++
++  attempts = 0
++  checks = GithubStatusChecks.new
++
 +  loop do
 +    case checks.state
 +    when "success"
@@ -421,14 +448,14 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.kamal/hooks/pre-proxy-reboot.sample rails 8.0/.kamal/hooks/pre-proxy-reboot.sample
 --- rails 7.1/.kamal/hooks/pre-proxy-reboot.sample	1969-12-31 16:00:00
-+++ rails 8.0/.kamal/hooks/pre-proxy-reboot.sample	2025-01-10 11:18:08
++++ rails 8.0/.kamal/hooks/pre-proxy-reboot.sample	2025-12-01 11:47:36
 @@ -0,0 +1,3 @@
 +#!/bin/sh
 +
 +echo "Rebooting kamal-proxy on $KAMAL_HOSTS..."
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.kamal/secrets rails 8.0/.kamal/secrets
 --- rails 7.1/.kamal/secrets	1969-12-31 16:00:00
-+++ rails 8.0/.kamal/secrets	2025-01-10 11:18:12
++++ rails 8.0/.kamal/secrets	2025-12-01 11:50:07
 @@ -0,0 +1,17 @@
 +# Secrets defined here are available for reference under registry/password, env/secret, builder/secrets,
 +# and accessories/*/env/secret in config/deploy.yml. All secrets should be pulled from either
@@ -449,7 +476,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +RAILS_MASTER_KEY=$(cat config/master.key)
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/.rubocop.yml rails 8.0/.rubocop.yml
 --- rails 7.1/.rubocop.yml	1969-12-31 16:00:00
-+++ rails 8.0/.rubocop.yml	2025-01-10 11:18:03
++++ rails 8.0/.rubocop.yml	2025-12-01 11:50:02
 @@ -0,0 +1,8 @@
 +# Omakase Ruby styling for Rails
 +inherit_gem: { rubocop-rails-omakase: rubocop.yml }
@@ -460,8 +487,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# Layout/SpaceInsideArrayLiteralBrackets:
 +#   Enabled: false
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/Dockerfile rails 8.0/Dockerfile
---- rails 7.1/Dockerfile	2025-01-10 11:17:49
-+++ rails 8.0/Dockerfile	2025-01-10 11:18:03
+--- rails 7.1/Dockerfile	2025-12-01 11:49:52
++++ rails 8.0/Dockerfile	2025-12-01 11:50:02
 @@ -1,25 +1,37 @@
 -# syntax = docker/dockerfile:1
 +# syntax=docker/dockerfile:1
@@ -475,7 +502,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 +
 +# Make sure RUBY_VERSION matches the Ruby version in .ruby-version
- ARG RUBY_VERSION=3.2.6
+ ARG RUBY_VERSION=3.3.10
 -FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 +FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
  
@@ -501,7 +528,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  # Install packages needed to build gems
  RUN apt-get update -qq && \
 -    apt-get install --no-install-recommends -y build-essential git libvips pkg-config
-+    apt-get install --no-install-recommends -y build-essential git pkg-config && \
++    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config && \
 +    rm -rf /var/lib/apt/lists /var/cache/apt/archives
  
  # Install application gems
@@ -543,20 +570,20 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +EXPOSE 80
 +CMD ["./bin/thrust", "./bin/rails", "server"]
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/Gemfile rails 8.0/Gemfile
---- rails 7.1/Gemfile	2025-01-10 11:17:49
-+++ rails 8.0/Gemfile	2025-01-10 11:18:03
+--- rails 7.1/Gemfile	2025-12-01 11:49:52
++++ rails 8.0/Gemfile	2025-12-01 11:50:02
 @@ -1,60 +1,56 @@
  source "https://rubygems.org"
  
--ruby "3.2.6"
+-ruby "3.3.10"
 -
  # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
--gem "rails", "~> 7.1.5", ">= 7.1.5.1"
+-gem "rails", "~> 7.1.6"
 -
 -# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 -gem "sprockets-rails"
 -
-+gem "rails", "~> 8.0.1"
++gem "rails", "~> 8.0.4"
 +# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 +gem "propshaft"
  # Use sqlite3 as the database for Active Record
@@ -629,60 +656,61 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
  group :test do
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/Gemfile.lock rails 8.0/Gemfile.lock
---- rails 7.1/Gemfile.lock	2025-01-10 11:17:56
-+++ rails 8.0/Gemfile.lock	2025-01-10 11:18:09
-@@ -1,89 +1,89 @@
+--- rails 7.1/Gemfile.lock	2025-12-01 11:49:56
++++ rails 8.0/Gemfile.lock	2025-12-01 11:50:05
+@@ -1,91 +1,89 @@
  GEM
    remote: https://rubygems.org/
    specs:
--    actioncable (7.1.5.1)
--      actionpack (= 7.1.5.1)
--      activesupport (= 7.1.5.1)
-+    actioncable (8.0.1)
-+      actionpack (= 8.0.1)
-+      activesupport (= 8.0.1)
+-    actioncable (7.1.6)
+-      actionpack (= 7.1.6)
+-      activesupport (= 7.1.6)
++    actioncable (8.0.4)
++      actionpack (= 8.0.4)
++      activesupport (= 8.0.4)
        nio4r (~> 2.0)
        websocket-driver (>= 0.6.1)
        zeitwerk (~> 2.6)
--    actionmailbox (7.1.5.1)
--      actionpack (= 7.1.5.1)
--      activejob (= 7.1.5.1)
--      activerecord (= 7.1.5.1)
--      activestorage (= 7.1.5.1)
--      activesupport (= 7.1.5.1)
+-    actionmailbox (7.1.6)
+-      actionpack (= 7.1.6)
+-      activejob (= 7.1.6)
+-      activerecord (= 7.1.6)
+-      activestorage (= 7.1.6)
+-      activesupport (= 7.1.6)
 -      mail (>= 2.7.1)
 -      net-imap
 -      net-pop
 -      net-smtp
--    actionmailer (7.1.5.1)
--      actionpack (= 7.1.5.1)
--      actionview (= 7.1.5.1)
--      activejob (= 7.1.5.1)
--      activesupport (= 7.1.5.1)
+-    actionmailer (7.1.6)
+-      actionpack (= 7.1.6)
+-      actionview (= 7.1.6)
+-      activejob (= 7.1.6)
+-      activesupport (= 7.1.6)
 -      mail (~> 2.5, >= 2.5.4)
 -      net-imap
 -      net-pop
 -      net-smtp
-+    actionmailbox (8.0.1)
-+      actionpack (= 8.0.1)
-+      activejob (= 8.0.1)
-+      activerecord (= 8.0.1)
-+      activestorage (= 8.0.1)
-+      activesupport (= 8.0.1)
++    actionmailbox (8.0.4)
++      actionpack (= 8.0.4)
++      activejob (= 8.0.4)
++      activerecord (= 8.0.4)
++      activestorage (= 8.0.4)
++      activesupport (= 8.0.4)
 +      mail (>= 2.8.0)
-+    actionmailer (8.0.1)
-+      actionpack (= 8.0.1)
-+      actionview (= 8.0.1)
-+      activejob (= 8.0.1)
-+      activesupport (= 8.0.1)
++    actionmailer (8.0.4)
++      actionpack (= 8.0.4)
++      actionview (= 8.0.4)
++      activejob (= 8.0.4)
++      activesupport (= 8.0.4)
 +      mail (>= 2.8.0)
        rails-dom-testing (~> 2.2)
--    actionpack (7.1.5.1)
--      actionview (= 7.1.5.1)
--      activesupport (= 7.1.5.1)
-+    actionpack (8.0.1)
-+      actionview (= 8.0.1)
-+      activesupport (= 8.0.1)
+-    actionpack (7.1.6)
+-      actionview (= 7.1.6)
+-      activesupport (= 7.1.6)
+-      cgi
++    actionpack (8.0.4)
++      actionview (= 8.0.4)
++      activesupport (= 8.0.4)
        nokogiri (>= 1.8.5)
 -      racc
        rack (>= 2.2.4)
@@ -690,56 +718,57 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
        rack-test (>= 0.6.3)
        rails-dom-testing (~> 2.2)
        rails-html-sanitizer (~> 1.6)
--    actiontext (7.1.5.1)
--      actionpack (= 7.1.5.1)
--      activerecord (= 7.1.5.1)
--      activestorage (= 7.1.5.1)
--      activesupport (= 7.1.5.1)
+-    actiontext (7.1.6)
+-      actionpack (= 7.1.6)
+-      activerecord (= 7.1.6)
+-      activestorage (= 7.1.6)
+-      activesupport (= 7.1.6)
 +      useragent (~> 0.16)
-+    actiontext (8.0.1)
-+      actionpack (= 8.0.1)
-+      activerecord (= 8.0.1)
-+      activestorage (= 8.0.1)
-+      activesupport (= 8.0.1)
++    actiontext (8.0.4)
++      actionpack (= 8.0.4)
++      activerecord (= 8.0.4)
++      activestorage (= 8.0.4)
++      activesupport (= 8.0.4)
        globalid (>= 0.6.0)
        nokogiri (>= 1.8.5)
--    actionview (7.1.5.1)
--      activesupport (= 7.1.5.1)
-+    actionview (8.0.1)
-+      activesupport (= 8.0.1)
+-    actionview (7.1.6)
+-      activesupport (= 7.1.6)
++    actionview (8.0.4)
++      activesupport (= 8.0.4)
        builder (~> 3.1)
+-      cgi
        erubi (~> 1.11)
        rails-dom-testing (~> 2.2)
        rails-html-sanitizer (~> 1.6)
--    activejob (7.1.5.1)
--      activesupport (= 7.1.5.1)
-+    activejob (8.0.1)
-+      activesupport (= 8.0.1)
+-    activejob (7.1.6)
+-      activesupport (= 7.1.6)
++    activejob (8.0.4)
++      activesupport (= 8.0.4)
        globalid (>= 0.3.6)
--    activemodel (7.1.5.1)
--      activesupport (= 7.1.5.1)
--    activerecord (7.1.5.1)
--      activemodel (= 7.1.5.1)
--      activesupport (= 7.1.5.1)
-+    activemodel (8.0.1)
-+      activesupport (= 8.0.1)
-+    activerecord (8.0.1)
-+      activemodel (= 8.0.1)
-+      activesupport (= 8.0.1)
+-    activemodel (7.1.6)
+-      activesupport (= 7.1.6)
+-    activerecord (7.1.6)
+-      activemodel (= 7.1.6)
+-      activesupport (= 7.1.6)
++    activemodel (8.0.4)
++      activesupport (= 8.0.4)
++    activerecord (8.0.4)
++      activemodel (= 8.0.4)
++      activesupport (= 8.0.4)
        timeout (>= 0.4.0)
--    activestorage (7.1.5.1)
--      actionpack (= 7.1.5.1)
--      activejob (= 7.1.5.1)
--      activerecord (= 7.1.5.1)
--      activesupport (= 7.1.5.1)
-+    activestorage (8.0.1)
-+      actionpack (= 8.0.1)
-+      activejob (= 8.0.1)
-+      activerecord (= 8.0.1)
-+      activesupport (= 8.0.1)
+-    activestorage (7.1.6)
+-      actionpack (= 7.1.6)
+-      activejob (= 7.1.6)
+-      activerecord (= 7.1.6)
+-      activesupport (= 7.1.6)
++    activestorage (8.0.4)
++      actionpack (= 8.0.4)
++      activejob (= 8.0.4)
++      activerecord (= 8.0.4)
++      activesupport (= 8.0.4)
        marcel (~> 1.0)
--    activesupport (7.1.5.1)
-+    activesupport (8.0.1)
+-    activesupport (7.1.6)
++    activesupport (8.0.4)
        base64
        benchmark (>= 0.3)
        bigdecimal
@@ -755,257 +784,275 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -      tzinfo (~> 2.0)
 +      tzinfo (~> 2.0, >= 2.0.5)
 +      uri (>= 0.13.1)
-     addressable (2.8.7)
-       public_suffix (>= 2.0.2, < 7.0)
-+    ast (2.4.2)
-     base64 (0.2.0)
+     addressable (2.8.8)
+       public_suffix (>= 2.0.2, < 8.0)
++    ast (2.4.3)
+     base64 (0.3.0)
 +    bcrypt_pbkdf (1.1.1)
 +    bcrypt_pbkdf (1.1.1-arm64-darwin)
 +    bcrypt_pbkdf (1.1.1-x86_64-darwin)
-     benchmark (0.4.0)
-     bigdecimal (3.1.9)
+     benchmark (0.5.0)
+     bigdecimal (3.3.1)
      bindex (0.8.1)
-+    brakeman (7.0.0)
++    brakeman (7.1.1)
 +      racc
      builder (3.3.0)
      capybara (3.40.0)
        addressable
-@@ -101,8 +101,15 @@
-     debug (1.10.0)
+@@ -96,7 +94,6 @@
+       rack-test (>= 0.6.3)
+       regexp_parser (>= 1.5, < 3.0)
+       xpath (~> 3.2)
+-    cgi (0.5.0)
+     concurrent-ruby (1.3.5)
+     connection_pool (2.5.5)
+     crass (1.0.6)
+@@ -104,9 +101,16 @@
+     debug (1.11.0)
        irb (~> 1.10)
        reline (>= 0.3.8)
-+    dotenv (3.1.7)
-     drb (2.2.1)
-+    ed25519 (1.3.0)
++    dotenv (3.1.8)
+     drb (2.2.3)
++    ed25519 (1.4.0)
+     erb (6.0.0)
      erubi (1.13.1)
-+    et-orbi (1.2.11)
++    et-orbi (1.4.0)
 +      tzinfo
-+    fugit (1.11.1)
-+      et-orbi (~> 1, >= 1.2.11)
++    fugit (1.12.1)
++      et-orbi (~> 1.4)
 +      raabro (~> 1.4)
-     globalid (1.2.1)
+     globalid (1.3.0)
        activesupport (>= 6.1)
-     i18n (1.14.6)
-@@ -118,6 +125,19 @@
-     jbuilder (2.13.0)
-       actionview (>= 5.0.0)
-       activesupport (>= 5.0.0)
-+    json (2.9.1)
-+    kamal (2.4.0)
+     i18n (1.14.7)
+@@ -123,6 +127,20 @@
+     jbuilder (2.14.1)
+       actionview (>= 7.0.0)
+       activesupport (>= 7.0.0)
++    json (2.16.0)
++    kamal (2.9.0)
 +      activesupport (>= 7.0)
 +      base64 (~> 0.2)
 +      bcrypt_pbkdf (~> 1.0)
 +      concurrent-ruby (~> 1.2)
 +      dotenv (~> 3.1)
-+      ed25519 (~> 1.2)
++      ed25519 (~> 1.4)
 +      net-ssh (~> 7.3)
 +      sshkit (>= 1.23.0, < 2.0)
 +      thor (~> 1.3)
 +      zeitwerk (>= 2.6.18, < 3.0)
-+    language_server-protocol (3.17.0.3)
-     logger (1.6.5)
-     loofah (2.24.0)
++    language_server-protocol (3.17.0.5)
++    lint_roller (1.1.0)
+     logger (1.7.0)
+     loofah (2.24.1)
        crass (~> 1.0.2)
-@@ -131,7 +151,6 @@
-     matrix (0.4.2)
+@@ -137,7 +155,6 @@
+     matrix (0.4.3)
      mini_mime (1.1.5)
-     minitest (5.25.4)
+     minitest (5.26.2)
 -    mutex_m (0.3.0)
-     net-imap (0.5.5)
+     net-imap (0.5.12)
        date
        net-protocol
-@@ -139,8 +158,13 @@
+@@ -145,8 +162,13 @@
        net-protocol
      net-protocol (0.2.2)
        timeout
-+    net-scp (4.0.0)
++    net-scp (4.1.0)
 +      net-ssh (>= 2.6.5, < 8.0.0)
 +    net-sftp (4.0.0)
 +      net-ssh (>= 5.0.0, < 8.0.0)
-     net-smtp (0.5.0)
+     net-smtp (0.5.1)
        net-protocol
 +    net-ssh (7.3.0)
-     nio4r (2.7.4)
-     nokogiri (1.18.1-aarch64-linux-gnu)
+     nio4r (2.7.5)
+     nokogiri (1.18.10-aarch64-linux-gnu)
        racc (~> 1.4)
-@@ -158,12 +182,23 @@
+@@ -164,15 +186,26 @@
        racc (~> 1.4)
-     nokogiri (1.18.1-x86_64-linux-musl)
+     nokogiri (1.18.10-x86_64-linux-musl)
        racc (~> 1.4)
-+    ostruct (0.6.1)
-+    parallel (1.26.3)
-+    parser (3.3.6.0)
++    ostruct (0.6.3)
++    parallel (1.27.0)
++    parser (3.3.10.0)
 +      ast (~> 2.4.1)
 +      racc
-+    propshaft (1.1.0)
+     pp (0.6.3)
+       prettyprint
+     prettyprint (0.2.0)
++    prism (1.6.0)
++    propshaft (1.3.1)
 +      actionpack (>= 7.0.0)
 +      activesupport (>= 7.0.0)
 +      rack
-+      railties (>= 7.0.0)
-     psych (5.2.2)
+     psych (5.2.6)
        date
        stringio
-     public_suffix (6.0.1)
-     puma (6.5.0)
+     public_suffix (7.0.0)
+     puma (7.1.0)
        nio4r (~> 2.0)
 +    raabro (1.4.0)
      racc (1.8.1)
-     rack (3.1.8)
-     rack-session (2.1.0)
-@@ -173,20 +208,20 @@
+     rack (3.2.4)
+     rack-session (2.1.1)
+@@ -182,20 +215,20 @@
        rack (>= 1.3)
      rackup (2.2.1)
        rack (>= 3)
--    rails (7.1.5.1)
--      actioncable (= 7.1.5.1)
--      actionmailbox (= 7.1.5.1)
--      actionmailer (= 7.1.5.1)
--      actionpack (= 7.1.5.1)
--      actiontext (= 7.1.5.1)
--      actionview (= 7.1.5.1)
--      activejob (= 7.1.5.1)
--      activemodel (= 7.1.5.1)
--      activerecord (= 7.1.5.1)
--      activestorage (= 7.1.5.1)
--      activesupport (= 7.1.5.1)
-+    rails (8.0.1)
-+      actioncable (= 8.0.1)
-+      actionmailbox (= 8.0.1)
-+      actionmailer (= 8.0.1)
-+      actionpack (= 8.0.1)
-+      actiontext (= 8.0.1)
-+      actionview (= 8.0.1)
-+      activejob (= 8.0.1)
-+      activemodel (= 8.0.1)
-+      activerecord (= 8.0.1)
-+      activestorage (= 8.0.1)
-+      activesupport (= 8.0.1)
+-    rails (7.1.6)
+-      actioncable (= 7.1.6)
+-      actionmailbox (= 7.1.6)
+-      actionmailer (= 7.1.6)
+-      actionpack (= 7.1.6)
+-      actiontext (= 7.1.6)
+-      actionview (= 7.1.6)
+-      activejob (= 7.1.6)
+-      activemodel (= 7.1.6)
+-      activerecord (= 7.1.6)
+-      activestorage (= 7.1.6)
+-      activesupport (= 7.1.6)
++    rails (8.0.4)
++      actioncable (= 8.0.4)
++      actionmailbox (= 8.0.4)
++      actionmailer (= 8.0.4)
++      actionpack (= 8.0.4)
++      actiontext (= 8.0.4)
++      actionview (= 8.0.4)
++      activejob (= 8.0.4)
++      activemodel (= 8.0.4)
++      activerecord (= 8.0.4)
++      activestorage (= 8.0.4)
++      activesupport (= 8.0.4)
        bundler (>= 1.15.0)
--      railties (= 7.1.5.1)
-+      railties (= 8.0.1)
-     rails-dom-testing (2.2.0)
+-      railties (= 7.1.6)
++      railties (= 8.0.4)
+     rails-dom-testing (2.3.0)
        activesupport (>= 5.0.0)
        minitest
-@@ -194,14 +229,15 @@
+@@ -203,16 +236,16 @@
      rails-html-sanitizer (1.6.2)
        loofah (~> 2.21)
        nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
--    railties (7.1.5.1)
--      actionpack (= 7.1.5.1)
--      activesupport (= 7.1.5.1)
+-    railties (7.1.6)
+-      actionpack (= 7.1.6)
+-      activesupport (= 7.1.6)
+-      cgi
 -      irb
-+    railties (8.0.1)
-+      actionpack (= 8.0.1)
-+      activesupport (= 8.0.1)
++    railties (8.0.4)
++      actionpack (= 8.0.4)
++      activesupport (= 8.0.4)
 +      irb (~> 1.13)
        rackup (>= 1.0.0)
        rake (>= 12.2)
        thor (~> 1.0, >= 1.2.2)
+       tsort (>= 0.2)
        zeitwerk (~> 2.6)
 +    rainbow (3.1.1)
-     rake (13.2.1)
-     rdoc (6.10.0)
-       psych (>= 4.0.0)
-@@ -209,6 +245,35 @@
-     reline (0.6.0)
+     rake (13.3.1)
+     rdoc (6.16.1)
+       erb
+@@ -222,6 +255,35 @@
+     reline (0.6.3)
        io-console (~> 0.5)
-     rexml (3.4.0)
-+    rubocop (1.70.0)
+     rexml (3.4.4)
++    rubocop (1.81.7)
 +      json (~> 2.3)
-+      language_server-protocol (>= 3.17.0)
++      language_server-protocol (~> 3.17.0.2)
++      lint_roller (~> 1.1.0)
 +      parallel (~> 1.10)
 +      parser (>= 3.3.0.2)
 +      rainbow (>= 2.2.2, < 4.0)
 +      regexp_parser (>= 2.9.3, < 3.0)
-+      rubocop-ast (>= 1.36.2, < 2.0)
++      rubocop-ast (>= 1.47.1, < 2.0)
 +      ruby-progressbar (~> 1.7)
 +      unicode-display_width (>= 2.4.0, < 4.0)
-+    rubocop-ast (1.37.0)
-+      parser (>= 3.3.1.0)
-+    rubocop-minitest (0.36.0)
-+      rubocop (>= 1.61, < 2.0)
-+      rubocop-ast (>= 1.31.1, < 2.0)
-+    rubocop-performance (1.23.1)
-+      rubocop (>= 1.48.1, < 2.0)
-+      rubocop-ast (>= 1.31.1, < 2.0)
-+    rubocop-rails (2.28.0)
++    rubocop-ast (1.48.0)
++      parser (>= 3.3.7.2)
++      prism (~> 1.4)
++    rubocop-performance (1.26.1)
++      lint_roller (~> 1.1)
++      rubocop (>= 1.75.0, < 2.0)
++      rubocop-ast (>= 1.47.1, < 2.0)
++    rubocop-rails (2.34.2)
 +      activesupport (>= 4.2.0)
++      lint_roller (~> 1.1)
 +      rack (>= 1.1)
-+      rubocop (>= 1.52.0, < 2.0)
-+      rubocop-ast (>= 1.31.1, < 2.0)
-+    rubocop-rails-omakase (1.0.0)
-+      rubocop
-+      rubocop-minitest
-+      rubocop-performance
-+      rubocop-rails
++      rubocop (>= 1.75.0, < 2.0)
++      rubocop-ast (>= 1.44.0, < 2.0)
++    rubocop-rails-omakase (1.1.0)
++      rubocop (>= 1.72)
++      rubocop-performance (>= 1.24)
++      rubocop-rails (>= 2.30)
 +    ruby-progressbar (1.13.0)
-     rubyzip (2.4.1)
+     rubyzip (3.2.2)
      securerandom (0.4.1)
-     selenium-webdriver (4.27.0)
-@@ -217,13 +282,22 @@
+     selenium-webdriver (4.38.0)
+@@ -230,14 +292,22 @@
        rexml (~> 3.2, >= 3.2.5)
-       rubyzip (>= 1.2.2, < 3.0)
+       rubyzip (>= 1.2.2, < 4.0)
        websocket (~> 1.0)
--    sprockets (4.2.1)
+-    sprockets (4.2.2)
 -      concurrent-ruby (~> 1.0)
+-      logger
 -      rack (>= 2.2.4, < 4)
 -    sprockets-rails (3.5.2)
 -      actionpack (>= 6.1)
 -      activesupport (>= 6.1)
 -      sprockets (>= 3.0.0)
-+    solid_cable (3.0.5)
++    solid_cable (3.0.12)
 +      actioncable (>= 7.2)
 +      activejob (>= 7.2)
 +      activerecord (>= 7.2)
 +      railties (>= 7.2)
-+    solid_cache (1.0.6)
++    solid_cache (1.0.10)
 +      activejob (>= 7.2)
 +      activerecord (>= 7.2)
 +      railties (>= 7.2)
-+    solid_queue (1.1.2)
++    solid_queue (1.2.4)
 +      activejob (>= 7.1)
 +      activerecord (>= 7.1)
 +      concurrent-ruby (>= 1.3.1)
-+      fugit (~> 1.11.0)
++      fugit (~> 1.11)
 +      railties (>= 7.1)
-+      thor (~> 1.3.1)
-     sqlite3 (2.5.0-aarch64-linux-gnu)
-     sqlite3 (2.5.0-aarch64-linux-musl)
-     sqlite3 (2.5.0-arm-linux-gnu)
-@@ -232,16 +306,32 @@
-     sqlite3 (2.5.0-x86_64-darwin)
-     sqlite3 (2.5.0-x86_64-linux-gnu)
-     sqlite3 (2.5.0-x86_64-linux-musl)
-+    sshkit (1.23.2)
++      thor (>= 1.3.1)
+     sqlite3 (2.8.1-aarch64-linux-gnu)
+     sqlite3 (2.8.1-aarch64-linux-musl)
+     sqlite3 (2.8.1-arm-linux-gnu)
+@@ -246,10 +316,22 @@
+     sqlite3 (2.8.1-x86_64-darwin)
+     sqlite3 (2.8.1-x86_64-linux-gnu)
+     sqlite3 (2.8.1-x86_64-linux-musl)
++    sshkit (1.24.0)
 +      base64
++      logger
 +      net-scp (>= 1.1.2)
 +      net-sftp (>= 2.1.2)
 +      net-ssh (>= 2.8.0)
 +      ostruct
      stimulus-rails (1.3.4)
        railties (>= 6.0.0)
-     stringio (3.1.2)
-     thor (1.3.2)
-+    thruster (0.1.10)
-+    thruster (0.1.10-aarch64-linux)
-+    thruster (0.1.10-arm64-darwin)
-+    thruster (0.1.10-x86_64-darwin)
-+    thruster (0.1.10-x86_64-linux)
-     timeout (0.4.3)
-     turbo-rails (2.0.11)
-       actionpack (>= 6.0.0)
-       railties (>= 6.0.0)
+     stringio (3.1.8)
+     thor (1.4.0)
++    thruster (0.1.16)
++    thruster (0.1.16-aarch64-linux)
++    thruster (0.1.16-arm64-darwin)
++    thruster (0.1.16-x86_64-darwin)
++    thruster (0.1.16-x86_64-linux)
+     timeout (0.4.4)
+     tsort (0.2.0)
+     turbo-rails (2.0.20)
+@@ -257,6 +339,11 @@
+       railties (>= 7.1.0)
      tzinfo (2.0.6)
        concurrent-ruby (~> 1.0)
-+    unicode-display_width (3.1.3)
-+      unicode-emoji (~> 4.0, >= 4.0.4)
-+    unicode-emoji (4.0.4)
-+    uri (1.0.2)
++    unicode-display_width (3.2.0)
++      unicode-emoji (~> 4.1)
++    unicode-emoji (4.1.0)
++    uri (1.1.1)
 +    useragent (0.16.11)
      web-console (4.2.1)
        actionview (>= 6.0.0)
        activemodel (>= 6.0.0)
-@@ -269,22 +359,26 @@
+@@ -284,54 +371,73 @@
    x86_64-linux-musl
  
  DEPENDENCIES
@@ -1017,8 +1064,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  kamal
 +  propshaft
    puma (>= 5.0)
--  rails (~> 7.1.5, >= 7.1.5.1)
-+  rails (~> 8.0.1)
+-  rails (~> 7.1.6)
++  rails (~> 8.0.4)
 +  rubocop-rails-omakase
    selenium-webdriver
 -  sprockets-rails
@@ -1032,16 +1079,169 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    turbo-rails
    tzinfo-data
    web-console
+ 
+ CHECKSUMS
+-  actioncable (7.1.6) sha256=ad428d5f0a810452160820ae3cf3d9d68d8f59e7c76de3bd1f1de2a5ad03c3da
+-  actionmailbox (7.1.6) sha256=ded958ad8ec147a5f14555833541f07063af188777b09b50cfeeaa623bc2f731
+-  actionmailer (7.1.6) sha256=b07f6420ec66bd299a9da5a35c075849fbd5504e82793301b0c275fa4211d273
+-  actionpack (7.1.6) sha256=3fa42da36fdcfc3690a711ed35ac5d527b87d3d676f8d111238aa399151203eb
+-  actiontext (7.1.6) sha256=79d657422dd67cc8cb46866a7bec9d89ec8699f7fa5647c0eab3472dc0297e66
+-  actionview (7.1.6) sha256=11147d81f90465ae062b2a77805c6f8f446e044e309c51bd9449bdbd43edf566
+-  activejob (7.1.6) sha256=0dd9cd051d494608349dd9223a3e61c3933250db77e35ab6617c26c1d52dccbb
+-  activemodel (7.1.6) sha256=f72f510018a560b5969e3ffc88214441ff09eed60b310feba678a597b2a2e721
+-  activerecord (7.1.6) sha256=1aa298cd7fc97ed8639ebb05a46bd17243a1218d89945bdc2bac1e61e673f079
+-  activestorage (7.1.6) sha256=2f1acb8e6592ba783d9cbc3da93ac4477d441dffc5d533ceccbbfab39f4bf398
+-  activesupport (7.1.6) sha256=7f12140a813b1c4922a322663e547129aef1840fc512fa262378f6d7e7fd3a7c
++  actioncable (8.0.4) sha256=aadb2bf2977b666cfeaa7dee66fd50e147559f78a8d55f6169e913502475e09f
++  actionmailbox (8.0.4) sha256=ed0b634a502fb63d1ba01ae025772e9d0261b7ba12e66389c736fcf4635cd80f
++  actionmailer (8.0.4) sha256=3b9270d8e19f0afb534b11c52f439937dc30028adcbbae2b244f3383ce75de4b
++  actionpack (8.0.4) sha256=0364c7582f32c8f404725fa30d3f6853f834c5f4964afd4a072b848c8a23cddb
++  actiontext (8.0.4) sha256=40b3970268ac29b865685456b2586df5052d068fd0cb04acb2291e737cea2340
++  actionview (8.0.4) sha256=5bd3c41ee7a59e14cf062bb5e4ee53c9a253d12fc13c8754cae368012e1a1648
++  activejob (8.0.4) sha256=cbc8a85d0e168cb90a5629c8a36fe2d08ba840103d3aed3eee0c7beb784fccce
++  activemodel (8.0.4) sha256=8f4e4fac3cd104b1bf30419c3745206f6f724c0e2902a939b4113f4c90730dfd
++  activerecord (8.0.4) sha256=bda32c171799e5ca5460447d3b7272ed14447244e2497abf2107f87fc44cbf32
++  activestorage (8.0.4) sha256=47f312962fc898c1669f20cf7448d19668a5547f4a5f64e59a837d9d3f64a043
++  activesupport (8.0.4) sha256=894a3a6c7733b5fae5a7df3acd76c4b563f38687df8a04fa3cbd25360f3fe95a
+   addressable (2.8.8) sha256=7c13b8f9536cf6364c03b9d417c19986019e28f7c00ac8132da4eb0fe393b057
++  ast (2.4.3) sha256=954615157c1d6a382bc27d690d973195e79db7f55e9765ac7c481c60bdb4d383
+   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
++  bcrypt_pbkdf (1.1.1) sha256=2f9077dde837d1f0dd2eb0f9e5327c6871c68ebc8eba88870fb6b7956e1e2b13
++  bcrypt_pbkdf (1.1.1-arm64-darwin) sha256=f35a468372a182b363086d810f6f7ee62d6ea55efbf04eb2374290c30ee4c7ef
++  bcrypt_pbkdf (1.1.1-x86_64-darwin) sha256=a85548dc8f95fc2552b283e9c1839b1457533754745a84e501bf5b35e44920ad
+   benchmark (0.5.0) sha256=465df122341aedcb81a2a24b4d3bd19b6c67c1530713fd533f3ff034e419236c
+   bigdecimal (3.3.1) sha256=eaa01e228be54c4f9f53bf3cc34fe3d5e845c31963e7fcc5bedb05a4e7d52218
+   bindex (0.8.1) sha256=7b1ecc9dc539ed8bccfc8cb4d2732046227b09d6f37582ff12e50a5047ceb17e
++  brakeman (7.1.1) sha256=629426b5d6496c75e3ffa2299e1ab1bb3ba721fea03d8808414c083660439498
+   builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
+   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
+-  cgi (0.5.0) sha256=fe99f65bb2c146e294372ebb27602adbc3b4c008e9ea7038c6bd48c1ec9759da
+   concurrent-ruby (1.3.5) sha256=813b3e37aca6df2a21a3b9f1d497f8cbab24a2b94cab325bffe65ee0f6cbebc6
+   connection_pool (2.5.5) sha256=e54ff92855753df1fd7c59fa04a398833355f27dd14c074f8c83a05f72a716ad
+   crass (1.0.6) sha256=dc516022a56e7b3b156099abc81b6d2b08ea1ed12676ac7a5657617f012bd45d
+   date (3.5.0) sha256=5e74fd6c04b0e65d97ad4f3bb5cb2d8efb37f386cc848f46310b4593ffc46ee5
+   debug (1.11.0) sha256=1425db64cfa0130c952684e3dc974985be201dd62899bf4bbe3f8b5d6cf1aef2
++  dotenv (3.1.8) sha256=9e1176060ced581f8e6ce4384e91361817763a76e3c625c8bddc18b35bd392c3
+   drb (2.2.3) sha256=0b00d6fdb50995fe4a45dea13663493c841112e4068656854646f418fda13373
++  ed25519 (1.4.0) sha256=16e97f5198689a154247169f3453ef4cfd3f7a47481fde0ae33206cdfdcac506
+   erb (6.0.0) sha256=2730893f9d8c9733f16cab315a4e4b71c1afa9cabc1a1e7ad1403feba8f52579
+   erubi (1.13.1) sha256=a082103b0885dbc5ecf1172fede897f9ebdb745a4b97a5e8dc63953db1ee4ad9
++  et-orbi (1.4.0) sha256=6c7e3c90779821f9e3b324c5e96fda9767f72995d6ae435b96678a4f3e2de8bc
++  fugit (1.12.1) sha256=5898f478ede9b415f0804e42b8f3fd53f814bd85eebffceebdbc34e1107aaf68
+   globalid (1.3.0) sha256=05c639ad6eb4594522a0b07983022f04aa7254626ab69445a0e493aa3786ff11
+   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
+   importmap-rails (2.2.2) sha256=729f5b1092f832780829ade1d0b46c7e53d91c556f06da7254da2977e93fe614
+   io-console (0.8.1) sha256=1e15440a6b2f67b6ea496df7c474ed62c860ad11237f29b3bd187f054b925fcb
+   irb (1.15.3) sha256=4349edff1efa7ff7bfd34cb9df74a133a588ba88c2718098b3b4468b81184aaa
+   jbuilder (2.14.1) sha256=4eb26376ff60ef100cb4fd6fd7533cd271f9998327e86adf20fd8c0e69fabb42
++  json (2.16.0) sha256=ca5630320bb5ca23ebfd0bac84532fab56eb357575653b815b9df42c051e1525
++  kamal (2.9.0) sha256=c94057c1834a2e365ccb4f3439da8153d6de9aa0e7a6e11bb4a2e3a557a36f99
++  language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
++  lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
+   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
+   loofah (2.24.1) sha256=655a30842b70ec476410b347ab1cd2a5b92da46a19044357bbd9f401b009a337
+   mail (2.9.0) sha256=6fa6673ecd71c60c2d996260f9ee3dd387d4673b8169b502134659ece6d34941
+@@ -339,11 +445,13 @@
+   matrix (0.4.3) sha256=a0d5ab7ddcc1973ff690ab361b67f359acbb16958d1dc072b8b956a286564c5b
+   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
+   minitest (5.26.2) sha256=f021118a6185b9ba9f5af71f2ba103ad770c75afde9f2ab8da512677c550cde3
+-  mutex_m (0.3.0) sha256=cfcb04ac16b69c4813777022fdceda24e9f798e48092a2b817eb4c0a782b0751
+   net-imap (0.5.12) sha256=cb8cd05bd353fcc19b6cbc530a9cb06b577a969ea10b7ddb0f37787f74be4444
+   net-pop (0.1.2) sha256=848b4e982013c15b2f0382792268763b748cce91c9e91e36b0f27ed26420dff3
+   net-protocol (0.2.2) sha256=aa73e0cba6a125369de9837b8d8ef82a61849360eba0521900e2c3713aa162a8
++  net-scp (4.1.0) sha256=a99b0b92a1e5d360b0de4ffbf2dc0c91531502d3d4f56c28b0139a7c093d1a5d
++  net-sftp (4.0.0) sha256=65bb91c859c2f93b09826757af11b69af931a3a9155050f50d1b06d384526364
+   net-smtp (0.5.1) sha256=ed96a0af63c524fceb4b29b0d352195c30d82dd916a42f03c62a3a70e5b70736
++  net-ssh (7.3.0) sha256=172076c4b30ce56fb25a03961b0c4da14e1246426401b0f89cba1a3b54bf3ef0
+   nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
+   nokogiri (1.18.10-aarch64-linux-gnu) sha256=7fb87235d729c74a2be635376d82b1d459230cc17c50300f8e4fcaabc6195344
+   nokogiri (1.18.10-aarch64-linux-musl) sha256=7e74e58314297cc8a8f1b533f7212d1999dbe2639a9ee6d97b483ea2acc18944
+@@ -353,30 +461,44 @@
+   nokogiri (1.18.10-x86_64-darwin) sha256=536e74bed6db2b5076769cab5e5f5af0cd1dccbbd75f1b3e1fa69d1f5c2d79e2
+   nokogiri (1.18.10-x86_64-linux-gnu) sha256=ff5ba26ba2dbce5c04b9ea200777fd225061d7a3930548806f31db907e500f72
+   nokogiri (1.18.10-x86_64-linux-musl) sha256=0651fccf8c2ebbc2475c8b1dfd7ccac3a0a6d09f8a41b72db8c21808cb483385
++  ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912
++  parallel (1.27.0) sha256=4ac151e1806b755fb4e2dc2332cbf0e54f2e24ba821ff2d3dcf86bf6dc4ae130
++  parser (3.3.10.0) sha256=ce3587fa5cc55a88c4ba5b2b37621b3329aadf5728f9eafa36bbd121462aabd6
+   pp (0.6.3) sha256=2951d514450b93ccfeb1df7d021cae0da16e0a7f95ee1e2273719669d0ab9df6
+   prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
++  prism (1.6.0) sha256=bfc0281a81718c4872346bc858dc84abd3a60cae78336c65ad35c8fbff641c6b
++  propshaft (1.3.1) sha256=9acc664ef67e819ffa3d95bd7ad4c3623ea799110c5f4dee67fa7e583e74c392
+   psych (5.2.6) sha256=814328aa5dcb6d604d32126a20bc1cbcf05521a5b49dbb1a8b30a07e580f316e
+   public_suffix (7.0.0) sha256=f7090b5beb0e56f9f10d79eed4d5fbe551b3b425da65877e075dad47a6a1b095
+   puma (7.1.0) sha256=e45c10cb124f224d448c98db653a75499794edbecadc440ad616cf50f2fd49dd
++  raabro (1.4.0) sha256=d4fa9ff5172391edb92b242eed8be802d1934b1464061ae5e70d80962c5da882
+   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
+   rack (3.2.4) sha256=5d74b6f75082a643f43c1e76b419c40f0e5527fcfee1e669ac1e6b73c0ccb6f6
+   rack-session (2.1.1) sha256=0b6dc07dea7e4b583f58a48e8b806d4c9f1c6c9214ebc202ec94562cbea2e4e9
+   rack-test (2.2.0) sha256=005a36692c306ac0b4a9350355ee080fd09ddef1148a5f8b2ac636c720f5c463
+   rackup (2.2.1) sha256=f737191fd5c5b348b7f0a4412a3b86383f88c43e13b8217b63d4c8d90b9e798d
+-  rails (7.1.6) sha256=9a0a335e510de3daad7542cd791af3d8ff710c644e1da17ed12e96d2f28a7470
++  rails (8.0.4) sha256=364494a32d2dc3f9d5c135d036ce47e7776684bc6add73f1037ac2b1007962db
+   rails-dom-testing (2.3.0) sha256=8acc7953a7b911ca44588bf08737bc16719f431a1cc3091a292bca7317925c1d
+   rails-html-sanitizer (1.6.2) sha256=35fce2ca8242da8775c83b6ba9c1bcaad6751d9eb73c1abaa8403475ab89a560
+-  railties (7.1.6) sha256=2a10e97f2eaca66d11f0fef4b1f4d826e6ee28d4cf01ff16624420dd45e7de1c
++  railties (8.0.4) sha256=8203d853dcffab4abcdd05c193f101676a92068075464694790f6d8f72d5cb47
++  rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
+   rake (13.3.1) sha256=8c9e89d09f66a26a01264e7e3480ec0607f0c497a861ef16063604b1b08eb19c
+   rdoc (6.16.1) sha256=71357cc208e6da77ba0c4494e01ae870dd18b437c7c7d801dd73ee2f340b9f5c
+   regexp_parser (2.11.3) sha256=ca13f381a173b7a93450e53459075c9b76a10433caadcb2f1180f2c741fc55a4
+   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
+   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
++  rubocop (1.81.7) sha256=6fb5cc298c731691e2a414fe0041a13eb1beed7bab23aec131da1bcc527af094
++  rubocop-ast (1.48.0) sha256=22df9bbf3f7a6eccde0fad54e68547ae1e2a704bf8719e7c83813a99c05d2e76
++  rubocop-performance (1.26.1) sha256=cd19b936ff196df85829d264b522fd4f98b6c89ad271fa52744a8c11b8f71834
++  rubocop-rails (2.34.2) sha256=10ff246ee48b25ffeabddc5fee86d159d690bb3c7b9105755a9c7508a11d6e22
++  rubocop-rails-omakase (1.1.0) sha256=2af73ac8ee5852de2919abbd2618af9c15c19b512c4cfc1f9a5d3b6ef009109d
++  ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
+   rubyzip (3.2.2) sha256=c0ed99385f0625415c8f05bcae33fe649ed2952894a95ff8b08f26ca57ea5b3c
+   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
+   selenium-webdriver (4.38.0) sha256=0a84e71fef66394ae8d9290d3a5bc24b33de49d45a7aa57fc09f246218bf102f
+-  sprockets (4.2.2) sha256=761e5a49f1c288704763f73139763564c845a8f856d52fba013458f8af1b59b1
+-  sprockets-rails (3.5.2) sha256=a9e88e6ce9f8c912d349aa5401509165ec42326baf9e942a85de4b76dbc4119e
++  solid_cable (3.0.12) sha256=a168a54731a455d5627af48d8441ea3b554b8c1f6e6cd6074109de493e6b0460
++  solid_cache (1.0.10) sha256=bc05a2fb3ac78a6f43cbb5946679cf9db67dd30d22939ededc385cb93e120d41
++  solid_queue (1.2.4) sha256=bb60f9552a969ac377d87601b0ff6a088f5e6f20b0cbbe3844a59d022cac0e4b
+   sqlite3 (2.8.1-aarch64-linux-gnu) sha256=9bce166d3e3595a42fc92c28d986ea11d499b55be8bd1cd491be04af30029543
+   sqlite3 (2.8.1-aarch64-linux-musl) sha256=34912f6acf3e9c43c7998c6f99ba3146708e654cf9716b2983e260315cdeed72
+   sqlite3 (2.8.1-arm-linux-gnu) sha256=9118d6abb5ca7ea4f1b50a6c42c763e612670f5eb673bbdf12e8d3bd63339bde
+@@ -385,22 +507,29 @@
+   sqlite3 (2.8.1-x86_64-darwin) sha256=0028f5dd0b7a1ee6f1dadf31fc632abf7d815cb0baa0606549634fa45578f92e
+   sqlite3 (2.8.1-x86_64-linux-gnu) sha256=878f4a0c5c2c4d9d4345afe2a142a87805f388a24aa8a3c2dfe2f964d7686b7a
+   sqlite3 (2.8.1-x86_64-linux-musl) sha256=0c191ddfd71437b439e107a0d148630bef29a1eebd7b28bcc931470c328f657d
++  sshkit (1.24.0) sha256=9597c1f984778ae9742f2dc839778d57a6a2efb868107046575c52ac7c628e6c
+   stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
+   stringio (3.1.8) sha256=99c43c3a9302843cca223fd985bfc503dd50a4b1723d3e4a9eb1d9c37d99e4ec
+   thor (1.4.0) sha256=8763e822ccb0f1d7bee88cde131b19a65606657b847cc7b7b4b82e772bcd8a3d
++  thruster (0.1.16) sha256=daa74b5b88e75df5a8f82559d9cd242391c5941735bdfe33a66fb266120168ad
++  thruster (0.1.16-aarch64-linux) sha256=bc825f113ba4ba45a77b7f493cc067d7a6164955faee4300ef8fb7a9476fea5c
++  thruster (0.1.16-arm64-darwin) sha256=b7047cf7d19f7c43cdb99159f5f611cefcff70c0082e424b5bc01f91ade1e2f5
++  thruster (0.1.16-x86_64-darwin) sha256=1a239fceea8236f954d52b52cd47d574c8c0f8bd7b6471254f7b546512719292
++  thruster (0.1.16-x86_64-linux) sha256=775762f0e96ce5e300b60fdedb7a73c89d2fbaef6e9cf730f32008f6fd67396d
+   timeout (0.4.4) sha256=f0f6f970104b82427cd990680f539b6bbb8b1e55efa913a55c6492935e4e0edb
+   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
+   turbo-rails (2.0.20) sha256=cbcbb4dd3ce59f6471c9f911b1655b2c721998cc8303959d982da347f374ea95
+   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
++  unicode-display_width (3.2.0) sha256=0cdd96b5681a5949cdbc2c55e7b420facae74c4aaf9a9815eee1087cb1853c42
++  unicode-emoji (4.1.0) sha256=4997d2d5df1ed4252f4830a9b6e86f932e2013fbff2182a9ce9ccabda4f325a5
++  uri (1.1.1) sha256=379fa58d27ffb1387eaada68c749d1426738bd0f654d812fcc07e7568f5c57c6
++  useragent (0.16.11) sha256=700e6413ad4bb954bb63547fa098dddf7b0ebe75b40cc6f93b8d54255b173844
+   web-console (4.2.1) sha256=e7bcf37a10ea2b4ec4281649d1cee461b32232d0a447e82c786e6841fd22fe20
+   websocket (1.2.11) sha256=b7e7a74e2410b5e85c25858b26b3322f29161e300935f70a0e0d3c35e0462737
+   websocket-driver (0.8.0) sha256=ed0dba4b943c22f17f9a734817e808bc84cdce6a7e22045f5315aa57676d4962
+   websocket-extensions (0.1.5) sha256=1c6ba63092cda343eb53fc657110c71c754c56484aad42578495227d717a8241
+   xpath (3.2.0) sha256=6dfda79d91bb3b949b947ecc5919f042ef2f399b904013eb3ef6d20dd3a4082e
+   zeitwerk (2.7.3) sha256=b2e86b4a9b57d26ba68a15230dcc7fe6f040f06831ce64417b0621ad96ba3e85
 -
 -RUBY VERSION
--   ruby 3.2.6p234
+-  ruby 3.3.10
  
  BUNDLED WITH
-    2.6.2
+   4.0.0.beta2
 Only in rails 7.1/app/assets: config
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/app/assets/stylesheets/application.css rails 8.0/app/assets/stylesheets/application.css
---- rails 7.1/app/assets/stylesheets/application.css	2025-01-10 11:17:49
-+++ rails 8.0/app/assets/stylesheets/application.css	2025-01-10 11:18:03
+--- rails 7.1/app/assets/stylesheets/application.css	2025-12-01 11:49:52
++++ rails 8.0/app/assets/stylesheets/application.css	2025-12-01 11:50:02
 @@ -1,15 +1,10 @@
  /*
 - * This is a manifest file that'll be compiled into application.css, which will include all the files
@@ -1066,16 +1266,16 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
   */
 Only in rails 7.1/app: channels
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/app/controllers/application_controller.rb rails 8.0/app/controllers/application_controller.rb
---- rails 7.1/app/controllers/application_controller.rb	2025-01-10 11:17:49
-+++ rails 8.0/app/controllers/application_controller.rb	2025-01-10 11:18:03
+--- rails 7.1/app/controllers/application_controller.rb	2025-12-01 11:49:52
++++ rails 8.0/app/controllers/application_controller.rb	2025-12-01 11:50:02
 @@ -1,2 +1,4 @@
  class ApplicationController < ActionController::Base
 +  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
 +  allow_browser versions: :modern
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/app/views/layouts/application.html.erb rails 8.0/app/views/layouts/application.html.erb
---- rails 7.1/app/views/layouts/application.html.erb	2025-01-10 11:17:49
-+++ rails 8.0/app/views/layouts/application.html.erb	2025-01-10 11:18:03
+--- rails 7.1/app/views/layouts/application.html.erb	2025-12-01 11:49:52
++++ rails 8.0/app/views/layouts/application.html.erb	2025-12-01 11:50:02
 @@ -1,12 +1,24 @@
  <!DOCTYPE html>
  <html>
@@ -1105,7 +1305,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    <body>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/app/views/pwa/manifest.json.erb rails 8.0/app/views/pwa/manifest.json.erb
 --- rails 7.1/app/views/pwa/manifest.json.erb	1969-12-31 16:00:00
-+++ rails 8.0/app/views/pwa/manifest.json.erb	2025-01-10 11:18:03
++++ rails 8.0/app/views/pwa/manifest.json.erb	2025-12-01 11:50:02
 @@ -0,0 +1,22 @@
 +{
 +  "name": "Rails80",
@@ -1131,7 +1331,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +}
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/app/views/pwa/service-worker.js rails 8.0/app/views/pwa/service-worker.js
 --- rails 7.1/app/views/pwa/service-worker.js	1969-12-31 16:00:00
-+++ rails 8.0/app/views/pwa/service-worker.js	2025-01-10 11:18:03
++++ rails 8.0/app/views/pwa/service-worker.js	2025-12-01 11:50:02
 @@ -0,0 +1,26 @@
 +// Add a service worker for processing Web Push notifications:
 +//
@@ -1161,7 +1361,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +// })
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/bin/brakeman rails 8.0/bin/brakeman
 --- rails 7.1/bin/brakeman	1969-12-31 16:00:00
-+++ rails 8.0/bin/brakeman	2025-01-10 11:18:03
++++ rails 8.0/bin/brakeman	2025-12-01 11:50:02
 @@ -0,0 +1,7 @@
 +#!/usr/bin/env ruby
 +require "rubygems"
@@ -1172,13 +1372,13 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +load Gem.bin_path("brakeman", "brakeman")
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/bin/dev rails 8.0/bin/dev
 --- rails 7.1/bin/dev	1969-12-31 16:00:00
-+++ rails 8.0/bin/dev	2025-01-10 11:18:03
++++ rails 8.0/bin/dev	2025-12-01 11:50:02
 @@ -0,0 +1,2 @@
 +#!/usr/bin/env ruby
 +exec "./bin/rails", "server", *ARGV
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/bin/docker-entrypoint rails 8.0/bin/docker-entrypoint
---- rails 7.1/bin/docker-entrypoint	2025-01-10 11:17:49
-+++ rails 8.0/bin/docker-entrypoint	2025-01-10 11:18:03
+--- rails 7.1/bin/docker-entrypoint	2025-12-01 11:49:52
++++ rails 8.0/bin/docker-entrypoint	2025-12-01 11:50:02
 @@ -1,7 +1,13 @@
  #!/bin/bash -e
  
@@ -1196,8 +1396,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/bin/kamal rails 8.0/bin/kamal
 --- rails 7.1/bin/kamal	1969-12-31 16:00:00
-+++ rails 8.0/bin/kamal	2025-01-10 11:18:11
-@@ -0,0 +1,27 @@
++++ rails 8.0/bin/kamal	2025-12-01 11:50:07
+@@ -0,0 +1,16 @@
 +#!/usr/bin/env ruby
 +# frozen_string_literal: true
 +
@@ -1210,24 +1410,13 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +
 +ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
 +
-+bundle_binstub = File.expand_path("bundle", __dir__)
-+
-+if File.file?(bundle_binstub)
-+  if File.read(bundle_binstub, 300).include?("This file was generated by Bundler")
-+    load(bundle_binstub)
-+  else
-+    abort("Your `bin/bundle` was not generated by Bundler, so this binstub cannot run.
-+Replace `bin/bundle` by running `bundle binstubs bundler --force`, then run this command again.")
-+  end
-+end
-+
 +require "rubygems"
 +require "bundler/setup"
 +
 +load Gem.bin_path("kamal", "kamal")
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/bin/rubocop rails 8.0/bin/rubocop
 --- rails 7.1/bin/rubocop	1969-12-31 16:00:00
-+++ rails 8.0/bin/rubocop	2025-01-10 11:18:03
++++ rails 8.0/bin/rubocop	2025-12-01 11:50:02
 @@ -0,0 +1,8 @@
 +#!/usr/bin/env ruby
 +require "rubygems"
@@ -1238,8 +1427,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +
 +load Gem.bin_path("rubocop", "rubocop")
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/bin/setup rails 8.0/bin/setup
---- rails 7.1/bin/setup	2025-01-10 11:17:49
-+++ rails 8.0/bin/setup	2025-01-10 11:18:03
+--- rails 7.1/bin/setup	2025-12-01 11:49:52
++++ rails 8.0/bin/setup	2025-12-01 11:50:02
 @@ -1,7 +1,6 @@
  #!/usr/bin/env ruby
  require "fileutils"
@@ -1270,7 +1459,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/bin/thrust rails 8.0/bin/thrust
 --- rails 7.1/bin/thrust	1969-12-31 16:00:00
-+++ rails 8.0/bin/thrust	2025-01-10 11:18:03
++++ rails 8.0/bin/thrust	2025-12-01 11:50:02
 @@ -0,0 +1,5 @@
 +#!/usr/bin/env ruby
 +require "rubygems"
@@ -1278,8 +1467,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +
 +load Gem.bin_path("thruster", "thrust")
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/application.rb rails 8.0/config/application.rb
---- rails 7.1/config/application.rb	2025-01-10 11:17:49
-+++ rails 8.0/config/application.rb	2025-01-10 11:18:03
+--- rails 7.1/config/application.rb	2025-12-01 11:49:52
++++ rails 8.0/config/application.rb	2025-12-01 11:50:02
 @@ -6,15 +6,15 @@
  # you've limited to :test, :development, or :production.
  Bundler.require(*Rails.groups)
@@ -1300,8 +1489,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
      # Configuration for the application, engines, and railties goes here.
      #
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/cable.yml rails 8.0/config/cable.yml
---- rails 7.1/config/cable.yml	2025-01-10 11:17:49
-+++ rails 8.0/config/cable.yml	2025-01-10 11:18:03
+--- rails 7.1/config/cable.yml	2025-12-01 11:49:52
++++ rails 8.0/config/cable.yml	2025-12-01 11:50:02
 @@ -7,4 +7,4 @@
  production:
    adapter: redis
@@ -1309,16 +1498,16 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -  channel_prefix: rails_7_1_production
 +  channel_prefix: rails_8_0_production
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/credentials.yml.enc rails 8.0/config/credentials.yml.enc
---- rails 7.1/config/credentials.yml.enc	2025-01-10 11:17:49
-+++ rails 8.0/config/credentials.yml.enc	2025-01-10 11:18:03
+--- rails 7.1/config/credentials.yml.enc	2025-12-01 11:49:52
++++ rails 8.0/config/credentials.yml.enc	2025-12-01 11:50:02
 @@ -1 +1 @@
--juqr6ubzqW1240dC4w9nDLc3cT0XYk7BriHb6wX/x+BXnpzFdozWtl9zlZQwq+8ZMgJJTJKlKCIB3tVsefuR3S2cTq2Sxk34Frw9+cPyuwdXIFaBRZLRxvxAxOH9MViEUxJI4WG/LTDqb0A2C1xXwuu0LM4cu+e2ZfkkcumksxoJ6yO9rfo+BaU3FR4xedbX7T6pp80KMMc++s2JVPzllwvPo5HZ8bRlmGQL2/BymHIZ69kdylPurDq9O+7iXDxGhcLb8+CXQrSZP6BIwSnoerwjU+WH1+38HPG5aXbA59klUJ7hgeWwyN3p2bldsxEISH+ePp3ocWoJMWKskAioxn0IeoV3Iw3rCdZAdTKBywln2kFTk3m5pKBZc5fWvIjdTauKltnHqdDcyUiQGd3sXMgvzLDo--iGsPzJqcyXHUrJny--gvnK5SUOPHdKtrFRN9OQ4g==
+-N+ivAGyb+Vc5UG+E4QlW5YIh4ycPzZVhqv+JNaAbawzjmdaIRUyCev47BUgH2sks/v7VUkxOLt5ZZj4Euom3iFY1j1ihaE8T3CxHvFOIgO8Nmgm/z004mZnTcGoi8EZtMXwUFzBbD9/0I0//JZeSm/Ea7ILKFcMXC6h8ZkM25nLAQO+lzcg8oi7dwgMcPLnO8K4bSymrftm290KyCMsMmrub9Ty58W5ReVYZDqV+NvHpSOHipI5Cmt4ieMnbkcTslx7l45H1ii6h8OdVTkrYzZNnU/YuAgkuIFAfuxn7yGgyyKAMdHgTySelMLuq6RyFaHK4GCFu1H6IJbM5Mz8sdcZ/w8BdW6iuGIBwDk9jLBM+XDazT7rq1nqYLL7b0d9fkLmzPZz9eSxgmdQPTch5uLvFpi3h--/IdwPqGVzEGsgZVh--+a/M34B4MWA5xTF5mrSgKQ==
 \ No newline at end of file
-+m/RH+wxAqFIV3LQBY4dtTsCgwVu+bizHLsCLV9AV0s6L1O4YdaKslwHSduhvB/T/fsWvJIk58eZvXQUjcXIxCjmiubdPhOXGstEGehyX4QMqSNsvPkcERdpUzd/QUqM8t9QaGHZrHm9+c7NHV7yPzlVaHF/sNNypFnisARjRnZgJfpv5M548DCK6t3s8PoGLhN/Oc2BhBz2WB5x3bUf2T7kqPZO4kezTKmnrUdRLKP5Uw+jPzCNWnlTZAuhSgqjOQ3RK8/EQP/99h0y6Uvo9Yt4NqyaV6it6E/qLoTXYMAmytrNzEvHid6w2cKo1YrHEgcHbyj6j6+7ZAcCoA07yQJCXRDrYJMyyplnrgWPHmz93RiwRXKzFWpobaURMwxsM8h+BD34fx22Sf6IAshsL1NuV42mPVdMiiVOOEWA7xsQ6X/TAx9dkfgXUcxGD6BBPNpZKCainwQJaXC21cPZ4+00WnGwcYuqWhxMiaL6fMYCufdYP1PDwh98n--UkP7B7Oferidfh5u--4Z2t4W69iDNbCBZF92ul4w==
++Y+x1w0YH91w4fz9aN7c3glsWUhbs/UuUyMSesOI8I9/Cpjfy3QNXMH50uwMmAg7V09Fgk0svHO2vQGVtF+bA4a0cMVWoL0i7bWvnN0ep1cZTFJen687BBZ2CVAw+f7iiAUtEic6HOgLQ6gt7uYNBBNqj7tUvi27p/citXl4JoyAjnNt3qU2FSMeq7+7CFmAqrYmfyBvNTxayJJacPvcYtURIR/8Ih/4PQ7oxNnHf2FaGTTlwRR6UbYXtspTVSCHjePXtlOcOcRSKeN2IF/PF3FN80cRuTPZHU0Xn/P7nusvbgQvjkneQlQ72nEA0uHADn2eaCCTaPnrpvquFn6uc1W2VntJ3+bDV1eWB29e4huUSxrI2mtUey3lirnixPp6j+tXxDO5iSYA4LioWJpM92YCxP40KcRvRYd3pVTcqfzY7RNDhVBU5mdHMAtJyEbjADLqfF+pxGhBLSHl8AwGe1xiFQzq2P5X/Af9ZqXljAoPCjmXScku7T5OK--wgEWOd+z+jKSti+U--KqEfhEx1EUJBdkNV/38ySA==
 \ No newline at end of file
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/database.yml rails 8.0/config/database.yml
---- rails 7.1/config/database.yml	2025-01-10 11:17:49
-+++ rails 8.0/config/database.yml	2025-01-10 11:18:03
+--- rails 7.1/config/database.yml	2025-12-01 11:49:52
++++ rails 8.0/config/database.yml	2025-12-01 11:50:02
 @@ -20,6 +20,22 @@
    <<: *default
    database: storage/test.sqlite3
@@ -1344,7 +1533,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +    migrations_paths: db/cable_migrate
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/deploy.yml rails 8.0/config/deploy.yml
 --- rails 7.1/config/deploy.yml	1969-12-31 16:00:00
-+++ rails 8.0/config/deploy.yml	2025-01-10 11:18:12
++++ rails 8.0/config/deploy.yml	2025-12-01 11:50:07
 @@ -0,0 +1,116 @@
 +# Name of your application. Used to uniquely configure containers.
 +service: rails_8_0
@@ -1430,7 +1619,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  #
 +  # # Pass arguments and secrets to the Docker build process
 +  # args:
-+  #   RUBY_VERSION: 3.2.6
++  #   RUBY_VERSION: 3.3.10
 +  # secrets:
 +  #   - GITHUB_TOKEN
 +  #   - RAILS_MASTER_KEY
@@ -1463,8 +1652,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +#     directories:
 +#       - data:/data
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/environments/development.rb rails 8.0/config/environments/development.rb
---- rails 7.1/config/environments/development.rb	2025-01-10 11:17:49
-+++ rails 8.0/config/environments/development.rb	2025-01-10 11:18:03
+--- rails 7.1/config/environments/development.rb	2025-12-01 11:49:52
++++ rails 8.0/config/environments/development.rb	2025-12-01 11:50:02
 @@ -3,9 +3,7 @@
  Rails.application.configure do
    # Settings specified here will take precedence over those in config/application.rb.
@@ -1560,8 +1749,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  # config.generators.apply_rubocop_autocorrect_after_generate!
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/environments/production.rb rails 8.0/config/environments/production.rb
---- rails 7.1/config/environments/production.rb	2025-01-10 11:17:49
-+++ rails 8.0/config/environments/production.rb	2025-01-10 11:18:03
+--- rails 7.1/config/environments/production.rb	2025-12-01 11:49:52
++++ rails 8.0/config/environments/production.rb	2025-12-01 11:50:02
 @@ -6,92 +6,84 @@
    # Code is not reloaded between requests.
    config.enable_reloading = false
@@ -1692,8 +1881,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/environments/test.rb rails 8.0/config/environments/test.rb
---- rails 7.1/config/environments/test.rb	2025-01-10 11:17:49
-+++ rails 8.0/config/environments/test.rb	2025-01-10 11:18:03
+--- rails 7.1/config/environments/test.rb	2025-12-01 11:49:52
++++ rails 8.0/config/environments/test.rb	2025-12-01 11:50:02
 @@ -1,5 +1,3 @@
 -require "active_support/core_ext/integer/time"
 -
@@ -1753,8 +1942,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    config.action_controller.raise_on_missing_callback_actions = true
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/initializers/assets.rb rails 8.0/config/initializers/assets.rb
---- rails 7.1/config/initializers/assets.rb	2025-01-10 11:17:49
-+++ rails 8.0/config/initializers/assets.rb	2025-01-10 11:18:03
+--- rails 7.1/config/initializers/assets.rb	2025-12-01 11:49:52
++++ rails 8.0/config/initializers/assets.rb	2025-12-01 11:50:02
 @@ -5,8 +5,3 @@
  
  # Add additional assets to the asset load path.
@@ -1765,8 +1954,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -# folder are already added.
 -# Rails.application.config.assets.precompile += %w( admin.js admin.css )
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/initializers/filter_parameter_logging.rb rails 8.0/config/initializers/filter_parameter_logging.rb
---- rails 7.1/config/initializers/filter_parameter_logging.rb	2025-01-10 11:17:49
-+++ rails 8.0/config/initializers/filter_parameter_logging.rb	2025-01-10 11:18:03
+--- rails 7.1/config/initializers/filter_parameter_logging.rb	2025-12-01 11:49:52
++++ rails 8.0/config/initializers/filter_parameter_logging.rb	2025-12-01 11:50:02
 @@ -4,5 +4,5 @@
  # Use this to limit dissemination of sensitive information.
  # See the ActiveSupport::ParameterFilter documentation for supported notations and behaviors.
@@ -1776,16 +1965,16 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  ]
 Only in rails 7.1/config/initializers: permissions_policy.rb
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/master.key rails 8.0/config/master.key
---- rails 7.1/config/master.key	2025-01-10 11:17:49
-+++ rails 8.0/config/master.key	2025-01-10 11:18:03
+--- rails 7.1/config/master.key	2025-12-01 11:49:52
++++ rails 8.0/config/master.key	2025-12-01 11:50:02
 @@ -1 +1 @@
--9b4ac97c1a1ff1ea5d9b4f66b6ef375e
+-3f3eaa78f1ff558a213e580d1c6e1baa
 \ No newline at end of file
-+d6a9c2291172cae28935da9e4a99a4af
++8a3ae628406065cc283c54528df46b58
 \ No newline at end of file
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/puma.rb rails 8.0/config/puma.rb
---- rails 7.1/config/puma.rb	2025-01-10 11:17:49
-+++ rails 8.0/config/puma.rb	2025-01-10 11:18:03
+--- rails 7.1/config/puma.rb	2025-12-01 11:49:52
++++ rails 8.0/config/puma.rb	2025-12-01 11:50:02
 @@ -1,44 +1,41 @@
  # This configuration file will be evaluated by Puma. The top-level methods that
  # are invoked here are part of Puma's configuration DSL. For more information
@@ -1865,8 +2054,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +# In other environments, only set the PID file if requested.
 +pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/config/routes.rb rails 8.0/config/routes.rb
---- rails 7.1/config/routes.rb	2025-01-10 11:17:49
-+++ rails 8.0/config/routes.rb	2025-01-10 11:18:03
+--- rails 7.1/config/routes.rb	2025-12-01 11:49:52
++++ rails 8.0/config/routes.rb	2025-12-01 11:50:02
 @@ -5,6 +5,10 @@
    # Can be used by load balancers and uptime monitors to verify that the app is live.
    get "up" => "rails/health#show", as: :rails_health_check
@@ -1881,7 +2070,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 Only in rails 7.1/lib: assets
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/public/400.html rails 8.0/public/400.html
 --- rails 7.1/public/400.html	1969-12-31 16:00:00
-+++ rails 8.0/public/400.html	2025-01-10 11:18:03
++++ rails 8.0/public/400.html	2025-12-01 11:50:02
 @@ -0,0 +1,114 @@
 +<!doctype html>
 +
@@ -1998,8 +2187,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +
 +</html>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/public/404.html rails 8.0/public/404.html
---- rails 7.1/public/404.html	2025-01-10 11:17:49
-+++ rails 8.0/public/404.html	2025-01-10 11:18:03
+--- rails 7.1/public/404.html	2025-12-01 11:49:52
++++ rails 8.0/public/404.html	2025-12-01 11:50:02
 @@ -1,67 +1,114 @@
 -<!DOCTYPE html>
 -<html>
@@ -2169,7 +2358,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  </html>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/public/406-unsupported-browser.html rails 8.0/public/406-unsupported-browser.html
 --- rails 7.1/public/406-unsupported-browser.html	1969-12-31 16:00:00
-+++ rails 8.0/public/406-unsupported-browser.html	2025-01-10 11:18:03
++++ rails 8.0/public/406-unsupported-browser.html	2025-12-01 11:50:02
 @@ -0,0 +1,114 @@
 +<!doctype html>
 +
@@ -2286,8 +2475,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +
 +</html>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/public/422.html rails 8.0/public/422.html
---- rails 7.1/public/422.html	2025-01-10 11:17:49
-+++ rails 8.0/public/422.html	2025-01-10 11:18:03
+--- rails 7.1/public/422.html	2025-12-01 11:49:52
++++ rails 8.0/public/422.html	2025-12-01 11:50:02
 @@ -1,67 +1,114 @@
 -<!DOCTYPE html>
 -<html>
@@ -2456,8 +2645,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +
  </html>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/public/500.html rails 8.0/public/500.html
---- rails 7.1/public/500.html	2025-01-10 11:17:49
-+++ rails 8.0/public/500.html	2025-01-10 11:18:03
+--- rails 7.1/public/500.html	2025-12-01 11:49:52
++++ rails 8.0/public/500.html	2025-12-01 11:50:02
 @@ -1,66 +1,114 @@
 -<!DOCTYPE html>
 -<html>
@@ -2630,14 +2819,14 @@ Only in rails 7.1/public: favicon.ico
 Binary files rails 7.1/public/icon.png and rails 8.0/public/icon.png differ
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/public/icon.svg rails 8.0/public/icon.svg
 --- rails 7.1/public/icon.svg	1969-12-31 16:00:00
-+++ rails 8.0/public/icon.svg	2025-01-10 11:18:03
++++ rails 8.0/public/icon.svg	2025-12-01 11:50:02
 @@ -0,0 +1,3 @@
 +<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
 +  <circle cx="256" cy="256" r="256" fill="red"/>
 +</svg>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.1/test/application_system_test_case.rb rails 8.0/test/application_system_test_case.rb
---- rails 7.1/test/application_system_test_case.rb	2025-01-10 11:17:49
-+++ rails 8.0/test/application_system_test_case.rb	2025-01-10 11:18:04
+--- rails 7.1/test/application_system_test_case.rb	2025-12-01 11:49:52
++++ rails 8.0/test/application_system_test_case.rb	2025-12-01 11:50:02
 @@ -1,5 +1,5 @@
  require "test_helper"
  

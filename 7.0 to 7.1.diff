@@ -1,6 +1,6 @@
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/.dockerignore rails 7.1/.dockerignore
 --- rails 7.0/.dockerignore	1969-12-31 16:00:00
-+++ rails 7.1/.dockerignore	2025-01-10 11:17:49
++++ rails 7.1/.dockerignore	2025-12-01 11:49:52
 @@ -0,0 +1,37 @@
 +# See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files.
 +
@@ -40,8 +40,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +!/app/assets/builds/.keep
 +/public/assets
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/.gitattributes rails 7.1/.gitattributes
---- rails 7.0/.gitattributes	2025-01-10 11:17:35
-+++ rails 7.1/.gitattributes	2025-01-10 11:17:49
+--- rails 7.0/.gitattributes	2025-12-01 11:49:44
++++ rails 7.1/.gitattributes	2025-12-01 11:49:52
 @@ -5,3 +5,5 @@
  
  # Mark any vendored files as having been vendored.
@@ -49,8 +49,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +config/credentials/*.yml.enc diff=rails_credentials
 +config/credentials.yml.enc diff=rails_credentials
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/.gitignore rails 7.1/.gitignore
---- rails 7.0/.gitignore	2025-01-10 11:17:35
-+++ rails 7.1/.gitignore	2025-01-10 11:17:49
+--- rails 7.0/.gitignore	2025-12-01 11:49:44
++++ rails 7.1/.gitignore	2025-12-01 11:49:52
 @@ -7,9 +7,9 @@
  # Ignore bundler config.
  /.bundle
@@ -75,12 +75,12 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  /tmp/storage/*
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/Dockerfile rails 7.1/Dockerfile
 --- rails 7.0/Dockerfile	1969-12-31 16:00:00
-+++ rails 7.1/Dockerfile	2025-01-10 11:17:49
++++ rails 7.1/Dockerfile	2025-12-01 11:49:52
 @@ -0,0 +1,58 @@
 +# syntax = docker/dockerfile:1
 +
 +# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-+ARG RUBY_VERSION=3.2.6
++ARG RUBY_VERSION=3.3.10
 +FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 +
 +# Rails app lives here
@@ -136,17 +136,17 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +EXPOSE 3000
 +CMD ["./bin/rails", "server"]
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/Gemfile rails 7.1/Gemfile
---- rails 7.0/Gemfile	2025-01-10 11:17:35
-+++ rails 7.1/Gemfile	2025-01-10 11:17:49
+--- rails 7.0/Gemfile	2025-12-01 11:49:44
++++ rails 7.1/Gemfile	2025-12-01 11:49:52
 @@ -1,25 +1,33 @@
  source "https://rubygems.org"
 -git_source(:github) { |repo| "https://github.com/#{repo}.git" }
  
- ruby "3.2.6"
+ ruby "3.3.10"
  
  # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
--gem "rails", "~> 7.0.8", ">= 7.0.8.7"
-+gem "rails", "~> 7.1.5", ">= 7.1.5.1"
+-gem "rails", "~> 7.0.10"
++gem "rails", "~> 7.1.6"
  
  # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
  gem "sprockets-rails"
@@ -156,8 +156,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +gem "sqlite3", ">= 1.4"
  
  # Use the Puma web server [https://github.com/puma/puma]
--gem "puma", "~> 5.0"
-+gem "puma", ">= 5.0"
+ gem "puma", ">= 5.0"
  
 +# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 +gem "importmap-rails"
@@ -200,264 +199,241 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  end
  
  group :development do
-@@ -59,5 +61,4 @@
-   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-   gem "capybara"
-   gem "selenium-webdriver"
--
- end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/Gemfile.lock rails 7.1/Gemfile.lock
---- rails 7.0/Gemfile.lock	2025-01-10 11:17:41
-+++ rails 7.1/Gemfile.lock	2025-01-10 11:17:56
-@@ -1,77 +1,89 @@
+--- rails 7.0/Gemfile.lock	2025-12-01 11:49:46
++++ rails 7.1/Gemfile.lock	2025-12-01 11:49:56
+@@ -1,72 +1,78 @@
  GEM
    remote: https://rubygems.org/
    specs:
--    actioncable (7.0.8.7)
--      actionpack (= 7.0.8.7)
--      activesupport (= 7.0.8.7)
-+    actioncable (7.1.5.1)
-+      actionpack (= 7.1.5.1)
-+      activesupport (= 7.1.5.1)
+-    actioncable (7.0.10)
+-      actionpack (= 7.0.10)
+-      activesupport (= 7.0.10)
++    actioncable (7.1.6)
++      actionpack (= 7.1.6)
++      activesupport (= 7.1.6)
        nio4r (~> 2.0)
        websocket-driver (>= 0.6.1)
--    actionmailbox (7.0.8.7)
--      actionpack (= 7.0.8.7)
--      activejob (= 7.0.8.7)
--      activerecord (= 7.0.8.7)
--      activestorage (= 7.0.8.7)
--      activesupport (= 7.0.8.7)
+-    actionmailbox (7.0.10)
+-      actionpack (= 7.0.10)
+-      activejob (= 7.0.10)
+-      activerecord (= 7.0.10)
+-      activestorage (= 7.0.10)
+-      activesupport (= 7.0.10)
 +      zeitwerk (~> 2.6)
-+    actionmailbox (7.1.5.1)
-+      actionpack (= 7.1.5.1)
-+      activejob (= 7.1.5.1)
-+      activerecord (= 7.1.5.1)
-+      activestorage (= 7.1.5.1)
-+      activesupport (= 7.1.5.1)
++    actionmailbox (7.1.6)
++      actionpack (= 7.1.6)
++      activejob (= 7.1.6)
++      activerecord (= 7.1.6)
++      activestorage (= 7.1.6)
++      activesupport (= 7.1.6)
        mail (>= 2.7.1)
        net-imap
        net-pop
        net-smtp
--    actionmailer (7.0.8.7)
--      actionpack (= 7.0.8.7)
--      actionview (= 7.0.8.7)
--      activejob (= 7.0.8.7)
--      activesupport (= 7.0.8.7)
-+    actionmailer (7.1.5.1)
-+      actionpack (= 7.1.5.1)
-+      actionview (= 7.1.5.1)
-+      activejob (= 7.1.5.1)
-+      activesupport (= 7.1.5.1)
+-    actionmailer (7.0.10)
+-      actionpack (= 7.0.10)
+-      actionview (= 7.0.10)
+-      activejob (= 7.0.10)
+-      activesupport (= 7.0.10)
++    actionmailer (7.1.6)
++      actionpack (= 7.1.6)
++      actionview (= 7.1.6)
++      activejob (= 7.1.6)
++      activesupport (= 7.1.6)
        mail (~> 2.5, >= 2.5.4)
        net-imap
        net-pop
        net-smtp
 -      rails-dom-testing (~> 2.0)
--    actionpack (7.0.8.7)
--      actionview (= 7.0.8.7)
--      activesupport (= 7.0.8.7)
--      rack (~> 2.0, >= 2.2.4)
+-    actionpack (7.0.10)
+-      actionview (= 7.0.10)
+-      activesupport (= 7.0.10)
 +      rails-dom-testing (~> 2.2)
-+    actionpack (7.1.5.1)
-+      actionview (= 7.1.5.1)
-+      activesupport (= 7.1.5.1)
++    actionpack (7.1.6)
++      actionview (= 7.1.6)
++      activesupport (= 7.1.6)
++      cgi
 +      nokogiri (>= 1.8.5)
-+      racc
+       racc
+-      rack (~> 2.0, >= 2.2.4)
 +      rack (>= 2.2.4)
 +      rack-session (>= 1.0.1)
        rack-test (>= 0.6.3)
 -      rails-dom-testing (~> 2.0)
 -      rails-html-sanitizer (~> 1.0, >= 1.2.0)
--    actiontext (7.0.8.7)
--      actionpack (= 7.0.8.7)
--      activerecord (= 7.0.8.7)
--      activestorage (= 7.0.8.7)
--      activesupport (= 7.0.8.7)
+-    actiontext (7.0.10)
+-      actionpack (= 7.0.10)
+-      activerecord (= 7.0.10)
+-      activestorage (= 7.0.10)
+-      activesupport (= 7.0.10)
 +      rails-dom-testing (~> 2.2)
 +      rails-html-sanitizer (~> 1.6)
-+    actiontext (7.1.5.1)
-+      actionpack (= 7.1.5.1)
-+      activerecord (= 7.1.5.1)
-+      activestorage (= 7.1.5.1)
-+      activesupport (= 7.1.5.1)
++    actiontext (7.1.6)
++      actionpack (= 7.1.6)
++      activerecord (= 7.1.6)
++      activestorage (= 7.1.6)
++      activesupport (= 7.1.6)
        globalid (>= 0.6.0)
        nokogiri (>= 1.8.5)
--    actionview (7.0.8.7)
--      activesupport (= 7.0.8.7)
-+    actionview (7.1.5.1)
-+      activesupport (= 7.1.5.1)
+-    actionview (7.0.10)
+-      activesupport (= 7.0.10)
++    actionview (7.1.6)
++      activesupport (= 7.1.6)
        builder (~> 3.1)
 -      erubi (~> 1.4)
 -      rails-dom-testing (~> 2.0)
 -      rails-html-sanitizer (~> 1.1, >= 1.2.0)
--    activejob (7.0.8.7)
--      activesupport (= 7.0.8.7)
+-    activejob (7.0.10)
+-      activesupport (= 7.0.10)
++      cgi
 +      erubi (~> 1.11)
 +      rails-dom-testing (~> 2.2)
 +      rails-html-sanitizer (~> 1.6)
-+    activejob (7.1.5.1)
-+      activesupport (= 7.1.5.1)
++    activejob (7.1.6)
++      activesupport (= 7.1.6)
        globalid (>= 0.3.6)
--    activemodel (7.0.8.7)
--      activesupport (= 7.0.8.7)
--    activerecord (7.0.8.7)
--      activemodel (= 7.0.8.7)
--      activesupport (= 7.0.8.7)
--    activestorage (7.0.8.7)
--      actionpack (= 7.0.8.7)
--      activejob (= 7.0.8.7)
--      activerecord (= 7.0.8.7)
--      activesupport (= 7.0.8.7)
-+    activemodel (7.1.5.1)
-+      activesupport (= 7.1.5.1)
-+    activerecord (7.1.5.1)
-+      activemodel (= 7.1.5.1)
-+      activesupport (= 7.1.5.1)
+-    activemodel (7.0.10)
+-      activesupport (= 7.0.10)
+-    activerecord (7.0.10)
+-      activemodel (= 7.0.10)
+-      activesupport (= 7.0.10)
+-    activestorage (7.0.10)
+-      actionpack (= 7.0.10)
+-      activejob (= 7.0.10)
+-      activerecord (= 7.0.10)
+-      activesupport (= 7.0.10)
++    activemodel (7.1.6)
++      activesupport (= 7.1.6)
++    activerecord (7.1.6)
++      activemodel (= 7.1.6)
++      activesupport (= 7.1.6)
 +      timeout (>= 0.4.0)
-+    activestorage (7.1.5.1)
-+      actionpack (= 7.1.5.1)
-+      activejob (= 7.1.5.1)
-+      activerecord (= 7.1.5.1)
-+      activesupport (= 7.1.5.1)
++    activestorage (7.1.6)
++      actionpack (= 7.1.6)
++      activejob (= 7.1.6)
++      activerecord (= 7.1.6)
++      activesupport (= 7.1.6)
        marcel (~> 1.0)
 -      mini_mime (>= 1.1.0)
--    activesupport (7.0.8.7)
-+    activesupport (7.1.5.1)
-+      base64
-+      benchmark (>= 0.3)
-+      bigdecimal
+-    activesupport (7.0.10)
++    activesupport (7.1.6)
+       base64
+       benchmark (>= 0.3)
+       bigdecimal
        concurrent-ruby (~> 1.0, >= 1.0.2)
 +      connection_pool (>= 2.2.5)
-+      drb
+       drb
        i18n (>= 1.6, < 2)
-+      logger (>= 1.4.2)
-       minitest (>= 5.1)
-+      mutex_m
-+      securerandom (>= 0.3)
-       tzinfo (~> 2.0)
-     addressable (2.8.7)
-       public_suffix (>= 2.0.2, < 7.0)
-     base64 (0.2.0)
-+    benchmark (0.4.0)
-+    bigdecimal (3.1.9)
+       logger (>= 1.4.2)
+@@ -80,8 +86,6 @@
+     benchmark (0.5.0)
+     bigdecimal (3.3.1)
      bindex (0.8.1)
--    bootsnap (1.18.4)
+-    bootsnap (1.19.0)
 -      msgpack (~> 1.2)
      builder (3.3.0)
      capybara (3.40.0)
        addressable
-@@ -83,16 +95,22 @@
+@@ -92,7 +96,9 @@
+       rack-test (>= 0.6.3)
        regexp_parser (>= 1.5, < 3.0)
        xpath (~> 3.2)
-     concurrent-ruby (1.3.4)
-+    connection_pool (2.5.0)
++    cgi (0.5.0)
+     concurrent-ruby (1.3.5)
++    connection_pool (2.5.5)
      crass (1.0.6)
-     date (3.4.1)
-     debug (1.10.0)
-       irb (~> 1.10)
-       reline (>= 0.3.8)
-+    drb (2.2.1)
-     erubi (1.13.1)
-     globalid (1.2.1)
+     date (3.5.0)
+     debug (1.11.0)
+@@ -105,6 +111,10 @@
        activesupport (>= 6.1)
-     i18n (1.14.6)
+     i18n (1.14.7)
        concurrent-ruby (~> 1.0)
-+    importmap-rails (2.1.0)
++    importmap-rails (2.2.2)
 +      actionpack (>= 6.0.0)
 +      activesupport (>= 6.0.0)
 +      railties (>= 6.0.0)
-     io-console (0.8.0)
-     irb (1.14.3)
-       rdoc (>= 4.0.0)
-@@ -111,10 +129,9 @@
+     io-console (0.8.1)
+     irb (1.15.3)
+       pp (>= 0.6.0)
+@@ -125,10 +135,8 @@
        net-smtp
-     marcel (1.0.4)
-     matrix (0.4.2)
+     marcel (1.1.0)
+     matrix (0.4.3)
 -    method_source (1.1.0)
      mini_mime (1.1.5)
-     minitest (5.25.4)
--    msgpack (1.7.5)
-+    mutex_m (0.3.0)
-     net-imap (0.5.5)
+     minitest (5.26.2)
+-    msgpack (1.8.0)
+     mutex_m (0.3.0)
+     net-imap (0.5.12)
        date
-       net-protocol
-@@ -145,26 +162,31 @@
-       date
-       stringio
-     public_suffix (6.0.1)
--    puma (5.6.9)
-+    puma (6.5.0)
+@@ -166,23 +174,28 @@
+     puma (7.1.0)
        nio4r (~> 2.0)
      racc (1.8.1)
--    rack (2.2.10)
-+    rack (3.1.8)
-+    rack-session (2.1.0)
+-    rack (2.2.21)
++    rack (3.2.4)
++    rack-session (2.1.1)
 +      base64 (>= 0.1.0)
 +      rack (>= 3.0.0)
      rack-test (2.2.0)
        rack (>= 1.3)
--    rails (7.0.8.7)
--      actioncable (= 7.0.8.7)
--      actionmailbox (= 7.0.8.7)
--      actionmailer (= 7.0.8.7)
--      actionpack (= 7.0.8.7)
--      actiontext (= 7.0.8.7)
--      actionview (= 7.0.8.7)
--      activejob (= 7.0.8.7)
--      activemodel (= 7.0.8.7)
--      activerecord (= 7.0.8.7)
--      activestorage (= 7.0.8.7)
--      activesupport (= 7.0.8.7)
+-    rails (7.0.10)
+-      actioncable (= 7.0.10)
+-      actionmailbox (= 7.0.10)
+-      actionmailer (= 7.0.10)
+-      actionpack (= 7.0.10)
+-      actiontext (= 7.0.10)
+-      actionview (= 7.0.10)
+-      activejob (= 7.0.10)
+-      activemodel (= 7.0.10)
+-      activerecord (= 7.0.10)
+-      activestorage (= 7.0.10)
+-      activesupport (= 7.0.10)
 +    rackup (2.2.1)
 +      rack (>= 3)
-+    rails (7.1.5.1)
-+      actioncable (= 7.1.5.1)
-+      actionmailbox (= 7.1.5.1)
-+      actionmailer (= 7.1.5.1)
-+      actionpack (= 7.1.5.1)
-+      actiontext (= 7.1.5.1)
-+      actionview (= 7.1.5.1)
-+      activejob (= 7.1.5.1)
-+      activemodel (= 7.1.5.1)
-+      activerecord (= 7.1.5.1)
-+      activestorage (= 7.1.5.1)
-+      activesupport (= 7.1.5.1)
++    rails (7.1.6)
++      actioncable (= 7.1.6)
++      actionmailbox (= 7.1.6)
++      actionmailer (= 7.1.6)
++      actionpack (= 7.1.6)
++      actiontext (= 7.1.6)
++      actionview (= 7.1.6)
++      activejob (= 7.1.6)
++      activemodel (= 7.1.6)
++      activerecord (= 7.1.6)
++      activestorage (= 7.1.6)
++      activesupport (= 7.1.6)
        bundler (>= 1.15.0)
--      railties (= 7.0.8.7)
-+      railties (= 7.1.5.1)
-     rails-dom-testing (2.2.0)
+-      railties (= 7.0.10)
++      railties (= 7.1.6)
+     rails-dom-testing (2.3.0)
        activesupport (>= 5.0.0)
        minitest
-@@ -172,13 +194,14 @@
+@@ -190,13 +203,16 @@
      rails-html-sanitizer (1.6.2)
        loofah (~> 2.21)
        nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
--    railties (7.0.8.7)
--      actionpack (= 7.0.8.7)
--      activesupport (= 7.0.8.7)
+-    railties (7.0.10)
+-      actionpack (= 7.0.10)
+-      activesupport (= 7.0.10)
 -      method_source
-+    railties (7.1.5.1)
-+      actionpack (= 7.1.5.1)
-+      activesupport (= 7.1.5.1)
++    railties (7.1.6)
++      actionpack (= 7.1.6)
++      activesupport (= 7.1.6)
++      cgi
 +      irb
 +      rackup (>= 1.0.0)
        rake (>= 12.2)
 -      thor (~> 1.0)
 -      zeitwerk (~> 2.5)
 +      thor (~> 1.0, >= 1.2.2)
++      tsort (>= 0.2)
 +      zeitwerk (~> 2.6)
-     rake (13.2.1)
-     rdoc (6.10.0)
-       psych (>= 4.0.0)
-@@ -187,6 +210,7 @@
-       io-console (~> 0.5)
-     rexml (3.4.0)
-     rubyzip (2.4.1)
-+    securerandom (0.4.1)
-     selenium-webdriver (4.27.0)
-       base64 (~> 0.2)
-       logger (~> 1.4)
-@@ -200,14 +224,22 @@
+     rake (13.3.1)
+     rdoc (6.16.1)
+       erb
+@@ -222,15 +238,23 @@
        actionpack (>= 6.1)
        activesupport (>= 6.1)
        sprockets (>= 3.0.0)
@@ -466,26 +442,27 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -    sqlite3 (1.7.3-arm64-darwin)
 -    sqlite3 (1.7.3-x86_64-darwin)
 -    sqlite3 (1.7.3-x86_64-linux)
-+    sqlite3 (2.5.0-aarch64-linux-gnu)
-+    sqlite3 (2.5.0-aarch64-linux-musl)
-+    sqlite3 (2.5.0-arm-linux-gnu)
-+    sqlite3 (2.5.0-arm-linux-musl)
-+    sqlite3 (2.5.0-arm64-darwin)
-+    sqlite3 (2.5.0-x86_64-darwin)
-+    sqlite3 (2.5.0-x86_64-linux-gnu)
-+    sqlite3 (2.5.0-x86_64-linux-musl)
++    sqlite3 (2.8.1-aarch64-linux-gnu)
++    sqlite3 (2.8.1-aarch64-linux-musl)
++    sqlite3 (2.8.1-arm-linux-gnu)
++    sqlite3 (2.8.1-arm-linux-musl)
++    sqlite3 (2.8.1-arm64-darwin)
++    sqlite3 (2.8.1-x86_64-darwin)
++    sqlite3 (2.8.1-x86_64-linux-gnu)
++    sqlite3 (2.8.1-x86_64-linux-musl)
 +    stimulus-rails (1.3.4)
 +      railties (>= 6.0.0)
-     stringio (3.1.2)
-     thor (1.3.2)
-     timeout (0.4.3)
-+    turbo-rails (2.0.11)
-+      actionpack (>= 6.0.0)
-+      railties (>= 6.0.0)
+     stringio (3.1.8)
+     thor (1.4.0)
+     timeout (0.4.4)
+     tsort (0.2.0)
++    turbo-rails (2.0.20)
++      actionpack (>= 7.1.0)
++      railties (>= 7.1.0)
      tzinfo (2.0.6)
        concurrent-ruby (~> 1.0)
      web-console (4.2.1)
-@@ -228,7 +260,6 @@
+@@ -251,7 +275,6 @@
    aarch64-linux
    aarch64-linux-gnu
    aarch64-linux-musl
@@ -493,7 +470,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    arm-linux-gnu
    arm-linux-musl
    arm64-darwin
-@@ -238,15 +269,17 @@
+@@ -261,39 +284,42 @@
    x86_64-linux-musl
  
  DEPENDENCIES
@@ -502,10 +479,9 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    debug
 +  importmap-rails
    jbuilder
--  puma (~> 5.0)
--  rails (~> 7.0.8, >= 7.0.8.7)
-+  puma (>= 5.0)
-+  rails (~> 7.1.5, >= 7.1.5.1)
+   puma (>= 5.0)
+-  rails (~> 7.0.10)
++  rails (~> 7.1.6)
    selenium-webdriver
    sprockets-rails
 -  sqlite3 (~> 1.4)
@@ -515,9 +491,109 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    tzinfo-data
    web-console
  
+ CHECKSUMS
+-  actioncable (7.0.10) sha256=7aa02ea26d6cc21c33e604bb28a0759c5212653311bc42105f96f709e507afab
+-  actionmailbox (7.0.10) sha256=1236f472d86db056f97b3602391becab69c84d9f79d963b9c9b50056e213c1e6
+-  actionmailer (7.0.10) sha256=53bc7aac1659ef97a216c43002ea8286931d7b97f252b27152ac15de1b2585ef
+-  actionpack (7.0.10) sha256=4c524b3b401cc828efb3fcd6f3de56ac1ec0180843b74f54357f58b0256f9509
+-  actiontext (7.0.10) sha256=ffadcbb9b21c09e9bfe946a79739d92abc92a9097eb1db7675e52484804c1c8c
+-  actionview (7.0.10) sha256=e5a9475ccfcde80dddf7ced701f44aedc4f8262286051db84ae2c48322ec000e
+-  activejob (7.0.10) sha256=f31b974206569a362e8c6c07aa00f3099fcc0f365880929c23e79c739d90fceb
+-  activemodel (7.0.10) sha256=e2e1e0a4664b69606363e9f6f59afadeab6fa8843c5fb73cd037bb72a40fa498
+-  activerecord (7.0.10) sha256=63bc193d4c6944d85f53255362b67269d246a51bd664e09b1aa2cecfe5288c9a
+-  activestorage (7.0.10) sha256=41906d59536170abcb480d05b2368ee06305307edcafc5e4891ffb7b0970eaa2
+-  activesupport (7.0.10) sha256=01487b0774045918b36893af4f012986db8375f6c5850c0ffc75b940ede72305
++  actioncable (7.1.6) sha256=ad428d5f0a810452160820ae3cf3d9d68d8f59e7c76de3bd1f1de2a5ad03c3da
++  actionmailbox (7.1.6) sha256=ded958ad8ec147a5f14555833541f07063af188777b09b50cfeeaa623bc2f731
++  actionmailer (7.1.6) sha256=b07f6420ec66bd299a9da5a35c075849fbd5504e82793301b0c275fa4211d273
++  actionpack (7.1.6) sha256=3fa42da36fdcfc3690a711ed35ac5d527b87d3d676f8d111238aa399151203eb
++  actiontext (7.1.6) sha256=79d657422dd67cc8cb46866a7bec9d89ec8699f7fa5647c0eab3472dc0297e66
++  actionview (7.1.6) sha256=11147d81f90465ae062b2a77805c6f8f446e044e309c51bd9449bdbd43edf566
++  activejob (7.1.6) sha256=0dd9cd051d494608349dd9223a3e61c3933250db77e35ab6617c26c1d52dccbb
++  activemodel (7.1.6) sha256=f72f510018a560b5969e3ffc88214441ff09eed60b310feba678a597b2a2e721
++  activerecord (7.1.6) sha256=1aa298cd7fc97ed8639ebb05a46bd17243a1218d89945bdc2bac1e61e673f079
++  activestorage (7.1.6) sha256=2f1acb8e6592ba783d9cbc3da93ac4477d441dffc5d533ceccbbfab39f4bf398
++  activesupport (7.1.6) sha256=7f12140a813b1c4922a322663e547129aef1840fc512fa262378f6d7e7fd3a7c
+   addressable (2.8.8) sha256=7c13b8f9536cf6364c03b9d417c19986019e28f7c00ac8132da4eb0fe393b057
+   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
+   benchmark (0.5.0) sha256=465df122341aedcb81a2a24b4d3bd19b6c67c1530713fd533f3ff034e419236c
+   bigdecimal (3.3.1) sha256=eaa01e228be54c4f9f53bf3cc34fe3d5e845c31963e7fcc5bedb05a4e7d52218
+   bindex (0.8.1) sha256=7b1ecc9dc539ed8bccfc8cb4d2732046227b09d6f37582ff12e50a5047ceb17e
+-  bootsnap (1.19.0) sha256=d3e54558c1a9ea10cb095eb1eb8e921ae83fd4d5764b8809f63aec18ce9f60b5
+   builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
+   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
++  cgi (0.5.0) sha256=fe99f65bb2c146e294372ebb27602adbc3b4c008e9ea7038c6bd48c1ec9759da
+   concurrent-ruby (1.3.5) sha256=813b3e37aca6df2a21a3b9f1d497f8cbab24a2b94cab325bffe65ee0f6cbebc6
++  connection_pool (2.5.5) sha256=e54ff92855753df1fd7c59fa04a398833355f27dd14c074f8c83a05f72a716ad
+   crass (1.0.6) sha256=dc516022a56e7b3b156099abc81b6d2b08ea1ed12676ac7a5657617f012bd45d
+   date (3.5.0) sha256=5e74fd6c04b0e65d97ad4f3bb5cb2d8efb37f386cc848f46310b4593ffc46ee5
+   debug (1.11.0) sha256=1425db64cfa0130c952684e3dc974985be201dd62899bf4bbe3f8b5d6cf1aef2
+@@ -302,6 +328,7 @@
+   erubi (1.13.1) sha256=a082103b0885dbc5ecf1172fede897f9ebdb745a4b97a5e8dc63953db1ee4ad9
+   globalid (1.3.0) sha256=05c639ad6eb4594522a0b07983022f04aa7254626ab69445a0e493aa3786ff11
+   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
++  importmap-rails (2.2.2) sha256=729f5b1092f832780829ade1d0b46c7e53d91c556f06da7254da2977e93fe614
+   io-console (0.8.1) sha256=1e15440a6b2f67b6ea496df7c474ed62c860ad11237f29b3bd187f054b925fcb
+   irb (1.15.3) sha256=4349edff1efa7ff7bfd34cb9df74a133a588ba88c2718098b3b4468b81184aaa
+   jbuilder (2.14.1) sha256=4eb26376ff60ef100cb4fd6fd7533cd271f9998327e86adf20fd8c0e69fabb42
+@@ -310,10 +337,8 @@
+   mail (2.9.0) sha256=6fa6673ecd71c60c2d996260f9ee3dd387d4673b8169b502134659ece6d34941
+   marcel (1.1.0) sha256=fdcfcfa33cc52e93c4308d40e4090a5d4ea279e160a7f6af988260fa970e0bee
+   matrix (0.4.3) sha256=a0d5ab7ddcc1973ff690ab361b67f359acbb16958d1dc072b8b956a286564c5b
+-  method_source (1.1.0) sha256=181301c9c45b731b4769bc81e8860e72f9161ad7d66dd99103c9ab84f560f5c5
+   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
+   minitest (5.26.2) sha256=f021118a6185b9ba9f5af71f2ba103ad770c75afde9f2ab8da512677c550cde3
+-  msgpack (1.8.0) sha256=e64ce0212000d016809f5048b48eb3a65ffb169db22238fb4b72472fecb2d732
+   mutex_m (0.3.0) sha256=cfcb04ac16b69c4813777022fdceda24e9f798e48092a2b817eb4c0a782b0751
+   net-imap (0.5.12) sha256=cb8cd05bd353fcc19b6cbc530a9cb06b577a969ea10b7ddb0f37787f74be4444
+   net-pop (0.1.2) sha256=848b4e982013c15b2f0382792268763b748cce91c9e91e36b0f27ed26420dff3
+@@ -334,12 +359,14 @@
+   public_suffix (7.0.0) sha256=f7090b5beb0e56f9f10d79eed4d5fbe551b3b425da65877e075dad47a6a1b095
+   puma (7.1.0) sha256=e45c10cb124f224d448c98db653a75499794edbecadc440ad616cf50f2fd49dd
+   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
+-  rack (2.2.21) sha256=14e2f72f0765455fe424ff601588ac5ce84e95784f59e99251ffe1527152f739
++  rack (3.2.4) sha256=5d74b6f75082a643f43c1e76b419c40f0e5527fcfee1e669ac1e6b73c0ccb6f6
++  rack-session (2.1.1) sha256=0b6dc07dea7e4b583f58a48e8b806d4c9f1c6c9214ebc202ec94562cbea2e4e9
+   rack-test (2.2.0) sha256=005a36692c306ac0b4a9350355ee080fd09ddef1148a5f8b2ac636c720f5c463
+-  rails (7.0.10) sha256=866eb2c53d3184543fdb770d7ea308e4ee518063226a9e176229f3c7a9537c25
++  rackup (2.2.1) sha256=f737191fd5c5b348b7f0a4412a3b86383f88c43e13b8217b63d4c8d90b9e798d
++  rails (7.1.6) sha256=9a0a335e510de3daad7542cd791af3d8ff710c644e1da17ed12e96d2f28a7470
+   rails-dom-testing (2.3.0) sha256=8acc7953a7b911ca44588bf08737bc16719f431a1cc3091a292bca7317925c1d
+   rails-html-sanitizer (1.6.2) sha256=35fce2ca8242da8775c83b6ba9c1bcaad6751d9eb73c1abaa8403475ab89a560
+-  railties (7.0.10) sha256=d52a8b7a61ad941121a15a6596b2150e05c70b199c3afc9e9b73e63b3b1a57a7
++  railties (7.1.6) sha256=2a10e97f2eaca66d11f0fef4b1f4d826e6ee28d4cf01ff16624420dd45e7de1c
+   rake (13.3.1) sha256=8c9e89d09f66a26a01264e7e3480ec0607f0c497a861ef16063604b1b08eb19c
+   rdoc (6.16.1) sha256=71357cc208e6da77ba0c4494e01ae870dd18b437c7c7d801dd73ee2f340b9f5c
+   regexp_parser (2.11.3) sha256=ca13f381a173b7a93450e53459075c9b76a10433caadcb2f1180f2c741fc55a4
+@@ -350,15 +377,20 @@
+   selenium-webdriver (4.38.0) sha256=0a84e71fef66394ae8d9290d3a5bc24b33de49d45a7aa57fc09f246218bf102f
+   sprockets (4.2.2) sha256=761e5a49f1c288704763f73139763564c845a8f856d52fba013458f8af1b59b1
+   sprockets-rails (3.5.2) sha256=a9e88e6ce9f8c912d349aa5401509165ec42326baf9e942a85de4b76dbc4119e
+-  sqlite3 (1.7.3-aarch64-linux) sha256=0ccb8c001cd2617f4801a2c816142d3c9bc299e3f3e0f49e03812f3610b0891c
+-  sqlite3 (1.7.3-arm-linux) sha256=eb653026d44f8502b74564e585245485a5667d72f8888854e53c561f816541b0
+-  sqlite3 (1.7.3-arm64-darwin) sha256=b956160cc882d2568f332f915c9fe27cae9a4521b202d6e7ea540171c88e4600
+-  sqlite3 (1.7.3-x86_64-darwin) sha256=b88e117ae14b2c5b61a7eb14da24b3b0e93cd3e1c17774ff3b6e5a03ffe4e5b7
+-  sqlite3 (1.7.3-x86_64-linux) sha256=522a3285660dec8253465880c97980e873db0d79060900be8d14194217a3ee73
++  sqlite3 (2.8.1-aarch64-linux-gnu) sha256=9bce166d3e3595a42fc92c28d986ea11d499b55be8bd1cd491be04af30029543
++  sqlite3 (2.8.1-aarch64-linux-musl) sha256=34912f6acf3e9c43c7998c6f99ba3146708e654cf9716b2983e260315cdeed72
++  sqlite3 (2.8.1-arm-linux-gnu) sha256=9118d6abb5ca7ea4f1b50a6c42c763e612670f5eb673bbdf12e8d3bd63339bde
++  sqlite3 (2.8.1-arm-linux-musl) sha256=48a50815521f812713310190589a8ae196fa48b70b62b72f5766bafebae77e33
++  sqlite3 (2.8.1-arm64-darwin) sha256=3cb617640577ec9c1b7c09744d1e368ad3d3851c2494540f5f007387da943477
++  sqlite3 (2.8.1-x86_64-darwin) sha256=0028f5dd0b7a1ee6f1dadf31fc632abf7d815cb0baa0606549634fa45578f92e
++  sqlite3 (2.8.1-x86_64-linux-gnu) sha256=878f4a0c5c2c4d9d4345afe2a142a87805f388a24aa8a3c2dfe2f964d7686b7a
++  sqlite3 (2.8.1-x86_64-linux-musl) sha256=0c191ddfd71437b439e107a0d148630bef29a1eebd7b28bcc931470c328f657d
++  stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
+   stringio (3.1.8) sha256=99c43c3a9302843cca223fd985bfc503dd50a4b1723d3e4a9eb1d9c37d99e4ec
+   thor (1.4.0) sha256=8763e822ccb0f1d7bee88cde131b19a65606657b847cc7b7b4b82e772bcd8a3d
+   timeout (0.4.4) sha256=f0f6f970104b82427cd990680f539b6bbb8b1e55efa913a55c6492935e4e0edb
+   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
++  turbo-rails (2.0.20) sha256=cbcbb4dd3ce59f6471c9f911b1655b2c721998cc8303959d982da347f374ea95
+   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
+   web-console (4.2.1) sha256=e7bcf37a10ea2b4ec4281649d1cee461b32232d0a447e82c786e6841fd22fe20
+   websocket (1.2.11) sha256=b7e7a74e2410b5e85c25858b26b3322f29161e300935f70a0e0d3c35e0462737
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/app/views/layouts/application.html.erb rails 7.1/app/views/layouts/application.html.erb
---- rails 7.0/app/views/layouts/application.html.erb	2025-01-10 11:17:35
-+++ rails 7.1/app/views/layouts/application.html.erb	2025-01-10 11:17:49
+--- rails 7.0/app/views/layouts/application.html.erb	2025-12-01 11:49:44
++++ rails 7.1/app/views/layouts/application.html.erb	2025-12-01 11:49:52
 @@ -1,12 +1,12 @@
  <!DOCTYPE html>
  <html>
@@ -534,8 +610,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
    <body>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/app/views/layouts/mailer.html.erb rails 7.1/app/views/layouts/mailer.html.erb
---- rails 7.0/app/views/layouts/mailer.html.erb	2025-01-10 11:17:35
-+++ rails 7.1/app/views/layouts/mailer.html.erb	2025-01-10 11:17:49
+--- rails 7.0/app/views/layouts/mailer.html.erb	2025-12-01 11:49:44
++++ rails 7.1/app/views/layouts/mailer.html.erb	2025-12-01 11:49:52
 @@ -1,7 +1,7 @@
  <!DOCTYPE html>
  <html>
@@ -547,7 +623,7 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
      </style>
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/bin/docker-entrypoint rails 7.1/bin/docker-entrypoint
 --- rails 7.0/bin/docker-entrypoint	1969-12-31 16:00:00
-+++ rails 7.1/bin/docker-entrypoint	2025-01-10 11:17:49
++++ rails 7.1/bin/docker-entrypoint	2025-12-01 11:49:52
 @@ -0,0 +1,8 @@
 +#!/bin/bash -e
 +
@@ -558,8 +634,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +
 +exec "${@}"
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/bin/setup rails 7.1/bin/setup
---- rails 7.0/bin/setup	2025-01-10 11:17:35
-+++ rails 7.1/bin/setup	2025-01-10 11:17:49
+--- rails 7.0/bin/setup	2025-12-01 11:49:44
++++ rails 7.1/bin/setup	2025-12-01 11:49:52
 @@ -5,7 +5,7 @@
  APP_ROOT = File.expand_path("..", __dir__)
  
@@ -570,8 +646,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  
  FileUtils.chdir APP_ROOT do
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/application.rb rails 7.1/config/application.rb
---- rails 7.0/config/application.rb	2025-01-10 11:17:35
-+++ rails 7.1/config/application.rb	2025-01-10 11:17:49
+--- rails 7.0/config/application.rb	2025-12-01 11:49:44
++++ rails 7.1/config/application.rb	2025-12-01 11:49:52
 @@ -6,10 +6,15 @@
  # you've limited to :test, :development, or :production.
  Bundler.require(*Rails.groups)
@@ -591,16 +667,16 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
      # Configuration for the application, engines, and railties goes here.
      #
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/boot.rb rails 7.1/config/boot.rb
---- rails 7.0/config/boot.rb	2025-01-10 11:17:35
-+++ rails 7.1/config/boot.rb	2025-01-10 11:17:49
+--- rails 7.0/config/boot.rb	2025-12-01 11:49:44
++++ rails 7.1/config/boot.rb	2025-12-01 11:49:52
 @@ -1,4 +1,3 @@
  ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
  
  require "bundler/setup" # Set up gems listed in the Gemfile.
 -require "bootsnap/setup" # Speed up boot time by caching expensive operations.
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/cable.yml rails 7.1/config/cable.yml
---- rails 7.0/config/cable.yml	2025-01-10 11:17:35
-+++ rails 7.1/config/cable.yml	2025-01-10 11:17:49
+--- rails 7.0/config/cable.yml	2025-12-01 11:49:44
++++ rails 7.1/config/cable.yml	2025-12-01 11:49:52
 @@ -7,4 +7,4 @@
  production:
    adapter: redis
@@ -608,16 +684,16 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -  channel_prefix: rails_7_0_production
 +  channel_prefix: rails_7_1_production
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/credentials.yml.enc rails 7.1/config/credentials.yml.enc
---- rails 7.0/config/credentials.yml.enc	2025-01-10 11:17:35
-+++ rails 7.1/config/credentials.yml.enc	2025-01-10 11:17:49
+--- rails 7.0/config/credentials.yml.enc	2025-12-01 11:49:44
++++ rails 7.1/config/credentials.yml.enc	2025-12-01 11:49:52
 @@ -1 +1 @@
--a6J57rx98LQotIs9YfD0cODEZTAkqKn4APM70SfzoRZakhxvcuYQaEuqp09PlkkMyVQRkT5XiWnw19xHZe6Kh/1DlK0ufFvkF0UIKXA8ZsKr+5ZKwu2IEnICytYJF/7rkY4NweT1e+ejTc5YSi8BIEpTPqzT0hSV/Jaj0l8I2v9yJGShua+aF10CDV0ze3jiwOBMHj3bWWE4DI9stfU9r/YjqrNi7JQ1ZXIQxNPBaWMkxXHuOo5fmf/o+G79tdAB9vk+WZATFzSzm0qh3TGCmO1CRGWSq5Drc1IMPM30LsV9USIaqyHIQSoZY5OZNYjBytKSfj6WMu/NM82meSoSc0k1rXjdy0Bg1C07KS5JlEKhwHvkYPGXLyUaCL7plmU/WtiZpQoiUxQMeNeJ4EGJV70ZBzCwH3FMiZv8--Pj95wMQcxbBbNGoq--/LMbzwooEF0pR2yusDcqWQ==
+-10nVApfhmvgx3pDPKRi8uCzDa/KJ017KRZGnoJHibVn5SxWgAkBTABo25n8lKuAELQ5iSqKAE8RbpGY37Htj70/07gmq+wamd/YCdTVt5UbMxRFeJFh+a64lt/wMydQXusrjaz+PfJPF90dsEnGaHn69smInBIPVUY1S4EvVD8R1APqXIkD4orcsjc37WAWrdUmQS1nmmK+DA76Pq637ZsB0qq7FElUXPkXjHP19+MO1XsyKQP9O9f70hESWmuB8eJvyWLvsaT25265SVAZ9uOjZwOyIWZzHDs5CiE6QMmxvZGF7cQWY+cD8UcT3e/XkHJNGh9xbRsY7Jt0L1cbkCRPqLhjbCNsoTp0mAi3hQyuCmwdWSqEfqNSLth09lCpTipnBGvjAk+z7XzhqGX4aJ6cjxCN+CFmRSIrA--njNMHzqgyHZvd8W0--zNRh60Fzq/yLHWo7hOmMZA==
 \ No newline at end of file
-+juqr6ubzqW1240dC4w9nDLc3cT0XYk7BriHb6wX/x+BXnpzFdozWtl9zlZQwq+8ZMgJJTJKlKCIB3tVsefuR3S2cTq2Sxk34Frw9+cPyuwdXIFaBRZLRxvxAxOH9MViEUxJI4WG/LTDqb0A2C1xXwuu0LM4cu+e2ZfkkcumksxoJ6yO9rfo+BaU3FR4xedbX7T6pp80KMMc++s2JVPzllwvPo5HZ8bRlmGQL2/BymHIZ69kdylPurDq9O+7iXDxGhcLb8+CXQrSZP6BIwSnoerwjU+WH1+38HPG5aXbA59klUJ7hgeWwyN3p2bldsxEISH+ePp3ocWoJMWKskAioxn0IeoV3Iw3rCdZAdTKBywln2kFTk3m5pKBZc5fWvIjdTauKltnHqdDcyUiQGd3sXMgvzLDo--iGsPzJqcyXHUrJny--gvnK5SUOPHdKtrFRN9OQ4g==
++N+ivAGyb+Vc5UG+E4QlW5YIh4ycPzZVhqv+JNaAbawzjmdaIRUyCev47BUgH2sks/v7VUkxOLt5ZZj4Euom3iFY1j1ihaE8T3CxHvFOIgO8Nmgm/z004mZnTcGoi8EZtMXwUFzBbD9/0I0//JZeSm/Ea7ILKFcMXC6h8ZkM25nLAQO+lzcg8oi7dwgMcPLnO8K4bSymrftm290KyCMsMmrub9Ty58W5ReVYZDqV+NvHpSOHipI5Cmt4ieMnbkcTslx7l45H1ii6h8OdVTkrYzZNnU/YuAgkuIFAfuxn7yGgyyKAMdHgTySelMLuq6RyFaHK4GCFu1H6IJbM5Mz8sdcZ/w8BdW6iuGIBwDk9jLBM+XDazT7rq1nqYLL7b0d9fkLmzPZz9eSxgmdQPTch5uLvFpi3h--/IdwPqGVzEGsgZVh--+a/M34B4MWA5xTF5mrSgKQ==
 \ No newline at end of file
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/database.yml rails 7.1/config/database.yml
---- rails 7.0/config/database.yml	2025-01-10 11:17:35
-+++ rails 7.1/config/database.yml	2025-01-10 11:17:49
+--- rails 7.0/config/database.yml	2025-12-01 11:49:44
++++ rails 7.1/config/database.yml	2025-12-01 11:49:52
 @@ -11,15 +11,15 @@
  
  development:
@@ -638,8 +714,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 -  database: db/production.sqlite3
 +  database: storage/production.sqlite3
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/environments/development.rb rails 7.1/config/environments/development.rb
---- rails 7.0/config/environments/development.rb	2025-01-10 11:17:35
-+++ rails 7.1/config/environments/development.rb	2025-01-10 11:17:49
+--- rails 7.0/config/environments/development.rb	2025-12-01 11:49:44
++++ rails 7.1/config/environments/development.rb	2025-12-01 11:49:52
 @@ -6,7 +6,7 @@
    # In the development environment your application's code is reloaded any time
    # it changes. This slows down response time but is perfect for development
@@ -668,8 +744,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  config.action_controller.raise_on_missing_callback_actions = true
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/environments/production.rb rails 7.1/config/environments/production.rb
---- rails 7.0/config/environments/production.rb	2025-01-10 11:17:35
-+++ rails 7.1/config/environments/production.rb	2025-01-10 11:17:49
+--- rails 7.0/config/environments/production.rb	2025-12-01 11:49:44
++++ rails 7.1/config/environments/production.rb	2025-12-01 11:49:52
 @@ -4,7 +4,7 @@
    # Settings specified here will take precedence over those in config/application.rb.
  
@@ -770,8 +846,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/environments/test.rb rails 7.1/config/environments/test.rb
---- rails 7.0/config/environments/test.rb	2025-01-10 11:17:35
-+++ rails 7.1/config/environments/test.rb	2025-01-10 11:17:49
+--- rails 7.0/config/environments/test.rb	2025-12-01 11:49:44
++++ rails 7.1/config/environments/test.rb	2025-12-01 11:49:52
 @@ -8,12 +8,13 @@
  Rails.application.configure do
    # Settings specified here will take precedence over those in config/application.rb.
@@ -811,8 +887,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  config.action_controller.raise_on_missing_callback_actions = true
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/initializers/content_security_policy.rb rails 7.1/config/initializers/content_security_policy.rb
---- rails 7.0/config/initializers/content_security_policy.rb	2025-01-10 11:17:35
-+++ rails 7.1/config/initializers/content_security_policy.rb	2025-01-10 11:17:49
+--- rails 7.0/config/initializers/content_security_policy.rb	2025-12-01 11:49:44
++++ rails 7.1/config/initializers/content_security_policy.rb	2025-12-01 11:49:52
 @@ -16,9 +16,9 @@
  #     # policy.report_uri "/csp-violation-report-endpoint"
  #   end
@@ -826,8 +902,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  #   # Report violations without enforcing the policy.
  #   # config.content_security_policy_report_only = true
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/initializers/filter_parameter_logging.rb rails 7.1/config/initializers/filter_parameter_logging.rb
---- rails 7.0/config/initializers/filter_parameter_logging.rb	2025-01-10 11:17:35
-+++ rails 7.1/config/initializers/filter_parameter_logging.rb	2025-01-10 11:17:49
+--- rails 7.0/config/initializers/filter_parameter_logging.rb	2025-12-01 11:49:44
++++ rails 7.1/config/initializers/filter_parameter_logging.rb	2025-12-01 11:49:52
 @@ -1,8 +1,8 @@
  # Be sure to restart your server when you modify this file.
  
@@ -841,8 +917,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
    :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn
  ]
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/initializers/permissions_policy.rb rails 7.1/config/initializers/permissions_policy.rb
---- rails 7.0/config/initializers/permissions_policy.rb	2025-01-10 11:17:35
-+++ rails 7.1/config/initializers/permissions_policy.rb	2025-01-10 11:17:49
+--- rails 7.0/config/initializers/permissions_policy.rb	2025-12-01 11:49:44
++++ rails 7.1/config/initializers/permissions_policy.rb	2025-12-01 11:49:52
 @@ -1,11 +1,13 @@
 +# Be sure to restart your server when you modify this file.
 +
@@ -867,8 +943,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +#   policy.payment     :self, "https://secure.example.com"
  # end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/locales/en.yml rails 7.1/config/locales/en.yml
---- rails 7.0/config/locales/en.yml	2025-01-10 11:17:35
-+++ rails 7.1/config/locales/en.yml	2025-01-10 11:17:49
+--- rails 7.0/config/locales/en.yml	2025-12-01 11:49:44
++++ rails 7.1/config/locales/en.yml	2025-12-01 11:49:52
 @@ -1,6 +1,6 @@
 -# Files in the config/locales directory are used for internationalization
 -# and are automatically loaded by Rails. If you want to use locales other
@@ -906,16 +982,16 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  en:
    hello: "Hello world"
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/master.key rails 7.1/config/master.key
---- rails 7.0/config/master.key	2025-01-10 11:17:35
-+++ rails 7.1/config/master.key	2025-01-10 11:17:49
+--- rails 7.0/config/master.key	2025-12-01 11:49:44
++++ rails 7.1/config/master.key	2025-12-01 11:49:52
 @@ -1 +1 @@
--98af99ab76c6fe3b2b7052e1a06db73b
+-95e9f75aceba347cdc923899050d86eb
 \ No newline at end of file
-+9b4ac97c1a1ff1ea5d9b4f66b6ef375e
++3f3eaa78f1ff558a213e580d1c6e1baa
 \ No newline at end of file
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/puma.rb rails 7.1/config/puma.rb
---- rails 7.0/config/puma.rb	2025-01-10 11:17:35
-+++ rails 7.1/config/puma.rb	2025-01-10 11:17:49
+--- rails 7.0/config/puma.rb	2025-12-01 11:49:44
++++ rails 7.1/config/puma.rb	2025-12-01 11:49:52
 @@ -1,43 +1,44 @@
 +# This configuration file will be evaluated by Puma. The top-level methods that
 +# are invoked here are part of Puma's configuration DSL. For more information
@@ -982,8 +1058,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
  # Allow puma to be restarted by `bin/rails restart` command.
  plugin :tmp_restart
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/config/routes.rb rails 7.1/config/routes.rb
---- rails 7.0/config/routes.rb	2025-01-10 11:17:35
-+++ rails 7.1/config/routes.rb	2025-01-10 11:17:49
+--- rails 7.0/config/routes.rb	2025-12-01 11:49:44
++++ rails 7.1/config/routes.rb	2025-12-01 11:49:52
 @@ -1,6 +1,10 @@
  Rails.application.routes.draw do
    # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -997,8 +1073,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  # root "posts#index"
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/db/seeds.rb rails 7.1/db/seeds.rb
---- rails 7.0/db/seeds.rb	2025-01-10 11:17:35
-+++ rails 7.1/db/seeds.rb	2025-01-10 11:17:49
+--- rails 7.0/db/seeds.rb	2025-12-01 11:49:44
++++ rails 7.1/db/seeds.rb	2025-12-01 11:49:52
 @@ -1,7 +1,9 @@
 -# This file should contain all the record creation needed to seed the database with its default values.
 +# This file should ensure the existence of records required to run the application in every environment (production,
@@ -1014,8 +1090,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +#     MovieGenre.find_or_create_by!(name: genre_name)
 +#   end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/test/channels/application_cable/connection_test.rb rails 7.1/test/channels/application_cable/connection_test.rb
---- rails 7.0/test/channels/application_cable/connection_test.rb	2025-01-10 11:17:35
-+++ rails 7.1/test/channels/application_cable/connection_test.rb	2025-01-10 11:17:49
+--- rails 7.0/test/channels/application_cable/connection_test.rb	2025-12-01 11:49:44
++++ rails 7.1/test/channels/application_cable/connection_test.rb	2025-12-01 11:49:52
 @@ -1,6 +1,7 @@
  require "test_helper"
  
@@ -1032,8 +1108,8 @@ diff --ignore-space-change --minimal --recursive --unidirectional-new-file --uni
 +  end
  end
 diff --ignore-space-change --minimal --recursive --unidirectional-new-file --unified rails 7.0/test/test_helper.rb rails 7.1/test/test_helper.rb
---- rails 7.0/test/test_helper.rb	2025-01-10 11:17:35
-+++ rails 7.1/test/test_helper.rb	2025-01-10 11:17:49
+--- rails 7.0/test/test_helper.rb	2025-12-01 11:49:44
++++ rails 7.1/test/test_helper.rb	2025-12-01 11:49:52
 @@ -2,7 +2,8 @@
  require_relative "../config/environment"
  require "rails/test_help"
