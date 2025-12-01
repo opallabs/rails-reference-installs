@@ -70,6 +70,13 @@ for rails_version in "${rails_versions[@]}" ; do
     flags="--skip-bootsnap"
   fi
 
+  if [[ "${rails_version}" = "6"* ]] ; then
+    # @see https://stackoverflow.com/q/79360526
+    bundle add \
+      concurrent-ruby \
+      --version="1.3.4"
+  fi
+
   # Work around dependency issues with Rails 6.0.
   if [[ "${rails_version}" = "6.0" ]] ; then
     # @see https://stackoverflow.com/q/47605810
