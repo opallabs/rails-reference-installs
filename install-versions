@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-versions=()
+rails_versions=()
 while IFS='' read -r version ; do
-  versions+=("${version}")
+  rails_versions+=("${version}")
 done < ./versions
 
 prefix="rails "
@@ -14,12 +14,12 @@ prefix="rails "
 # See https://www.ruby-lang.org/en/downloads/releases/ to determine the current
 # point release.
 default_ruby_version="3.3.10"
-for version in "${versions[@]}" ; do
+for rails_version in "${rails_versions[@]}" ; do
   echo >&2
   # * Rails 5.2 is not compatible with Ruby 3
   # * Rails 6 throws `Psych::AliasesNotEnabled` in the `webpacker` gem when
   #   using `psych` v4 that ships with Ruby 3.1
-  if (( $(echo "${version} < 7.0" | bc -l) )) ; then
+  if (( $(echo "${rails_version} < 7.0" | bc -l) )) ; then
     # @see https://github.com/sidekiq/sidekiq/issues/5140
     # @see https://github.com/rails/rails/issues/41074
     preferred_ruby_version="2.7.8"
@@ -43,16 +43,16 @@ for version in "${versions[@]}" ; do
       -1
   )"
 
-  if [[ "${version}" = "4"* ]] && [[ "${bundler_major_version}" = "2" ]] ; then
-    echo "INFO: Skipping Rails ${version} because it doesn't work with Bundler v2" >&2
+  if [[ "${rails_version}" = "4"* ]] && [[ "${bundler_major_version}" = "2" ]] ; then
+    echo "INFO: Skipping Rails ${rails_version} because it doesn't work with Bundler v2" >&2
     continue
   fi
 
-  echo "INFO: Installing Rails ${version}..." >&2
+  echo "INFO: Installing Rails ${rails_version}..." >&2
 
   rm \
     -rf \
-    -- "./${prefix}${version}"
+    -- "./${prefix}${rails_version}"
 
   cat \
     -- Gemfile.template \
@@ -66,12 +66,12 @@ for version in "${versions[@]}" ; do
   flags=
   # Work around bootsnap issue with Rails 6.0, 6.1, 7.0: `rails new`
   # post-install fails with `cannot load such file -- bootsnap/setup`.
-  if (( $(echo "${version} >= 6.0" | bc -l) )) ; then
+  if (( $(echo "${rails_version} >= 6.0" | bc -l) )) ; then
     flags="--skip-bootsnap"
   fi
 
   # Work around dependency issues with Rails 6.0.
-  if [[ "${version}" = "6.0" ]] ; then
+  if [[ "${rails_version}" = "6.0" ]] ; then
     # @see https://stackoverflow.com/q/47605810
     bundle add \
       webpacker \
@@ -84,12 +84,12 @@ for version in "${versions[@]}" ; do
   fi
 
   # Work around dependency issues with Rails 7.0.
-  if [[ "${version}" = "7.0" ]] ; then
+  if [[ "${rails_version}" = "7.0" ]] ; then
     flags="--skip-javascript"
   fi
 
   # Work around dependency issues with Rails 7.1.
-  if [[ "${version}" = "7.1" ]] ; then
+  if [[ "${rails_version}" = "7.1" ]] ; then
     bundle add \
       stringio \
       --version="~> 3.0"
@@ -97,12 +97,12 @@ for version in "${versions[@]}" ; do
 
   bundle exec \
     rails new \
-      "${prefix}${version}" "${flags}"
+      "${prefix}${rails_version}" "${flags}"
 
   # Remove auto-initialized git repository.
   rm -rf \
-    -- "${prefix}${version}"/.git
+    -- "${prefix}${rails_version}"/.git
 
-  echo "INFO: Installed Rails ${version}" >&2
+  echo "INFO: Installed Rails ${rails_version}" >&2
   echo
 done
