@@ -21,6 +21,12 @@ Like Rails itself, this code is [provided under the MIT license](./LICENSE).
 
 ## Notes
 
+### Node.js
+
+Some versions of Rails assume Node.js is installed. If you’ve set up `asdf` on your system, you’ll need to run `asdf install` so `asdf`’s `node` stub has a usable version.
+
+### Ruby
+
 - `.ruby-version` should be kept up-to-date with oldest ‘normal maintenance’ release in the list of [supported versions of Ruby][ruby supported versions] (note that `./install-versions` modifies the file because some older versions of Rails require older versions of Ruby)
 
 [ruby supported versions]: https://www.ruby-lang.org/en/downloads/branches/
