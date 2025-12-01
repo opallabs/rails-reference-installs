@@ -29,6 +29,11 @@ for rails_version in "${rails_versions[@]}" ; do
   echo "${preferred_ruby_version}" > "./.ruby-version"
   echo "INFO: Using Ruby ${preferred_ruby_version}" >&2
 
+  cat \
+    -- Gemfile.template \
+  | sed "s/RAILS_VERSION/${rails_version}/" \
+    > Gemfile
+
   bundle update \
     --bundler
 
@@ -53,11 +58,6 @@ for rails_version in "${rails_versions[@]}" ; do
   rm \
     -rf \
     -- "./${prefix}${rails_version}"
-
-  cat \
-    -- Gemfile.template \
-  | sed "s/RAILS_VERSION/${version}/" \
-    > Gemfile
 
   bundle check \
   || bundle install \
