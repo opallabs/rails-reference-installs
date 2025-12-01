@@ -24,3 +24,5 @@ Like Rails itself, this code is [provided under the MIT license](./LICENSE).
 - `.ruby-version` should be kept up-to-date with oldest ‘normal maintenance’ release in the list of [supported versions of Ruby][ruby supported versions] (note that `./install-versions` modifies the file because some older versions of Rails require older versions of Ruby)
 
 [ruby supported versions]: https://www.ruby-lang.org/en/downloads/branches/
+
+If you’re running macOS, your simplest option is probably to install `rbenv` and `ruby-build` using Homebrew. You may need to run `brew upgrade rbenv ruby-build` to get support for the desired Ruby version, and/or to run `rbenv install [version]` (for example, `rbenv install 3.3.10`).
