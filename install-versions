@@ -8,6 +8,12 @@ while IFS='' read -r version ; do
 done < ./versions
 
 prefix="rails "
+# Keep this in sync with oldest 'normal maintenance' minor-version release in
+# listed at https://www.ruby-lang.org/en/downloads/branches/.
+#
+# See https://www.ruby-lang.org/en/downloads/releases/ to determine the current
+# point release.
+default_ruby_version="3.3.10"
 for version in "${versions[@]}" ; do
   echo >&2
   # * Rails 5.2 is not compatible with Ruby 3
@@ -18,7 +24,7 @@ for version in "${versions[@]}" ; do
     # @see https://github.com/rails/rails/issues/41074
     preferred_ruby_version="2.7.8"
   else
-    preferred_ruby_version="3.2.6"
+    preferred_ruby_version="${default_ruby_version}"
   fi
   echo "${preferred_ruby_version}" > "./.ruby-version"
   echo "INFO: Using Ruby ${preferred_ruby_version}" >&2

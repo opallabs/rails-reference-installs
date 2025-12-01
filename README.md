@@ -21,6 +21,6 @@ Like Rails itself, this code is [provided under the MIT license](./LICENSE).
 
 ## Notes
 
-- `.ruby-version` should be kept up-to-date with the [supported versions of Ruby][ruby supported versions] (note that `./install-versions` modifies the file because some older versions of Rails require older versions of Ruby)
+- `.ruby-version` should be kept up-to-date with oldest ‘normal maintenance’ release in the list of [supported versions of Ruby][ruby supported versions] (note that `./install-versions` modifies the file because some older versions of Rails require older versions of Ruby)
 
 [ruby supported versions]: https://www.ruby-lang.org/en/downloads/branches/
